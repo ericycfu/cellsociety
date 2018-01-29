@@ -215,3 +215,5 @@ Cell class:
 			Primary: Jing
 			
 			Secondary: Eric
+			
+The team will complete the program in divided sections first. The methods within the class that each one is responsible for should be intensively tested to ensure proper functionality in its own class. Then, testing of methods between classes can be performed to check their correct interactions. The flexibility of the program should also be tested by trials of new simulation implementations. 
