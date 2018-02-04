@@ -54,6 +54,10 @@ public class Simulation extends Application{
 	
 	public static String filename = "test.txt";
 	public static Group root;
+	public static Rectangle[][] thegrid;
+	
+	static Grid lifeGrid;
+	static Calculator lifecalc;
 	
 	public static void filereader() throws IOException{
 		
@@ -103,27 +107,55 @@ public class Simulation extends Application{
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        
+        String[] properties = new String[States.size()];
+        for (int i=0;i<States.size();i++){
+        	properties[i] = States.get(i);
+        }
+		Calculator lifecalc = new Calculator_Life(properties);
+		Grid lifeGrid = new Grid_Life(height,width,lifecalc);
+		
+		Cell thiscell = new Cell(properties,0);
+		
+		for (int i=0;i<height;i++){
+			for (int j=0;j<width;j++){
+				
+				if (thegrid[i][j].getFill() == Color.BLACK){
+					thiscell = new Cell(properties, 0);
+					lifeGrid.createCells(j, i, thiscell);
+				} else {
+					thiscell = new Cell(properties, 1);
+					lifeGrid.createCells(j, i, thiscell);
+				}
+				
+			}
+		}
     	
-		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
-                e -> Step(SECOND_DELAY));
-		Timeline animation = new Timeline();
-        animation.setCycleCount(Timeline.INDEFINITE);
-        animation.getKeyFrames().add(frame);
-        animation.play();
+		for(int i=0;i<10;i++){
+			try {
+				Thread.currentThread().sleep(1000);
+				Step();
+			} catch (InterruptedException e) {
+				e.printStackTrace();
+			}
+			System.out.println("now is " + System.currentTimeMillis());
+		}
 		
 	}
 	
 	
+	
 	public static Scene creator(int L, int W, Paint background){
 		
-		Group root = new Group();
+		root = new Group();
+		
+		thegrid = new Rectangle[width][height];
 		
 		for (int i=0;i<width;i++){
 			for (int j=0;j<height;j++){
 				Rectangle R = new Rectangle(i,j,celllength-1,celllength-1);
 				R.setX(i * celllength + 50);
 				R.setY(j * celllength + 50);
+				thegrid[i][j] = R;
 				if (Math.random() > Probabilities.get(0)){
 					R.setFill(Color.WHITE);
 				} else {
@@ -149,9 +181,19 @@ public class Simulation extends Application{
 		
 	}
 	
-	public static void Step(double gap){
-		
-		
+	
+	
+	public static void Step(){
+		lifeGrid.iterate();
+		for (int i=0;i<width;i++){
+			for (int j=0;j<height;j++){
+				if (lifeGrid.getCell(i, j).showCurrentState()==0){
+					thegrid[i][j].setFill(Color.BLACK);
+				} else {
+					thegrid[i][j].setFill(Color.WHITE);
+				}
+			}
+		}
 		
 	}
 	
