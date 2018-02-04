@@ -4,10 +4,8 @@ import java.util.ArrayList;
 
 public class Calculator_Fire extends Calculator{
 	
-	public Calculator_Fire(String[] propertys, double parameter) {
-		super(propertys);
-		myParameter = parameter; // probCatch
-		// TODO Auto-generated constructor stub
+	public Calculator_Fire(String[] properties, double parameter) {
+		super(properties, parameter);
 	}
 	
 	@Override
