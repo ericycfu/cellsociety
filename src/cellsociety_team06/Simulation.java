@@ -37,6 +37,8 @@ public class Simulation extends Application{
 	
 	public static int celllength = 10;
 	
+	public static String SIMUL;
+	
 	public static int width;
 	public static int height;
 	public static double GAP;
@@ -62,6 +64,9 @@ public class Simulation extends Application{
                 new FileInputStream(filename));
         BufferedReader br = new BufferedReader(reader);
         String line = "";
+        
+        line = br.readLine();
+        SIMUL = line;
         line = br.readLine();
         width =Integer.parseInt(line);
         line = br.readLine();
@@ -98,6 +103,7 @@ public class Simulation extends Application{
         primaryStage.setScene(scene);
         primaryStage.show();
 
+        
     	
 		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
                 e -> Step(SECOND_DELAY));
@@ -144,6 +150,8 @@ public class Simulation extends Application{
 	}
 	
 	public static void Step(double gap){
+		
+		
 		
 	}
 	
