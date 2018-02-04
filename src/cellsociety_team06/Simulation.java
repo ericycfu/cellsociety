@@ -46,7 +46,7 @@ public class Simulation extends Application{
 	
 	public static int MILLISECOND_DELAY = 1000 / 60;
 	public static double SECOND_DELAY = 1.0 / 60;
-	public static Paint BACKGROUND = Color.AZURE;
+	public static Paint BACKGROUND = Color.GREY;
 	
 	public static String TITLE = "CellSociety_team06";
 	
@@ -118,7 +118,12 @@ public class Simulation extends Application{
 				Rectangle R = new Rectangle(i,j,celllength-1,celllength-1);
 				R.setX(i * celllength + 50);
 				R.setY(j * celllength + 50);
-				R.setFill(Color.PLUM);
+				if (Math.random() > Probabilities.get(0)){
+					R.setFill(Color.WHITE);
+				} else {
+					R.setFill(Color.BLACK);
+				}
+				
 				root.getChildren().add(R);
 			}
 		}
