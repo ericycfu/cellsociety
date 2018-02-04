@@ -4,10 +4,10 @@ public class Cell {
     
 	private int currentState;
 	private int futureState;
-	private String[] myPropertys;
+	private String[] myProperties;
 	
-	public Cell(String[] propertys, int initialState){
-		myPropertys = propertys;
+	public Cell(String[] properties, int initialState){
+		myProperties = properties;
 		currentState = initialState;
 	}
 	
@@ -16,7 +16,7 @@ public class Cell {
 	}
 	
 	public String showCurrentProperty(){
-		return myPropertys[currentState];
+		return myProperties[currentState];
 	}
 	
 	public void update(){
