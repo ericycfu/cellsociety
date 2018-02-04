@@ -2,11 +2,29 @@ package cellsociety_team06;
 
 public class Cell {
 
-<<<<<<< HEAD
-	public Cell() {
-		// TODO Auto-generated constructor stub
+	private int currentState;
+	private int futureState;
+	private String[] myPropertys;
+	
+	public Cell(String[] propertys, int initialState){
+		myPropertys = propertys;
+		currentState = initialState;
 	}
-
-=======
->>>>>>> branch_yy145
+	
+	public int showCurrentState(){
+		return currentState;
+	}
+	
+	public String showCurrentProperty(){
+		return myPropertys[currentState];
+	}
+	
+	public void update(){
+		currentState = futureState;
+	}
+	
+	public void setFutureState(int nextState){
+		futureState = nextState;
+	}
+	
 }
