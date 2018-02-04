@@ -20,15 +20,10 @@ public class Grid_Life extends Grid{
 	public ArrayList<Cell> findAdjacentCells(int row, int col) {
 		// TODO Auto-generated method stub
 		ArrayList<Cell> adjacentCells = new ArrayList<Cell>();
-		if (checkBoundary(row-1,col-1)) adjacentCells.add(getCell(row-1,col-1));
 		if (checkBoundary(row-1,col)) adjacentCells.add(getCell(row-1,col));
-		if (checkBoundary(row-1,col+1)) adjacentCells.add(getCell(row-1,col+1));
 		if (checkBoundary(row,col-1)) adjacentCells.add(getCell(row,col-1));
-		if (checkBoundary(row,col)) adjacentCells.add(getCell(row,col));
 		if (checkBoundary(row,col+1)) adjacentCells.add(getCell(row,col+1));
-		if (checkBoundary(row+1,col-1)) adjacentCells.add(getCell(row+1,col-1));
 		if (checkBoundary(row+1,col)) adjacentCells.add(getCell(row+1,col));
-		if (checkBoundary(row+1,col+1)) adjacentCells.add(getCell(row+1,col+1));
 		return adjacentCells;
 	}
 
