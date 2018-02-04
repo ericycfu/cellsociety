@@ -45,12 +45,12 @@ public abstract class Simulation {
 	public static double SECOND_DELAY = 1.0 / 60;
 	public static Paint BACKGROUND = Color.AZURE;
 	
-	public static String filename;
+	public static String filename = "test.txt";
 	public static Group root;
 	
 	public static void filereader() throws IOException{
 		
-		String filepath = "Simulation\\" + filename;
+		String filepath = filename;
 		File filename = new File(filepath);
 		
 		InputStreamReader reader = new InputStreamReader(
@@ -88,6 +88,12 @@ public abstract class Simulation {
 		int WIDTH = 2 * 70 + dimension[2] * celllength;
 		
 		Scene myscene = creator(LENGTH, WIDTH, BACKGROUND);
+		KeyFrame frame = new KeyFrame(Duration.millis(MILLISECOND_DELAY),
+                e -> Step(SECOND_DELAY));
+		Timeline animation = new Timeline();
+        animation.setCycleCount(Timeline.INDEFINITE);
+        animation.getKeyFrames().add(frame);
+        animation.play();
 		
 	}
 	
@@ -96,6 +102,10 @@ public abstract class Simulation {
 		Scene newscene = new Scene(root, L, W, background);
 		newscene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
 		return newscene;
+		
+	}
+	
+	public static void Step(double gap){
 		
 	}
 	
