@@ -4,8 +4,13 @@ import java.util.ArrayList;
 
 public abstract class Calculator {
 	
+	private String[] properties;
+	private double parameter;
+	
+	
 	public Calculator(String[] properties, double parameter) {
-		// TODO Auto-generated constructor stub
+		this.properties = properties;
+		this.parameter = parameter;
 	}
 	
 	//for simple simulations without properties or parameters
@@ -14,5 +19,7 @@ public abstract class Calculator {
 	}
 	
 	public abstract double calculation(ArrayList<Cell> relatedCells, Cell centerCell);
+
+	public abstract int getState(String string);
 	
 }

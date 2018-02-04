@@ -8,13 +8,13 @@ public abstract class Grid {
 	protected int myRowNum;
 	protected int myColNum;
 	protected Calculator myCalculator;
-	protected ArrayList<Cell> myCellsUnoccupiedNextIteration;
+
 	
 	public Grid(int rownum, int colnum, double parameter, Calculator myCalculator){
 		myRowNum = rownum;
 		myColNum = colnum;
 		myCells = new Cell[rownum][colnum];
-		myCellsUnoccupiedNextIteration = new ArrayList<Cell>();
+		this.myCalculator = myCalculator;
 	}
 	
 	protected int getRandomNumberInRange(int min, int max) {
@@ -71,6 +71,5 @@ public abstract class Grid {
 		updateUnoccupiedCellArray();
 	}
 	
-	protected abstract void updateUnoccupiedCellArray();
-	
+
 }

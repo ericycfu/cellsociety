@@ -36,4 +36,10 @@ public class Calculator_Life extends Calculator{
 		return 0;
 	};
 	
+	public int getState(String state) {
+		if (state == "Live") {
+			return 1;
+		}
+		return 0; //else the state is "Dead"
+	}
 }
