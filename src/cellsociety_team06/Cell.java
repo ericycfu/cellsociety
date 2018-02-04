@@ -1,6 +1,7 @@
 package cellsociety_team06;
 
 public class Cell {
+    
 	private int currentState;
 	private int futureState;
 	private String[] myPropertys;
@@ -26,4 +27,5 @@ public class Cell {
 		futureState = nextState;
 	}
 	
+
 }
