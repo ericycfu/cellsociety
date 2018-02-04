@@ -5,8 +5,8 @@ import java.util.ArrayList;
 public class Grid_Segregation extends Grid{
 	protected ArrayList<Cell> myCellsUnoccupiedNextIteration;
 	
-	public Grid_Segregation(int rownum, int colnum, double parameter, Calculator myCalculator) {
-		super(rownum, colnum, parameter, myCalculator);
+	public Grid_Segregation(int rownum, int column, Calculator myCalculator) {
+		super(rownum, column, myCalculator);
 		myCellsUnoccupiedNextIteration = new ArrayList<Cell>();
 	}
 
