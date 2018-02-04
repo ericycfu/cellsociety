@@ -3,9 +3,11 @@ package cellsociety_team06;
 import java.util.ArrayList;
 
 public class Grid_Segregation extends Grid{
+	private ArrayList<Cell> myCellsUnoccupiedNextIteration;
 	
 	public Grid_Segregation(int rownum, int colnum, Calculator myCalculator) {
 		super(rownum, colnum, myCalculator);
+		myCellsUnoccupiedNextIteration = new ArrayList<Cell>();
 	}
 
 	public void updateCell(double prob, int centerCellRow, int centerCellCol){
@@ -38,7 +40,6 @@ public class Grid_Segregation extends Grid{
 		return adjacentCells;
 	}
 
-	@Override
 	protected void updateUnoccupiedCellArray() {
 		myCellsUnoccupiedNextIteration = new ArrayList<Cell>();
 		for (int i = 0; i < myRowNum; i++)

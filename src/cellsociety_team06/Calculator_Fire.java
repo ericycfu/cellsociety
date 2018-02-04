@@ -12,18 +12,9 @@ public class Calculator_Fire extends Calculator{
 	
 	@Override
 	public double calculation(ArrayList<Cell> relatedCells, Cell centerCell) {
-		if (centerCell.showCurrentProperty().equals("Fish")){
-			for (Cell c: relatedCells){
-				if (c.showCurrentProperty().equals("Unoccupied"))
+		for (Cell c: relatedCells)
+				if (c.showCurrentProperty().equals("Burning"))
 					return 1; 
-			}
-		}
-		else if (centerCell.showCurrentProperty().equals("Shark")){
-			for (Cell c: relatedCells){
-				if (c.showCurrentProperty().equals("Unoccupied") || c.showCurrentProperty().equals("Fish"))
-					return 1; 
-			}
-		}
 		return 0;
 	}
 	

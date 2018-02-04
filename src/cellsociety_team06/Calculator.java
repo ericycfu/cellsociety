@@ -23,6 +23,7 @@ public abstract class Calculator {
 			if (property.equals(myPropertys[i]))
 				return i;
 		return -1; // state not found (error)
+	}
 	
 	public abstract double calculation(ArrayList<Cell> relatedCells, Cell centerCell);
 	
