@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Grid_Life extends Grid{
 	
-	public Grid_Life(int rownum, int colnum, double parameter, Calculator myCalculator) {
-		super(rownum, colnum, parameter, myCalculator);
+	public Grid_Life(int rownum, int colnum, Calculator myCalculator) {
+		super(rownum, colnum, myCalculator);
 	}
 
 	@Override
@@ -24,7 +24,6 @@ public class Grid_Life extends Grid{
 		if (checkBoundary(row-1,col)) adjacentCells.add(getCell(row-1,col));
 		if (checkBoundary(row-1,col+1)) adjacentCells.add(getCell(row-1,col+1));
 		if (checkBoundary(row,col-1)) adjacentCells.add(getCell(row,col-1));
-		if (checkBoundary(row,col)) adjacentCells.add(getCell(row,col));
 		if (checkBoundary(row,col+1)) adjacentCells.add(getCell(row,col+1));
 		if (checkBoundary(row+1,col-1)) adjacentCells.add(getCell(row+1,col-1));
 		if (checkBoundary(row+1,col)) adjacentCells.add(getCell(row+1,col));
@@ -36,6 +35,18 @@ public class Grid_Life extends Grid{
 	protected void updateUnoccupiedCellArray() {
 		// TODO Auto-generated method stub
 	}
-	
+
+	@Override
+	public ArrayList<Cell> findAdjacentCellsWithCurrentProperty(int row, int col, String property) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, String property) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
 	
 }

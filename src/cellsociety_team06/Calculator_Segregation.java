@@ -4,6 +4,10 @@ import java.util.ArrayList;
 
 public class Calculator_Segregation extends Calculator{
 	
+	public Calculator_Segregation(String[] propertys) {
+		super(propertys);
+		// TODO Auto-generated constructor stub
+	}
 	
 	public Calculator_Segregation(String[] propertys, double parameter) {
 		super(propertys, parameter);
@@ -11,17 +15,16 @@ public class Calculator_Segregation extends Calculator{
 	}
 
 	public double calculation(ArrayList<Cell> relatedCells, Cell centerCell){
+		if (centerCell.showCurrentProperty().equals("Unoccupied")) return 0;
 		double alike = 0;
 		int neighbor = 0;
 		String alikeProperty = centerCell.showCurrentProperty();
-		
 		for (Cell c : relatedCells){
 			if (c.showCurrentProperty().equals(alikeProperty))
 				alike++;
 			if (c.showCurrentProperty().equals("X")||c.showCurrentProperty().equals("O"))
 				neighbor++;
 		}
-		
 		alike = alike/neighbor;
 		if (alike>=myParameter)
 			return 0;
