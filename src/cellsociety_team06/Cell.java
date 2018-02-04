@@ -1,50 +1,14 @@
 package cellsociety_team06;
 
 public class Cell {
-
+    
 	private int currentState;
 	private int futureState;
-	private String[] myPropertys;
-	private double myChronon;
-	private double myEnergy;
+	private String[] myProperties;
 	
-	public Cell(String[] propertys, int initialState){
-		myPropertys = propertys;
+	public Cell(String[] properties, int initialState){
+		myProperties = properties;
 		currentState = initialState;
-		futureState = currentState;
-		myChronon = 0;
-	}
-	
-	public Cell(String[] propertys, int initialState, double initialEnergy){
-		myPropertys = propertys;
-		currentState = initialState;
-		futureState = currentState; // initialize futureState to be the same with currentState
-		myChronon = 0;
-		myEnergy = initialEnergy;
-	}
-	
-	public void setEnergy(double value){
-		myEnergy = value;
-	}
-	
-	public void changeEnergy(double value){
-		myEnergy = myEnergy + value;
-	}
-	
-	public double showEnergy(){
-		return myEnergy;
-	}
-	
-	public void resetChronon(){
-		myChronon = 0;
-	}
-	
-	public void updateChronon(double value){
-		myChronon = value;
-	}
-	
-	public double showChronon(){
-		return myChronon;
 	}
 	
 	public int showCurrentState(){
@@ -52,15 +16,7 @@ public class Cell {
 	}
 	
 	public String showCurrentProperty(){
-		return myPropertys[currentState];
-	}
-	
-	public int showFutureState(){
-		return futureState;
-	}
-	
-	public String showFutureProperty(){
-		return myPropertys[futureState];
+		return myProperties[currentState];
 	}
 	
 	public void update(){

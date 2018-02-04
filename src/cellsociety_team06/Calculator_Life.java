@@ -4,10 +4,6 @@ import java.util.ArrayList;
 
 public class Calculator_Life extends Calculator{
 	
-	public Calculator_Life(String[] propertys) {
-		super(propertys);
-		// TODO Auto-generated constructor stub
-	}
 	
 	public Calculator_Life(String[] properties, double parameter) {
 		super(properties, parameter);
@@ -36,4 +32,10 @@ public class Calculator_Life extends Calculator{
 		return 0;
 	};
 	
+	public int getState(String state) {
+		if (state == "Live") {
+			return 1;
+		}
+		return 0; //else the state is "Dead"
+	}
 }

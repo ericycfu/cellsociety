@@ -8,13 +8,13 @@ public abstract class Grid {
 	protected int myRowNum;
 	protected int myColNum;
 	protected Calculator myCalculator;
-	protected ArrayList<Cell> myCellsUnoccupiedNextIteration;
+
 	
-	public Grid(int rownum, int colnum, Calculator myCalculator){
+	public Grid(int rownum, int colnum, double parameter, Calculator myCalculator){
 		myRowNum = rownum;
 		myColNum = colnum;
 		myCells = new Cell[rownum][colnum];
-		myCellsUnoccupiedNextIteration = new ArrayList<Cell>();
+		this.myCalculator = myCalculator;
 	}
 	
 	protected int getRandomNumberInRange(int min, int max) {
@@ -55,10 +55,6 @@ public abstract class Grid {
 	
 	public abstract ArrayList<Cell> findAdjacentCells(int row, int col);
 	
-	public abstract ArrayList<Cell> findAdjacentCellsWithCurrentProperty(int row, int col, String property);
-	
-	public abstract ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, String property);
-	
 	public void iterate(){
 		for (int i = 0; i < myRowNum; i++)
 			for (int j = 0; j < myColNum; j++){
@@ -75,18 +71,5 @@ public abstract class Grid {
 		updateUnoccupiedCellArray();
 	}
 	
-	public boolean checkTerminate(){
-		int unchangedCellNum = 0;
-		for (int i = 0; i < myRowNum; i++)
-			for (int j = 0; j < myColNum; j++){
-				if (myCells[i][j].showCurrentState()==myCells[i][j].showFutureState())
-					unchangedCellNum++;
-			}
-		if (unchangedCellNum == myRowNum*myColNum)
-			return true;
-		else return false;
-	}
-	
-	protected abstract void updateUnoccupiedCellArray();
-	
+
 }
