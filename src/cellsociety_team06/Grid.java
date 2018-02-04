@@ -1,20 +1,52 @@
 package cellsociety_team06;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 public abstract class Grid {
-	private Cell[][] myCells;
-	private int myRowNum;
-	private int myColNum;
-	private Calculator myCalculator;
+	protected Cell[][] myCells;
+	protected int myRowNum;
+	protected int myColNum;
+	protected Calculator myCalculator;
+	protected ArrayList<Cell> myCellsUnoccupiedNextIteration;
 	
-	public Grid(int rownum, int colnum){
+	public Grid(int rownum, int colnum, double parameter, Calculator myCalculator){
 		myRowNum = rownum;
 		myColNum = colnum;
 		myCells = new Cell[rownum][colnum];
+		myCellsUnoccupiedNextIteration = new ArrayList<Cell>();
 	}
 	
-	public abstract void updateCell(double prob);
+	protected int getRandomNumberInRange(int min, int max) {
+    	if (min >= max) {
+    		throw new IllegalArgumentException("max must be greater than min");
+    	}
+    	Random r = new Random();
+    	return r.nextInt((max - min) + 1) + min;
+    }
+	
+	protected boolean checkBoundary(int row, int col){
+		if (row<0 || row>=myRowNum || col<0 || col>=myColNum)
+			return false;
+		return true;
+	}
+	
+	protected Cell getCell(int row, int col){
+		return myCells[row][col];
+	}
+	
+	protected ArrayList<Cell> getCellswithProperty(String property){
+		ArrayList<Cell> myCellsUnoccupied = new ArrayList<Cell>();
+		for (int i = 0; i < myRowNum; i++)
+			for (int j = 0; j < myColNum; j++){
+				if (myCells[i][j].showCurrentProperty().equals(property))
+					myCellsUnoccupied.add(myCells[i][j]);
+			}
+		return myCellsUnoccupied;
+	}
+	
+	public abstract void updateCell(double prob, int centerCellRow, int centerCellCol);
+	
 	
 	// takes in the locations of each cell and puts them into myGrid
 	public void createCells(int row, int col, Cell cell){ 
@@ -26,8 +58,19 @@ public abstract class Grid {
 	public void iterate(){
 		for (int i = 0; i < myRowNum; i++)
 			for (int j = 0; j < myColNum; j++){
-				updateCell(myCalculator.calculation(findAdjacentCells(i,j)));
+				updateCell(myCalculator.calculation(findAdjacentCells(i,j), getCell(i,j)),i,j);
 			}
+		update();
 	}
+	
+	protected void update(){
+		for (int i = 0; i < myRowNum; i++)
+			for (int j = 0; j < myColNum; j++){
+				myCells[i][j].update();
+			}
+		updateUnoccupiedCellArray();
+	}
+	
+	protected abstract void updateUnoccupiedCellArray();
 	
 }
