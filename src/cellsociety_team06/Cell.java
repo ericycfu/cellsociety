@@ -71,4 +71,5 @@ public class Cell {
 		futureState = nextState;
 	}
 	
+
 }
