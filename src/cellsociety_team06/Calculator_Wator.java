@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Calculator_Wator extends Calculator{
 	
-	public Calculator_Wator(String[] propertys, double parameter) {
-		super(propertys);
+	public Calculator_Wator(String[] properties, double parameter) {
+		super(properties);
 		myParameter = parameter;
 		// TODO Auto-generated constructor stub
 	}
