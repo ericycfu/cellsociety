@@ -10,10 +10,6 @@ public class Calculator_Life extends Calculator{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Calculator_Life() {
-		
-	}
-	
 	public double calculation(ArrayList<Cell> relatedCells, Cell centerCell){
 		int reviveCondition = 0;
 		for (Cell c : relatedCells)

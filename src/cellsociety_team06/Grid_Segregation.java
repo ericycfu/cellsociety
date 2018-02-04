@@ -3,7 +3,6 @@ package cellsociety_team06;
 import java.util.ArrayList;
 
 public class Grid_Segregation extends Grid{
-	
 	protected ArrayList<Cell> myCellsUnoccupiedNextIteration;
 	
 	public Grid_Segregation(int rownum, int colnum, double parameter, Calculator myCalculator) {
@@ -47,6 +46,18 @@ public class Grid_Segregation extends Grid{
 				if (myCells[i][j].showCurrentProperty().equals("Unoccupied")) 
 					myCellsUnoccupiedNextIteration.add(myCells[i][j]);
 			}
+	}
+	
+	@Override
+	public ArrayList<Cell> findAdjacentCellsWithCurrentProperty(int row, int col, String property) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, String property) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 }

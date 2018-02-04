@@ -7,19 +7,22 @@ public abstract class Calculator {
 	private String[] properties;
 	private double parameter;
 	
+	public Calculator(String[] propertys){
+		myPropertys = propertys;
+	}
 	
 	public Calculator(String[] properties, double parameter) {
 		this.properties = properties;
 		this.parameter = parameter;
 	}
 	
-	//for simple simulations without properties or parameters
-	public Calculator() {
-		
+	protected int getState(String property){
+		for (int i = 0; i < myPropertys.length; i++)
+			if (property.equals(myPropertys[i]))
+				return i;
+		return -1; // state not found (error)
 	}
 	
 	public abstract double calculation(ArrayList<Cell> relatedCells, Cell centerCell);
 
-	public abstract int getState(String string);
-	
 }
