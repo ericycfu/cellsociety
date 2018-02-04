@@ -4,19 +4,19 @@ public class Cell {
 
 	private int currentState;
 	private int futureState;
-	private String[] myPropertys;
+	private String[] myProperties;
 	private double myChronon;
 	private double myEnergy;
 	
-	public Cell(String[] propertys, int initialState){
-		myPropertys = propertys;
+	public Cell(String[] properties, int initialState){
+		myProperties = properties;
 		currentState = initialState;
 		futureState = currentState;
 		myChronon = 0;
 	}
 	
-	public Cell(String[] propertys, int initialState, double initialEnergy){
-		myPropertys = propertys;
+	public Cell(String[] properties, int initialState, double initialEnergy){
+		myProperties = properties;
 		currentState = initialState;
 		futureState = currentState; // initialize futureState to be the same with currentState
 		myChronon = 0;
@@ -52,7 +52,7 @@ public class Cell {
 	}
 	
 	public String showCurrentProperty(){
-		return myPropertys[currentState];
+		return myProperties[currentState];
 	}
 	
 	public int showFutureState(){
@@ -60,7 +60,7 @@ public class Cell {
 	}
 	
 	public String showFutureProperty(){
-		return myPropertys[futureState];
+		return myProperties[futureState];
 	}
 	
 	public void update(){

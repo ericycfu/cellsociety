@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public class Grid_Segregation extends Grid{
 	
+	protected ArrayList<Cell> myCellsUnoccupiedNextIteration;
+	
 	public Grid_Segregation(int rownum, int column, Calculator myCalculator) {
 		super(rownum, column, myCalculator);
 		myCellsUnoccupiedNextIteration = new ArrayList<Cell>();
@@ -37,7 +39,15 @@ public class Grid_Segregation extends Grid{
 		if (checkBoundary(row+1,col+1)) adjacentCells.add(getCell(row+1,col+1));
 		return adjacentCells;
 	}
-
+	@Override
+	protected void update(){
+		for (int i = 0; i < myRowNum; i++)
+			for (int j = 0; j < myColNum; j++){
+				myCells[i][j].update();
+			}
+		updateUnoccupiedCellArray();
+	}
+	
 	protected void updateUnoccupiedCellArray() {
 		myCellsUnoccupiedNextIteration = new ArrayList<Cell>();
 		for (int i = 0; i < myRowNum; i++)

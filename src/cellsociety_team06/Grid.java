@@ -8,13 +8,12 @@ public abstract class Grid {
 	protected int myRowNum;
 	protected int myColNum;
 	protected Calculator myCalculator;
-	protected ArrayList<Cell> myCellsUnoccupiedNextIteration;
+
 	
 	public Grid(int rownum, int colnum, Calculator myCalculator){
 		myRowNum = rownum;
 		myColNum = colnum;
 		myCells = new Cell[rownum][colnum];
-		myCellsUnoccupiedNextIteration = new ArrayList<Cell>();
 	}
 	
 	protected int getRandomNumberInRange(int min, int max) {
@@ -72,7 +71,6 @@ public abstract class Grid {
 			for (int j = 0; j < myColNum; j++){
 				myCells[i][j].update();
 			}
-		updateUnoccupiedCellArray();
 	}
 	
 	public boolean checkTerminate(){
@@ -86,8 +84,5 @@ public abstract class Grid {
 			return true;
 		else return false;
 	}
-	
-	protected abstract void updateUnoccupiedCellArray();
-	
 }
 
