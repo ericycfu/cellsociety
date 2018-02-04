@@ -3,12 +3,17 @@ package cellsociety_team06;
 import java.util.ArrayList;
 
 public abstract class Calculator {
-	protected String[] myPropertys;
-	protected double myParameter;
 	
-	public Calculator(String[] propertys, double parameter){
+	private String[] properties;
+	private double parameter;
+	
+	public Calculator(String[] propertys){
 		myPropertys = propertys;
-		myParameter = parameter;
+	}
+	
+	public Calculator(String[] properties, double parameter) {
+		this.properties = properties;
+		this.parameter = parameter;
 	}
 	
 	protected int getState(String property){
@@ -19,5 +24,5 @@ public abstract class Calculator {
 	}
 	
 	public abstract double calculation(ArrayList<Cell> relatedCells, Cell centerCell);
-	
+
 }
