@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class Grid_Life extends Grid{
 	
-	public Grid_Life(int rownum, int colnum, double parameter, Calculator myCalculator) {
+	public Grid_Life(int rownum, int colnum, double parameter, Calculator_Life myCalculator) {
 		super(rownum, colnum, parameter, myCalculator);
 	}
 
