@@ -70,9 +70,5 @@ public class Cell {
 	public void setFutureState(int nextState){
 		futureState = nextState;
 	}
-	
-<<<<<<< HEAD
-=======
 
->>>>>>> f5e225724dbacae4ad8238b3c47a93cb7ef6f34f
 }
