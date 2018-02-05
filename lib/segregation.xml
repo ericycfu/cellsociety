@@ -2,17 +2,17 @@
 
 <simulation>
 	<basicinfo>
-		<simulationName> Segregation </simulationName>
-		<simluationTitle> Our Amazing Game </simluationTitle>
-		<simluationAuthor> Eric Fu, Frank Yin, Jing Yang </simluationAuthor>
+		<simulationName>Segregation</simulationName>
+		<simluationTitle>Our Amazing Game</simluationTitle>
+		<simluationAuthor>Eric Fu, Frank Yin, Jing Yang</simluationAuthor>
 	</basicinfo>
 	<globalsettings>
-		<propertystring> X, O, Unoccupied </propertystring>
+		<propertystring>X, O, Unoccupied</propertystring>
 	</globalsettings>
 	<gridconfig>
-		<gridheight> 20 </gridheight>
-		<gridwidth> 20 </gridwidth>
-		<xpercentage> 0.1  </xpercentage>
-		<opercentage> 0.2 </opercentage>
+		<gridheight>20</gridheight>
+		<gridwidth>20</gridwidth>
+		<xpercentage>0.1</xpercentage>
+		<opercentage>0.2</opercentage>
 	</gridconfig>
 </simulation>
