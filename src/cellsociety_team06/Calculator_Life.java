@@ -4,7 +4,10 @@ import java.util.ArrayList;
 
 public class Calculator_Life extends Calculator{
 	
-	
+	public Calculator_Life(String[] properties) {
+		super(properties);
+		// TODO Auto-generated constructor stub
+	}
 	public Calculator_Life(String[] properties, double parameter) {
 		super(properties, parameter);
 		// TODO Auto-generated constructor stub

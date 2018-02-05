@@ -26,10 +26,11 @@ public class Calculator_Segregation extends Calculator{
 				neighbor++;
 		}
 		alike = alike/neighbor;
-		if (alike>=myParameter)
+		if (alike>=parameter)
 			return 0;
 		else
 			return 1;
+		
 	}
 	
 }

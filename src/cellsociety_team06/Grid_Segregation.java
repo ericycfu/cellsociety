@@ -10,15 +10,18 @@ public class Grid_Segregation extends Grid{
 	}
 
 	public void updateCell(double prob, int centerCellRow, int centerCellCol){
-		if (prob==1){
-			int random = getRandomNumberInRange(0, myCellsUnoccupiedNextIteration.size()-1);
-			myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Unoccupied"));
-			myCellsUnoccupiedNextIteration.get(random).setFutureState(myCells[centerCellRow][centerCellCol].showCurrentState());
-			myCellsUnoccupiedNextIteration.remove(random);
-			myCellsUnoccupiedNextIteration.add(myCells[centerCellRow][centerCellCol]);
-		}
-		else if (prob==0){
-			myCells[centerCellRow][centerCellCol].setFutureState(myCells[centerCellRow][centerCellCol].showCurrentState());
+		if (!myCells[centerCellRow][centerCellCol].showCurrentProperty().equals("Unoccupied")){
+			if (prob==1){
+				
+				int random = getRandomNumberInRange(0, myCellsUnoccupiedNextIteration.size()-1);
+				myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Unoccupied"));
+				myCellsUnoccupiedNextIteration.get(random).setFutureState(myCells[centerCellRow][centerCellCol].showCurrentState());
+				myCellsUnoccupiedNextIteration.remove(random);
+				myCellsUnoccupiedNextIteration.add(myCells[centerCellRow][centerCellCol]);
+			}
+			else if (prob==0){
+				myCells[centerCellRow][centerCellCol].setFutureState(myCells[centerCellRow][centerCellCol].showCurrentState());
+			}
 		}
 	}
 	
@@ -40,9 +43,11 @@ public class Grid_Segregation extends Grid{
 
 	protected void updateUnoccupiedCellArray() {
 		myCellsUnoccupiedNextIteration = new ArrayList<Cell>();
+		//System.out.println(1);
 		for (int i = 0; i < myRowNum; i++)
 			for (int j = 0; j < myColNum; j++){
 				if (myCells[i][j].showCurrentProperty().equals("Unoccupied")) 
+					//System.out.println(myCellsUnoccupiedNextIteration.size());
 					myCellsUnoccupiedNextIteration.add(myCells[i][j]);
 			}
 	}

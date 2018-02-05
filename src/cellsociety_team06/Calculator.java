@@ -4,11 +4,15 @@ import java.util.ArrayList;
 
 public abstract class Calculator {
 	
-	private String[] properties;
-	private double parameter;
+	protected String[] properties;
+	protected double parameter;
 	
 	public Calculator(String[] properties){
 		this.properties = properties;
+	}
+	
+	public double showParameter(){
+		return parameter;
 	}
 	
 	public Calculator(String[] properties, double parameter) {
