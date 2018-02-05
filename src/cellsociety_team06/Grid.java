@@ -10,15 +10,16 @@ public abstract class Grid {
 	protected Calculator myCalculator;
 	protected ArrayList<Cell> myCellsUnoccupiedNextIteration;
 	
-	public Grid(int rownum, int colnum, Calculator myCalculator){
+	public Grid(int rownum, int colnum, Calculator calculator){
 		myRowNum = rownum;
 		myColNum = colnum;
 		myCells = new Cell[rownum][colnum];
+		myCalculator = calculator;
 		myCellsUnoccupiedNextIteration = new ArrayList<Cell>();
 	}
 	
 	protected int getRandomNumberInRange(int min, int max) {
-    	if (min >= max) {
+    	if (min > max) {
     		throw new IllegalArgumentException("max must be greater than min");
     	}
     	Random r = new Random();

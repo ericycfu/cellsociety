@@ -67,13 +67,11 @@ public class Grid_Wator extends Grid{
 		ArrayList<Cell> freespace = findAdjacentCellsWithFutureProperty(centerCellRow, centerCellCol, "Unoccupied");
 		if (fishspace!=null){
 			int randomfish = getRandomNumberInRange(0, fishspace.size());
-			if (freespace.get(randomfish).showFutureProperty().equals("Fish"))
 			fishspace.get(randomfish).setFutureState(myCalculator.getState("Shark"));
 			fishspace.get(randomfish).updateChronon(myCells[centerCellRow][centerCellCol].showChronon()); 
 			fishspace.get(randomfish).setEnergy(myCells[centerCellRow][centerCellCol].showEnergy() + energyGain);
-			myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Unoccupied"));
 			if (fishspace.get(randomfish).showChronon()>=myCalculator.showParameter()){
-				myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Fish"));
+				myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Shark"));
 				fishspace.get(randomfish).resetChronon();
 				myCells[centerCellRow][centerCellCol].resetChronon();
 			}
@@ -86,7 +84,7 @@ public class Grid_Wator extends Grid{
 			freespace.get(randomwater).updateChronon(myCells[centerCellRow][centerCellCol].showChronon()); 
 			myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Unoccupied"));
 			if (freespace.get(randomwater).showChronon()>=myCalculator.showParameter()){
-				myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Fish"));
+				myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Shark"));
 				freespace.get(randomwater).resetChronon();
 				myCells[centerCellRow][centerCellCol].resetChronon();
 			}

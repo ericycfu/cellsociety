@@ -13,19 +13,20 @@ public class Grid_Segregation extends Grid{
 	public void updateCell(double prob, int centerCellRow, int centerCellCol){
 		if (!myCells[centerCellRow][centerCellCol].showCurrentProperty().equals("Unoccupied")){
 			if (prob==1){
-				int random = getRandomNumberInRange(0, myCellsUnoccupiedNextIteration.size()-1);
-				myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Unoccupied"));
-				myCellsUnoccupiedNextIteration.get(random).setFutureState(myCells[centerCellRow][centerCellCol].showCurrentState());
-				myCellsUnoccupiedNextIteration.remove(random);
-				myCellsUnoccupiedNextIteration.add(myCells[centerCellRow][centerCellCol]);
+				if (!myCellsUnoccupiedNextIteration.isEmpty()){
+					int random = getRandomNumberInRange(0, myCellsUnoccupiedNextIteration.size()-1);
+					myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Unoccupied"));
+					myCellsUnoccupiedNextIteration.get(random).setFutureState(myCells[centerCellRow][centerCellCol].showCurrentState());
+					myCellsUnoccupiedNextIteration.remove(random);
+					myCellsUnoccupiedNextIteration.add(myCells[centerCellRow][centerCellCol]);
+				}
+				else myCells[centerCellRow][centerCellCol].setFutureState(myCells[centerCellRow][centerCellCol].showCurrentState());
 			}
 			else if (prob==0){
 				myCells[centerCellRow][centerCellCol].setFutureState(myCells[centerCellRow][centerCellCol].showCurrentState());
 			}
 		}
 	}
-	
-	// takes in the locations of each cell and puts them into myGrid
 	
 	public ArrayList<Cell> findAdjacentCells(int row, int col){
 		ArrayList<Cell> adjacentCells = new ArrayList<Cell>();
