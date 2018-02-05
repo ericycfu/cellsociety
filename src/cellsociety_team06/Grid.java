@@ -9,6 +9,7 @@ public abstract class Grid {
 	protected int myColNum;
 	protected Calculator myCalculator;
 	protected ArrayList<Cell> myCellsUnoccupiedNextIteration;
+	protected boolean end = false;
 	
 	public Grid(int rownum, int colnum, Calculator calculator){
 		myRowNum = rownum;
@@ -61,19 +62,38 @@ public abstract class Grid {
 	public abstract ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, String property);
 	
 	public void iterate(){
+		//while (!end){
+		updateUnoccupiedCellArray();
+		int blue = 0;
+		int red = 0;
 		for (int i = 0; i < myRowNum; i++)
 			for (int j = 0; j < myColNum; j++){
+				//System.out.println(myCalculator.calculation(findAdjacentCells(i,j), getCell(i,j)));
+				if (myCells[i][j].showCurrentProperty().equals("X")) blue++;
+				if (myCells[i][j].showCurrentProperty().equals("O")) red++;
+				
 				updateCell(myCalculator.calculation(findAdjacentCells(i,j), getCell(i,j)),i,j);
 			}
+		System.out.print(blue);
+		System.out.print(" ");
+		
+		System.out.println(red);
+		//end = checkTerminate();
 		update();
+		//}
 	}
 	
+	private void updateUnoccupiedCellArray() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	protected void update(){
 		for (int i = 0; i < myRowNum; i++)
 			for (int j = 0; j < myColNum; j++){
 				myCells[i][j].update();
 			}
-		updateUnoccupiedCellArray();
+		
 	}
 	
 	public boolean checkTerminate(){
@@ -87,7 +107,4 @@ public abstract class Grid {
 			return true;
 		else return false;
 	}
-	
-	protected abstract void updateUnoccupiedCellArray();
-	
 }
