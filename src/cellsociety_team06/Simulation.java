@@ -54,10 +54,10 @@ public class Simulation extends Application{
 	
 	public static String filename = "test.txt";
 	public static Group root;
-	public static Rectangle[][] thegrid;
+	public Rectangle[][] thegrid;
 	
-	static Grid lifeGrid;
-	static Calculator lifecalc;
+	public static Grid lifeGrid;
+	public static Calculator lifecalc;
 	
 	public static void filereader() throws IOException{
 		
@@ -102,7 +102,6 @@ public class Simulation extends Application{
     public void start(Stage primaryStage) throws Exception {
         primaryStage.setTitle("Test");
 
-
         Scene scene = creator(width * celllength + 100,height * celllength + 100,BACKGROUND);
         primaryStage.setScene(scene);
         primaryStage.show();
@@ -111,55 +110,58 @@ public class Simulation extends Application{
         for (int i=0;i<States.size();i++){
         	properties[i] = States.get(i);
         }
-		Calculator lifecalc = new Calculator_Life(properties);
-		Grid lifeGrid = new Grid_Life(height,width,lifecalc);
+		Calculator lifecalc = new Calculator_Wator(properties,10000);
+		Grid lifeGrid = new Grid_Wator(height,width,lifecalc,100);
 		
 		Cell thiscell = new Cell(properties,0);
 		
 		for (int i=0;i<height;i++){
 			for (int j=0;j<width;j++){
 				
-				if (thegrid[i][j].getFill() == Color.BLACK){
-					thiscell = new Cell(properties, 0);
-					lifeGrid.createCells(j, i, thiscell);
-				} else {
+				if (thegrid[i][j].getFill() == Color.GREEN){
+					thiscell = new Cell(properties, 0, 100);
+					lifeGrid.createCells(i, j, thiscell);
+				} else if (thegrid[i][j].getFill() == Color.BLUE){
 					thiscell = new Cell(properties, 1);
-					lifeGrid.createCells(j, i, thiscell);
+					lifeGrid.createCells(i, j, thiscell);
+				} else {
+					thiscell = new Cell(properties, 2);
+					lifeGrid.createCells(i, j, thiscell);
 				}
 				
 			}
 		}
-    	
-		for(int i=0;i<10;i++){
-			try {
-				Thread.currentThread().sleep(1000);
-				Step();
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
-			System.out.println("now is " + System.currentTimeMillis());
-		}
+		
+		KeyFrame frame = new KeyFrame(Duration.millis(1000),
+                e -> Step(lifeGrid, lifecalc));
+		Timeline animation = new Timeline();
+		animation.setCycleCount(Timeline.INDEFINITE);
+		animation.getKeyFrames().add(frame);
+		animation.play();
 		
 	}
 	
 	
 	
-	public static Scene creator(int L, int W, Paint background){
+	public Scene creator(int L, int W, Paint background){
 		
 		root = new Group();
 		
-		thegrid = new Rectangle[width][height];
+		thegrid = new Rectangle[height][width];
 		
-		for (int i=0;i<width;i++){
-			for (int j=0;j<height;j++){
+		for (int i=0;i<height;i++){
+			for (int j=0;j<width;j++){
 				Rectangle R = new Rectangle(i,j,celllength-1,celllength-1);
 				R.setX(i * celllength + 50);
 				R.setY(j * celllength + 50);
 				thegrid[i][j] = R;
-				if (Math.random() > Probabilities.get(0)){
-					R.setFill(Color.WHITE);
+				double p = Math.random();
+				if (p < Probabilities.get(0)){
+					R.setFill(Color.GREEN);
+				} else if (p < Probabilities.get(1)){
+					R.setFill(Color.BLUE);
 				} else {
-					R.setFill(Color.BLACK);
+					R.setFill(Color.WHITE);
 				}
 				
 				root.getChildren().add(R);
@@ -173,7 +175,7 @@ public class Simulation extends Application{
 		
 	}
 	
-	public static void cellgenerator(int x, int y){
+	public void cellgenerator(int x, int y){
 		
 		Rectangle R = new Rectangle(x,y,celllength,celllength);
 		R.setFill(Color.PLUM);
@@ -183,17 +185,21 @@ public class Simulation extends Application{
 	
 	
 	
-	public static void Step(){
-		lifeGrid.iterate();
-		for (int i=0;i<width;i++){
-			for (int j=0;j<height;j++){
-				if (lifeGrid.getCell(i, j).showCurrentState()==0){
-					thegrid[i][j].setFill(Color.BLACK);
-				} else {
-					thegrid[i][j].setFill(Color.WHITE);
+	public void Step(Grid myGrid, Calculator myCalc){
+		
+			myGrid.iterate();
+			
+			for (int i=0;i<height;i++){
+				for (int j=0;j<width;j++){
+					if (myGrid.getCell(i, j).showCurrentState()==0){
+						thegrid[i][j].setFill(Color.GREEN);
+					} else if (myGrid.getCell(i, j).showCurrentState()==1){
+						thegrid[i][j].setFill(Color.BLUE);
+					} else {
+						thegrid[i][j].setFill(Color.WHITE);
+					}
 				}
 			}
-		}
 		
 	}
 	
