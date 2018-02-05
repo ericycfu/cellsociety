@@ -8,7 +8,7 @@ public abstract class Calculator {
 	protected double parameter;
 	
 	public Calculator(String[] properties){
-		this.properties = properties;
+		myProperties = properties;
 	}
 	
 	public double showParameter(){
@@ -16,13 +16,18 @@ public abstract class Calculator {
 	}
 	
 	public Calculator(String[] properties, double parameter) {
-		this.properties = properties;
-		this.parameter = parameter;
+		myProperties = properties;
+		myParameter = parameter;
 	}
+
+	public double showParameter(){
+		return myParameter;
+	}
+
 	
 	protected int getState(String property){
-		for (int i = 0; i < properties.length; i++)
-			if (property.equals(properties[i]))
+		for (int i = 0; i < myProperties.length; i++)
+			if (property.equals(myProperties[i]))
 				return i;
 		return -1; // state not found (error)
 	}

@@ -28,11 +28,6 @@ public class Grid_Life extends Grid{
 	}
 
 	@Override
-	protected void updateUnoccupiedCellArray() {
-		// TODO Auto-generated method stub
-	}
-
-	@Override
 	public ArrayList<Cell> findAdjacentCellsWithCurrentProperty(int row, int col, String property) {
 		// TODO Auto-generated method stub
 		return null;

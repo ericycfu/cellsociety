@@ -102,8 +102,5 @@ public abstract class Grid {
 			return true;
 		else return false;
 	}
-	
-	protected abstract void updateUnoccupiedCellArray();
-	
 }
 
