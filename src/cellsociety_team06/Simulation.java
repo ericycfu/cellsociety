@@ -110,8 +110,8 @@ public class Simulation extends Application{
         for (int i=0;i<States.size();i++){
         	properties[i] = States.get(i);
         }
-		Calculator lifecalc = new Calculator_Wator(properties,10000);
-		Grid lifeGrid = new Grid_Wator(height,width,lifecalc,100);
+		Calculator lifecalc = new Calculator_Fire(properties,0.5);
+		Grid lifeGrid = new Grid_Fire(height,width,lifecalc);
 		
 		Cell thiscell = new Cell(properties,0);
 		
