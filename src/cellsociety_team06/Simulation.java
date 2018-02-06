@@ -30,6 +30,7 @@ import java.util.*;
 import java.io.File;  
 import java.io.InputStreamReader;
 import java.io.RandomAccessFile;
+import java.net.URISyntaxException;
 import java.io.BufferedReader;  
 import java.io.BufferedWriter;  
 import java.io.FileInputStream;
@@ -61,7 +62,6 @@ public class Simulation extends Application{
 	public static String TITLE = "CellSociety_team06";
 	
 	public static String filename = "test.txt";
-	public static Group root = new Group();
 	public Rectangle[][] thegrid;
 	
 	public static Grid lifeGrid;
@@ -123,6 +123,11 @@ public class Simulation extends Application{
 	@Override
     public void start(Stage primaryStage) throws Exception {
 		
+		FileChooser fileChooser = new FileChooser();
+		FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = fileChooser.showOpenDialog(primaryStage);
+		
 		pauser = false;
 		
         primaryStage.setTitle(SIMUL);
@@ -137,7 +142,8 @@ public class Simulation extends Application{
         for (int i=0;i<States.size();i++){
         	properties[i] = States.get(i);
         }
-		Calculator lifecalc = new Calculator_Wator(properties,10000);
+		
+        /*Calculator lifecalc = new Calculator_Wator(properties,10000);
 		Grid lifeGrid = new Grid_Wator(height,width,lifecalc,100);
 		
 		Cell thiscell = new Cell(properties,0);
@@ -157,7 +163,7 @@ public class Simulation extends Application{
 				}
 				
 			}
-		}
+		}*/
 		
 		PAUSE.setOnAction(value ->  {
         	pauser = true;
@@ -166,13 +172,8 @@ public class Simulation extends Application{
         });
 		
 		SWITCH.setOnAction(value ->  {
-			pauser = true;
-			FileChooser fileChooser = new FileChooser();
-            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
-            fileChooser.getExtensionFilters().add(extFilter);
-            File file = fileChooser.showOpenDialog(primaryStage);
-            try {
-				filereader();
+        	try {
+				restart();
 			} catch (IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
@@ -212,6 +213,21 @@ public class Simulation extends Application{
 		
 	}
 	
+	public static void restart() throws IOException{
+        //用一条指定的命令去构造一个进程生成器
+        ProcessBuilder pb=new ProcessBuilder("java","-jar","Simulation.jar");
+        //让这个进程的工作区空间改为F:\dist
+        //这样的话,它就会去F:\dist目录下找Test.jar这个文件
+        pb.directory(new File("Desktop\\Compsci308\\cellsociety_team06\\src\\cellsociety_team06"));
+        //得到进程生成器的环境 变量,这个变量我们可以改,
+        //改了以后也会反应到新起的进程里面去
+        Map<String,String> map=pb.environment();
+        Process p=pb.start();
+        //然后就可以对p做自己想做的事情了
+        //自己这个时候就可以退出了
+        System.exit(0);
+    }
+	
 	public static void pausing(){
 		pauser = true;
 		PAUSE.setOnAction(valuevalue ->  {
@@ -234,9 +250,9 @@ public class Simulation extends Application{
 		SLOWER.setDisable(false);
 	}
 	
-	
-	
 	public Scene creator(int L, int W, Paint background){
+		
+		Group root = new Group();
 		
 		pauser = false;
 		
@@ -313,16 +329,6 @@ public class Simulation extends Application{
 		return newscene;
 		
 	}
-	
-	public void cellgenerator(int x, int y){
-		
-		Rectangle R = new Rectangle(x,y,celllength,celllength);
-		R.setFill(Color.PLUM);
-		root.getChildren().add(R);
-		
-	}
-	
-	
 	
 	public void Step(Grid myGrid, Calculator myCalc){
 		if (pauser == false){
