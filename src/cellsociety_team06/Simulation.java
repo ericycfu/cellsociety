@@ -3,6 +3,7 @@ package cellsociety_team06;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.application.Application;
+import javafx.event.ActionEvent;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
@@ -13,10 +14,14 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
+import javafx.stage.FileChooser.ExtensionFilter;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -36,6 +41,8 @@ import java.io.IOException;
 public class Simulation extends Application{
 	
 	public static int celllength = 10;
+	public static int buttonwidth = 40;
+	public static int buttonheight = 20;
 	
 	public static String SIMUL;
 	
@@ -49,15 +56,30 @@ public class Simulation extends Application{
 	public static int MILLISECOND_DELAY = 1000 / 60;
 	public static double SECOND_DELAY = 1.0 / 60;
 	public static Paint BACKGROUND = Color.GREY;
+	public static int gaps = 500;
 	
 	public static String TITLE = "CellSociety_team06";
 	
 	public static String filename = "test.txt";
-	public static Group root;
+	public static Group root = new Group();
 	public Rectangle[][] thegrid;
 	
 	public static Grid lifeGrid;
 	public static Calculator lifecalc;
+	
+	public static int timer = 0;
+	public static boolean pauser = false;
+	
+	public static Button PAUSE = new Button("Pause");
+	public static Button STEP = new Button("Step");
+	public static Button FINISH = new Button("Finish");
+	public static Button EXIT = new Button("EXIT");
+	public static Button SWITCH = new Button("Switch");
+	public static TilePane tilePane = new TilePane();
+	public static Button FASTER = new Button("Faster");
+	public static Button SLOWER = new Button("Slower");
+	public static TilePane speeder = new TilePane();
+	public static Label timedisplay;
 	
 	public static void filereader() throws IOException{
 		
@@ -100,9 +122,14 @@ public class Simulation extends Application{
 	
 	@Override
     public void start(Stage primaryStage) throws Exception {
-        primaryStage.setTitle("Test");
-
-        Scene scene = creator(width * celllength + 100,height * celllength + 100,BACKGROUND);
+		
+		pauser = false;
+		
+        primaryStage.setTitle(SIMUL);
+        
+        celllength = 900/width;
+        
+        Scene scene = creator(1100,1100,BACKGROUND);
         primaryStage.setScene(scene);
         primaryStage.show();
 
@@ -132,27 +159,93 @@ public class Simulation extends Application{
 			}
 		}
 		
-		KeyFrame frame = new KeyFrame(Duration.millis(1000),
+		PAUSE.setOnAction(value ->  {
+        	pauser = true;
+        	PAUSE.setText("Resume");
+        	pausing();
+        });
+		
+		SWITCH.setOnAction(value ->  {
+			pauser = true;
+			FileChooser fileChooser = new FileChooser();
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+            fileChooser.getExtensionFilters().add(extFilter);
+            File file = fileChooser.showOpenDialog(primaryStage);
+            try {
+				filereader();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
+        });
+		
+		FINISH.setOnAction(value ->  {
+			pauser = true;
+			PAUSE.setDisable(true);
+			FINISH.setText("Fnished");
+			FINISH.setDisable(true);
+        });
+		
+		STEP.setOnAction(value ->  {
+			pauser = true;
+			mover(lifeGrid,lifecalc);
+        });
+		
+		EXIT.setOnAction(value ->  {
+	        primaryStage.close();
+        });
+		
+		KeyFrame frame = new KeyFrame(Duration.millis(gaps),
                 e -> Step(lifeGrid, lifecalc));
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
 		
+		FASTER.setOnAction(value ->  {
+			animation.setRate(animation.getRate() * 2);
+        });
+		
+		SLOWER.setOnAction(value ->  {
+			animation.setRate(animation.getRate() * 0.5);
+        });
+		
+	}
+	
+	public static void pausing(){
+		pauser = true;
+		PAUSE.setOnAction(valuevalue ->  {
+			resuming();
+        });
+		PAUSE.setText("Resume");
+		STEP.setDisable(false);
+		FASTER.setDisable(true);
+		SLOWER.setDisable(true);
+	}
+	
+	public static void resuming(){
+		pauser = false;
+		PAUSE.setOnAction(valuevalue ->  {
+			pausing();
+        });
+		PAUSE.setText("Pause");
+		STEP.setDisable(true);
+		FASTER.setDisable(false);
+		SLOWER.setDisable(false);
 	}
 	
 	
 	
 	public Scene creator(int L, int W, Paint background){
 		
-		root = new Group();
+		pauser = false;
 		
 		thegrid = new Rectangle[height][width];
 		
 		for (int i=0;i<height;i++){
 			for (int j=0;j<width;j++){
 				Rectangle R = new Rectangle(i,j,celllength-1,celllength-1);
-				R.setX(i * celllength + 50);
+				R.setX(i * celllength + 100);
 				R.setY(j * celllength + 50);
 				thegrid[i][j] = R;
 				double p = Math.random();
@@ -167,6 +260,52 @@ public class Simulation extends Application{
 				root.getChildren().add(R);
 			}
 		}
+		
+		PAUSE.setStyle("-fx-text-fill: #0000ff; -fx-border-color: #0000ff; -fx-border-width: 1px;");
+		PAUSE.setMinWidth(80);
+        FINISH.setStyle("-fx-text-fill: #0000ff; -fx-border-color: #0000ff; -fx-border-width: 1px;");
+        FINISH.setMinWidth(80);
+        EXIT.setStyle("-fx-text-fill: #8B0000; -fx-border-color: #8B0000; -fx-border-width: 5px;");
+        EXIT.setMinWidth(80);
+        SWITCH.setStyle("-fx-text-fill: #0000ff; -fx-border-color: #0000ff; -fx-border-width: 1px;");
+        SWITCH.setMinWidth(80);
+        STEP.setStyle("-fx-text-fill: #228B22; -fx-border-color: #228B22; -fx-border-width: 2px;");
+        STEP.setMinWidth(80);
+        
+        tilePane.getChildren().add(PAUSE);
+        tilePane.getChildren().add(FINISH);
+        tilePane.getChildren().add(STEP);
+        tilePane.getChildren().add(SWITCH);
+        tilePane.getChildren().add(EXIT);
+        
+        STEP.setDisable(true);
+        
+        tilePane.setHgap(70);
+        tilePane.setVgap(10);
+        tilePane.setLayoutX(200);
+        tilePane.setLayoutY(970);
+        
+        root.getChildren().add(tilePane);
+        
+        FASTER.setStyle("-fx-text-fill: #ff4500; -fx-border-color: #ff4500; -fx-border-width: 1px;");
+        SLOWER.setStyle("-fx-text-fill: #ff4500; -fx-border-color: #ff4500; -fx-border-width: 1px;");
+        FASTER.setMinSize(100, 50);
+        SLOWER.setMinSize(100, 50);
+        
+        speeder.getChildren().add(FASTER);
+        speeder.getChildren().add(SLOWER);
+        speeder.setHgap(80);
+        
+        speeder.setLayoutX(400);
+        speeder.setLayoutY(1020);
+        
+        root.getChildren().add(speeder);
+        
+        timedisplay = new Label("Frame passed: " + Integer.toString(timer));
+        timedisplay.setLayoutX(width * celllength - 20);
+        timedisplay.setLayoutY(20);
+        timedisplay.setStyle("-fx-text-fill: #ffffff");
+        root.getChildren().add(timedisplay);
 		
 		Scene newscene = new Scene(root, L, W, background);
 		
@@ -186,24 +325,33 @@ public class Simulation extends Application{
 	
 	
 	public void Step(Grid myGrid, Calculator myCalc){
+		if (pauser == false){
+			mover(myGrid, myCalc);
+		}
+	}
+	
+	public void mover(Grid myGrid, Calculator myCalc){
+		myGrid.iterate();
 		
-			myGrid.iterate();
-			
-			for (int i=0;i<height;i++){
-				for (int j=0;j<width;j++){
-					if (myGrid.getCell(i, j).showCurrentState()==0){
-						thegrid[i][j].setFill(Color.GREEN);
-					} else if (myGrid.getCell(i, j).showCurrentState()==1){
-						thegrid[i][j].setFill(Color.BLUE);
-					} else {
-						thegrid[i][j].setFill(Color.WHITE);
-					}
+		for (int i=0;i<height;i++){
+			for (int j=0;j<width;j++){
+				if (myGrid.getCell(i, j).showCurrentState()==0){
+					thegrid[i][j].setFill(Color.GREEN);
+				} else if (myGrid.getCell(i, j).showCurrentState()==1){
+					thegrid[i][j].setFill(Color.BLUE);
+				} else {
+					thegrid[i][j].setFill(Color.WHITE);
 				}
 			}
+		}
 		
+		timer++;
+		timedisplay.setText("Frame passed: " + Integer.toString(timer));
 	}
 	
 	public static void handleKeyInput(KeyCode keyCode){
+		
+		
 		
 	}
 	
