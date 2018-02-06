@@ -17,3 +17,4 @@ public class Calculator_Fire extends Calculator{
 	}
 	
 }
+
