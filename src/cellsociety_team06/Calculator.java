@@ -7,27 +7,27 @@ public abstract class Calculator {
 	protected String[] properties;
 	protected double parameter;
 	
-	public Calculator(String[] properties){
-		myProperties = properties;
+	public Calculator(String[] propertyinput){
+		properties = propertyinput;
 	}
 	
-	public double showParameter(){
-		return parameter;
-	}
+	//public double showParameter(){
+	//	return parameter;
+	//}
 	
-	public Calculator(String[] properties, double parameter) {
-		myProperties = properties;
-		myParameter = parameter;
+	public Calculator(String[] propertyinput, double parameterinput) {
+		properties = propertyinput;
+		parameter = parameterinput;
 	}
 
 	public double showParameter(){
-		return myParameter;
+		return parameter;
 	}
 
 	
 	protected int getState(String property){
-		for (int i = 0; i < myProperties.length; i++)
-			if (property.equals(myProperties[i]))
+		for (int i = 0; i < properties.length; i++)
+			if (property.equals(properties[i]))
 				return i;
 		return -1; // state not found (error)
 	}
