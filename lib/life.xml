@@ -3,15 +3,15 @@
 <simulation>
 	<basicinfo>
 		<simulationName>Game of Life</simulationName>
-		<simluationTitle>Our Amazing Game</simluationTitle>
-		<simluationAuthor>Eric Fu, Frank Yin, Jing Yang</simluationAuthor>
+		<simulationTitle>Our Amazing Game</simulationTitle>
+		<simulationAuthor>Eric Fu, Frank Yin, Jing Yang</simulationAuthor>
 	</basicinfo>
 	<globalsettings>
-		<propertystring>Live, Dead</propertystring>
+		<propertystring>Live,Dead</propertystring>
 	</globalsettings>
 	<gridconfig>
 		<gridheight>20</gridheight>
 		<gridwidth>20</gridwidth>
-		<livecellpercent>0.3</livecellpercent>
+		<livecellpercent>0.5</livecellpercent>
 	</gridconfig>
 </simulation>
