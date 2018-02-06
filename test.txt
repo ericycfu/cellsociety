@@ -1,0 +1,5 @@
+Predator n Prey
+100
+100
+Fish,Shark,Unoccupied
+0.3,0.4,1
