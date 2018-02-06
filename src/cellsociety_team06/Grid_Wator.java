@@ -74,6 +74,7 @@ public class Grid_Wator extends Grid{
     myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Shark"));
     fishspace.get(randomfish).resetChronon();
     myCells[centerCellRow][centerCellCol].resetChronon();
+    myCells[centerCellRow][centerCellCol].resetEnergy();
    }
    if (fishspace.get(randomfish).showEnergy()<0) 
     sharkDies(fishspace.get(randomfish));
@@ -126,7 +127,6 @@ public class Grid_Wator extends Grid{
   return adjacentCells;
  }
  
- @Override
  protected void updateUnoccupiedCellArray() {
   
  }
