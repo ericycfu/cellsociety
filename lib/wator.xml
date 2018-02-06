@@ -3,14 +3,14 @@
 <simulation>
 	<basicinfo>
 		<simulationName>Wator</simulationName>
-		<simluationTitle>Our Amazing Game</simluationTitle>
-		<simluationAuthor>Eric Fu, Frank Yin, Jing Yang</simluationAuthor>
+		<simulationTitle>Our Amazing Game</simulationTitle>
+		<simulationAuthor>Eric Fu, Frank Yin, Jing Yang</simulationAuthor>
 	</basicinfo>
 	<globalsettings>
-		<propertystring>Fish, Shark, Unoccupied</propertystring>
-		<initialenergy>10</initialenergy>
+		<propertystring>Fish,Shark,Unoccupied</propertystring>
+		<initialenergy>5</initialenergy>
 		<energygain>10</energygain>
-		<reproducetime>5</reproducetime>
+		<reproducetime>10</reproducetime>
 	</globalsettings>
 	<gridconfig>
 		<gridheight>20</gridheight>
