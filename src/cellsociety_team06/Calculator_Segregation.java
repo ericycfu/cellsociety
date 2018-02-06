@@ -17,16 +17,18 @@ public class Calculator_Segregation extends Calculator{
 	public double calculation(ArrayList<Cell> relatedCells, Cell centerCell){
 		if (centerCell.showCurrentProperty().equals("Unoccupied")) return 0;
 		double alike = 0;
-		int neighbor = 0;
+		double neighbor = 0;
 		String alikeProperty = centerCell.showCurrentProperty();
 		for (Cell c : relatedCells){
 			if (c.showCurrentProperty().equals(alikeProperty))
-				alike++;
+				alike = alike + 1;
 			if (c.showCurrentProperty().equals("X")||c.showCurrentProperty().equals("O"))
-				neighbor++;
+				neighbor = alike + 1;
 		}
+		
 		alike = alike/neighbor;
-		if (alike>=parameter)
+		System.out.println(alike);
+		if (alike>=myParameter)
 			return 0;
 		else
 			return 1;
