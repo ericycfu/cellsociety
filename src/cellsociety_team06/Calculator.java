@@ -4,26 +4,21 @@ import java.util.ArrayList;
 
 public abstract class Calculator {
 	
-	protected String[] properties;
-	protected double parameter;
+	protected String[] myProperties;
+	protected double myParameter;
 	
 	public Calculator(String[] properties){
 		myProperties = properties;
 	}
 	
 	public double showParameter(){
-		return parameter;
+		return myParameter;
 	}
 	
 	public Calculator(String[] properties, double parameter) {
 		myProperties = properties;
 		myParameter = parameter;
 	}
-
-	public double showParameter(){
-		return myParameter;
-	}
-
 	
 	protected int getState(String property){
 		for (int i = 0; i < myProperties.length; i++)
