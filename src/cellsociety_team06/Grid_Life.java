@@ -12,8 +12,10 @@ public class Grid_Life extends Grid{
 	public void updateCell(double prob, int centerCellRow, int centerCellCol){
 		if (prob==1)
 			myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Live"));
-		else if (prob==0)
+		else if (prob==0){
+			System.out.println(myCalculator.getState("Dead")+"!!!");
 			myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Dead"));
+		}
 	}
 
 	@Override
@@ -41,3 +43,4 @@ public class Grid_Life extends Grid{
 
 	
 }
+
