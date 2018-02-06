@@ -63,7 +63,7 @@ public abstract class Grid {
 	
 	public void iterate(){
 		//while (!end){
-		updateUnoccupiedCellArray();
+		//updateUnoccupiedCellArray();
 		int blue = 0;
 		int red = 0;
 		for (int i = 0; i < myRowNum; i++)
@@ -74,10 +74,6 @@ public abstract class Grid {
 				
 				updateCell(myCalculator.calculation(findAdjacentCells(i,j), getCell(i,j)),i,j);
 			}
-		System.out.print(blue);
-		System.out.print(" ");
-		
-		System.out.println(red);
 		//end = checkTerminate();
 		update();
 		//}
