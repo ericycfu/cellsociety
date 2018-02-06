@@ -13,10 +13,6 @@ public class Calculator_Life extends Calculator{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Calculator_Life(String[] properties) {
-		super(properties);
-	}
-	
 	public double calculation(ArrayList<Cell> relatedCells, Cell centerCell){
 		int reviveCondition = 0;
 		for (Cell c : relatedCells)
@@ -28,7 +24,7 @@ public class Calculator_Life extends Calculator{
 				return 1; // centerCell.setFutureState(getState("Live"));
 		}
 		else { //current property must be "Live"
-			if (reviveCondition<=2)
+			if (reviveCondition<2)
 				return 0; // centerCell.setFutureState(getState("Dead"));
 			else if (reviveCondition==2 || reviveCondition==3)
 				return 1; // centerCell.setFutureState(getState("Live"));
@@ -37,12 +33,7 @@ public class Calculator_Life extends Calculator{
 		}
 		
 		return 0;
-	};
-	
-	public int getState(String state) {
-		if (state == "Live") {
-			return 1;
-		}
-		return 0; //else the state is "Dead"
 	}
+	
+
 }
