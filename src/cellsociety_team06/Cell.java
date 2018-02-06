@@ -7,6 +7,7 @@ public class Cell {
 	private String[] myProperties;
 	private double myChronon;
 	private double myEnergy;
+	private double initialEnergy;
 	
 	public Cell(String[] properties, int initialState){
 		myProperties = properties;
@@ -15,11 +16,16 @@ public class Cell {
 		myChronon = 0;
 	}
 	
-	public Cell(String[] properties, int initialState, double initialEnergy){
+	public Cell(String[] properties, int initialState, double initialEnergyinput){
 		myProperties = properties;
 		currentState = initialState;
 		futureState = currentState; // initialize futureState to be the same with currentState
 		myChronon = 0;
+		myEnergy = initialEnergy;
+		initialEnergy = initialEnergyinput;
+	}
+	
+	public void resetEnergy(){
 		myEnergy = initialEnergy;
 	}
 	
