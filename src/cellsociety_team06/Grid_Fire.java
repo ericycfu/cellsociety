@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Grid_Fire extends Grid{
 	
-	public Grid_Fire(int rownum, int colnum, Calculator myCalculator) {
-		super(rownum, colnum, myCalculator);
+	public Grid_Fire(int rownum, int colnum, Calculator myCalculator, Cell cellType) {
+		super(rownum, colnum, myCalculator, cellType);
 	}
 	
 	public void updateCell(double prob, int centerCellRow, int centerCellCol){
@@ -24,12 +24,30 @@ public class Grid_Fire extends Grid{
 		if (myCells[centerCellRow][centerCellCol].showCurrentProperty().equals("Empty"))
 			myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Empty"));
 	}
+
+	@Override
+	protected ArrayList<Cell> findAdjacentCells(int row, int col) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected ArrayList<Cell> findAdjacentCellsWithCurrentProperty(int row, int col, String property) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	protected ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, String property) {
+		// TODO Auto-generated method stub
+		return null;
+	}
 	
 	
 	
 	// takes in the locations of each cell and puts them into myGrid
 	
-	public ArrayList<Cell> findAdjacentCells(int row, int col){
+/*	public ArrayList<Cell> findAdjacentCells(int row, int col){
 		ArrayList<Cell> adjacentCells = new ArrayList<Cell>();
 		if (checkBoundary(row-1,col)) adjacentCells.add(getCell(row-1,col));
 		if (checkBoundary(row,col-1)) adjacentCells.add(getCell(row,col-1));
@@ -54,7 +72,8 @@ public class Grid_Fire extends Grid{
 		if (checkBoundary(row,col+1) && myCells[row][col+1].showFutureProperty().equals(property)) adjacentCells.add(getCell(row,col+1));
 		if (checkBoundary(row+1,col) && myCells[row+1][col].showFutureProperty().equals(property)) adjacentCells.add(getCell(row+1,col));
 		return adjacentCells;
-	}	
+	}	*/
+	
 	
 }
 

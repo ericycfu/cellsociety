@@ -1,29 +1,64 @@
 package cellsociety_team06;
 
-public class Cell {
+import javafx.scene.paint.Color;
+import javafx.scene.shape.Polygon;
 
-	private int currentState;
-	private int futureState;
-	private String[] myProperties;
-	private double myChronon;
-	private double myEnergy;
-	private double initialEnergy;
+public abstract class Cell{
+
+	protected int currentState;
+	protected int futureState;
+	protected String[] myProperties;
+	protected Color[] myColors;
+	protected double myChronon;
+	protected double myEnergy;
+	protected double initialEnergy;
+	protected String myType;
+	protected double myCenterXLocation;
+	protected double myCenterYLocation;
+	protected double mySideLength;
+	protected Polygon myPolygon;
+	protected boolean myVision; // cell that has vision can also check diagonal cells
 	
-	public Cell(String[] properties, int initialState){
+	public Cell(String cellType, double centerXLocation, double centerYLocation, double sideLength, String[] properties, Color[] colors, int initialState){
 		myProperties = properties;
 		currentState = initialState;
 		futureState = currentState;
 		myChronon = 0;
+		myColors = colors;
+		myCenterXLocation = centerXLocation;
+		myCenterYLocation = centerYLocation;
+		myType = cellType;
+		mySideLength = sideLength;
 	}
 	
-	public Cell(String[] properties, int initialState, double initialEnergyinput){
+	public Cell(String cellType, double centerXLocation, double centerYLocation, double sideLength, String[] properties, Color[] colors, int initialState, double initialEnergyinput){
 		myProperties = properties;
 		currentState = initialState;
 		futureState = currentState; // initialize futureState to be the same with currentState
 		myChronon = 0;
 		myEnergy = initialEnergy;
 		initialEnergy = initialEnergyinput;
+		myCenterXLocation = centerXLocation;
+		myCenterYLocation = centerYLocation;
+		myType = cellType;
+		mySideLength = sideLength;
 	}
+	
+	public Cell(String cellType, double centerXLocation, double centerYLocation, double sideLength, String[] properties, Color[] colors, int initialState, double initialEnergyinput, boolean vision){
+		myProperties = properties;
+		currentState = initialState;
+		futureState = currentState; // initialize futureState to be the same with currentState
+		myChronon = 0;
+		myEnergy = initialEnergy;
+		initialEnergy = initialEnergyinput;
+		myCenterXLocation = centerXLocation;
+		myCenterYLocation = centerYLocation;
+		myType = cellType;
+		mySideLength = sideLength;
+		myVision = vision;
+	}
+	
+	protected abstract void makePolygon();
 	
 	public void resetEnergy(){
 		myEnergy = initialEnergy;
@@ -37,8 +72,20 @@ public class Cell {
 		myEnergy = myEnergy + value;
 	}
 	
+	public abstract boolean checkSideAdjacency(Cell cell);
+	
+	public abstract boolean checkDiagonalAdjacency(Cell cell);
+	
 	public double showEnergy(){
 		return myEnergy;
+	}
+	
+	protected double showCenterYLoc(){
+		return myCenterYLocation;
+	}
+	
+	protected double showCenterXLoc(){
+		return myCenterXLocation;
 	}
 	
 	public void resetChronon(){
@@ -71,6 +118,7 @@ public class Cell {
 	
 	public void update(){
 		currentState = futureState;
+		myPolygon.setFill(myColors[currentState]);
 	}
 	
 	public void setFutureState(int nextState){

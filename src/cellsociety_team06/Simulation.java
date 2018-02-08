@@ -12,10 +12,12 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyCode;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
 import javafx.scene.shape.Line;
 import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 import java.util.*;
@@ -37,80 +39,61 @@ import java.io.IOException;
 
 public class Simulation extends Application{
 	
-	public static int celllength = 10;
+	private int celllength = 10;
+	private int buttonwidth = 40;
+	private int buttonheight = 20;
 	
-	public static String SIMUL;
+	private String SIMUL;
+	private Stage myPrimaryStage;
+	private int width;
+	private int height;
+	private ArrayList<String> States = new ArrayList<String>();
+	private ArrayList<Float> Probabilities = new ArrayList<Float>();
+	private ArrayList<Float> CellParameters = new ArrayList<Float>();
 	
-	public static int width;
-	public static int height;
-	public static double GAP;
-	public static ArrayList<String> States = new ArrayList<String>();
-	public static ArrayList<Float> Probabilities = new ArrayList<Float>();
-	public static ArrayList<Float> CellParameters = new ArrayList<Float>();
-	public static HashMap<String,Float> getProb;
+	private int MILLISECOND_DELAY = 1000 / 60;
+	private double SECOND_DELAY = 1.0 / 60;
+	private Paint BACKGROUND = Color.GREY;
 	
-	public static int MILLISECOND_DELAY = 1000 / 60;
-	public static double SECOND_DELAY = 1.0 / 60;
-	public static Paint BACKGROUND = Color.GREY;
+	private String TITLE = "CellSociety_team06";
 	
-	public static String TITLE = "CellSociety_team06";
+	private String filename;
+	private Group root = new Group();
+	private Rectangle[][] thegrid;
 	
-	public static String filename = "test.txt";
-	public static Group root;
-	public Rectangle[][] thegrid;
+	private Grid lifeGrid;
+	private Calculator lifecalc;
 	
-	public static Grid lifeGrid;
-	public static Calculator lifecalc;
+	private FileChooser.ExtensionFilter extFilter;
+	private String SimType;
+	private String SimTitle;
+	private String SimAuthors;
+	private XMLReader myReader;
 	
+	public static int timer = 0;
+	public static boolean pauser = false;
 	 
-	public static String SimType;
-	public static String SimTitle;
-	public static String SimAuthors;
-	public static XMLReader myReader;
-	/*public static void filereader() throws IOException{
-		
-		String filepath = filename;
-		File filename = new File(filepath);
-		
-		InputStreamReader reader = new InputStreamReader(
-                new FileInputStream(filename));
-        BufferedReader br = new BufferedReader(reader);
-        String line = "";
-        
-        line = br.readLine();
-        SIMUL = line;
-        line = br.readLine();
-        width =Integer.parseInt(line);
-        line = br.readLine();
-        height = Integer.parseInt(line);
-        
-        line = br.readLine();
-        String[] St = line.split(",");
-        States = new ArrayList<String>();
-        for (int i=0;i<St.length;i++){
-        	States.add(St[i]);
-        }
-        
-        line = br.readLine();
-        String[] Prob = line.split(",");
-        Probabilities = new ArrayList<Float>();
-        for (int i=0;i<Prob.length;i++){
-        	Probabilities.add(Float.parseFloat(Prob[i]));
-        }
-        
-        getProb = new HashMap<String,Float>();
-        for (int i=0;i<States.size();i++){
-        	getProb.put(States.get(i), Probabilities.get(i));
-        }
-		
-	}*/
-	
+	private Button PAUSE = new Button("Pause");
+	private Button STEP = new Button("Step");
+	private Button FINISH = new Button("Finish");
+	private Button EXIT = new Button("EXIT");
+	private Button SWITCH = new Button("Switch");
+	private TilePane tilePane = new TilePane();
+	private Button FASTER = new Button("Faster");
+	private Button SLOWER = new Button("Slower");
+	private TilePane speeder = new TilePane();
+	private Label timedisplay;
+	private FileChooser fileChooser;
+	private String[] properties ;
+	private Cell thiscell;
+	private Scene scene;
+
 	public void readFile(String thisfile) throws IOException, SAXException, ParserConfigurationException{
 		myReader = new XMLReader(thisfile);
 		myReader.read();
 		//System.out.println(myReader.showbasicInfo().size());
 		SimType = myReader.showbasicInfo().get(0);
-		//System.out.println(SimType);
+		System.out.println(SimType);
 		SimTitle = myReader.showbasicInfo().get(1);
 		SimAuthors = myReader.showbasicInfo().get(2);
 		height = Integer.parseInt(myReader.showgridConfig().get(0));
@@ -152,16 +135,17 @@ public class Simulation extends Application{
 			}
 		}
 	}
-	@Override
-    public void start(Stage primaryStage) throws Exception {
-        readFile("lib/segregation.xml");
-		primaryStage.setTitle("Test");
-        
-        Scene scene = creator(width * celllength + 100,height * celllength + 100,BACKGROUND);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-
-        String[] properties = new String[States.size()];
+	private void chooseFile(Stage primaryStage){
+		fileChooser = new FileChooser();
+        extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = fileChooser.showOpenDialog(primaryStage);
+        filename = file.getName();
+        myPrimaryStage = primaryStage;
+	}
+	
+	private void cellGenerate(){
+		properties = new String[States.size()];
         for (int i=0;i<States.size();i++){
         	properties[i] = States.get(i);
         }
@@ -192,7 +176,6 @@ public class Simulation extends Application{
        }
 
 		
-        Cell thiscell = new Cell(properties,0);
         switch (SimType){
 	    	case "Game of Life":{
 	    		for (int i=0;i<height;i++){
@@ -260,19 +243,104 @@ public class Simulation extends Application{
 	            break;
 	    	}
         }
+	}
+	@Override
+    public void start(Stage primaryStage) throws Exception {
+		chooseFile(primaryStage);
+        readFile("lib/"+filename);
+		pauser = false;
+		celllength = 500/width;
+		
+        primaryStage.setTitle(SIMUL);
+        scene = sceneCreator(900,900,BACKGROUND);
+        primaryStage.setScene(scene);
+        primaryStage.show();
+
+        cellGenerate();
+        PAUSE.setOnAction(value ->  {
+            pauser = true;
+            PAUSE.setText("Resume");
+            pausing();
+           });
+        
+        SWITCH.setOnAction(value ->  {
+        	   pauser = true;
+        	   FileChooser newfileChooser = new FileChooser();
+        	            FileChooser.ExtensionFilter newextFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+        	            fileChooser.getExtensionFilters().add(extFilter);
+        	            File newfile = fileChooser.showOpenDialog(primaryStage);
+        	            filename = newfile.getPath();
+        	            try {
+        	            	readFile(filename);
+        	            	} catch (IOException e1) {
+        	            		e1.printStackTrace();
+        	            	} catch (SAXException e1) {
+        	            	} catch (ParserConfigurationException e1) {
+        	            	}
+        	            
+        	            Scene newscene = sceneCreator(900,900,BACKGROUND);
+        	            myPrimaryStage.setScene(newscene);
+        	            myPrimaryStage.show();
+        	            cellGenerate();
+        	            
+        	        });
+        
+     
+     FINISH.setOnAction(value ->  {
+      pauser = true;
+      PAUSE.setDisable(true);
+      FINISH.setText("Fnished");
+      FINISH.setDisable(true);
+           });
+     
+     STEP.setOnAction(value ->  {
+      pauser = true;
+      mover(lifeGrid,lifecalc);
+           });
+     
+     EXIT.setOnAction(value ->  {
+            primaryStage.close();
+           });
 		KeyFrame frame = new KeyFrame(Duration.millis(1000),
                 e -> Step(lifeGrid, lifecalc));
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
+		FASTER.setOnAction(value ->  {
+			   animation.setRate(animation.getRate() * 2);
+			        });
+			  
+			  SLOWER.setOnAction(value ->  {
+			   animation.setRate(animation.getRate() * 0.5);
+			        });
 		
 	}
 	
+	public void pausing(){
+		  pauser = true;
+		  PAUSE.setOnAction(valuevalue ->  {
+		   resuming();
+		        });
+		  PAUSE.setText("Resume");
+		  STEP.setDisable(false);
+		  FASTER.setDisable(true);
+		  SLOWER.setDisable(true);
+		 }
+		 
+		 public void resuming(){
+		  pauser = false;
+		  PAUSE.setOnAction(valuevalue ->  {
+		   pausing();
+		        });
+		  PAUSE.setText("Pause");
+		  STEP.setDisable(true);
+		  FASTER.setDisable(false);
+		  SLOWER.setDisable(false);
+		 }
 	
-	
-	public Scene creator(int L, int W, Paint background){
-		
+	public Scene sceneCreator(int L, int W, Paint background){
+		pauser = false;
 		root = new Group();
 		
 		thegrid = new Rectangle[height][width];
@@ -280,7 +348,7 @@ public class Simulation extends Application{
 		for (int i=0;i<height;i++){
 			for (int j=0;j<width;j++){
 				Rectangle R = new Rectangle(i,j,celllength-1,celllength-1);
-				R.setX(i * celllength + 50);
+				R.setX(i * celllength + 100);
 				R.setY(j * celllength + 50);
 				thegrid[i][j] = R;
 				double p = Math.random();
@@ -322,6 +390,53 @@ public class Simulation extends Application{
 			}
 		}
 		
+		PAUSE.setStyle("-fx-text-fill: #0000ff; -fx-border-color: #0000ff; -fx-border-width: 1px;");
+		PAUSE.setMinWidth(80);
+		FINISH.setStyle("-fx-text-fill: #0000ff; -fx-border-color: #0000ff; -fx-border-width: 1px;");
+		FINISH.setMinWidth(80);
+		EXIT.setStyle("-fx-text-fill: #8B0000; -fx-border-color: #8B0000; -fx-border-width: 5px;");
+		EXIT.setMinWidth(80);
+		SWITCH.setStyle("-fx-text-fill: #0000ff; -fx-border-color: #0000ff; -fx-border-width: 1px;");
+		SWITCH.setMinWidth(80);
+		STEP.setStyle("-fx-text-fill: #228B22; -fx-border-color: #228B22; -fx-border-width: 2px;");
+		STEP.setMinWidth(80);
+		
+		tilePane = new TilePane();
+		tilePane.getChildren().add(PAUSE);
+		tilePane.getChildren().add(FINISH);
+		tilePane.getChildren().add(STEP);
+		tilePane.getChildren().add(SWITCH);
+		tilePane.getChildren().add(EXIT);
+		        
+		STEP.setDisable(true);
+		        
+		tilePane.setHgap(70);
+		tilePane.setVgap(10);
+		tilePane.setLayoutX(50);
+		tilePane.setLayoutY(600);
+		        
+		root.getChildren().add(tilePane);
+		        
+		FASTER.setStyle("-fx-text-fill: #ff4500; -fx-border-color: #ff4500; -fx-border-width: 1px;");
+		SLOWER.setStyle("-fx-text-fill: #ff4500; -fx-border-color: #ff4500; -fx-border-width: 1px;");
+		FASTER.setMinSize(100, 50);
+		SLOWER.setMinSize(100, 50);
+		
+		speeder = new TilePane();
+		speeder.getChildren().add(FASTER);
+		speeder.getChildren().add(SLOWER);
+		speeder.setHgap(80);
+		        
+		speeder.setLayoutX(100);
+		speeder.setLayoutY(700);
+		        
+		root.getChildren().add(speeder);
+		        
+		timedisplay = new Label("Frame passed: " + Integer.toString(timer));
+		timedisplay.setLayoutX(width * celllength - 20);
+		timedisplay.setLayoutY(20);
+		timedisplay.setStyle("-fx-text-fill: #ffffff");
+		root.getChildren().add(timedisplay);
 		Scene newscene = new Scene(root, L, W, background);
 		
 		newscene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
@@ -329,80 +444,85 @@ public class Simulation extends Application{
 		
 	}
 	
-	public void cellgenerator(int x, int y){
+	/*public void cellgenerator(int x, int y){
 		
 		Rectangle R = new Rectangle(x,y,celllength,celllength);
 		R.setFill(Color.PLUM);
 		root.getChildren().add(R);
 		
+	}*/
+	
+	
+	public void mover(Grid myGrid, Calculator myCalc){
+		myGrid.iterate();
+		
+		switch (SimType){
+			case "Game of Life":{
+				System.out.println(SimType);
+				for (int i=0;i<height;i++){
+					for (int j=0;j<width;j++){
+						if (myGrid.getCell(i, j).showCurrentState()==0){
+							thegrid[i][j].setFill(Color.BLACK);
+						} 
+						else {
+							thegrid[i][j].setFill(Color.WHITE);
+						}
+					}
+				}
+				break;
+			}
+			case "Segregation":{
+				for (int i=0;i<height; i++){
+					for (int j=0;j<width;j++){
+						if (myGrid.getCell(i, j).showCurrentState()==0){
+							thegrid[i][j].setFill(Color.RED);
+						} else if (myGrid.getCell(i, j).showCurrentState()==1){
+							thegrid[i][j].setFill(Color.BLUE);
+						} else {
+							thegrid[i][j].setFill(Color.WHITE);
+						}
+					}
+				}
+				break;
+			}
+			case "Wator":{
+				for (int i=0;i<height; i++){
+					for (int j=0;j<width;j++){
+						if (myGrid.getCell(i, j).showCurrentState()==0){
+							thegrid[i][j].setFill(Color.GREEN);
+						} else if (myGrid.getCell(i, j).showCurrentState()==1){
+							thegrid[i][j].setFill(Color.BLUE);
+						} else {
+							thegrid[i][j].setFill(Color.WHITE);
+						}
+					}
+				}
+				break;
+			}
+			case "Fire":{
+				for (int i=0;i<height; i++){
+					for (int j=0;j<width;j++){
+						if (myGrid.getCell(i, j).showCurrentState()==0){
+							thegrid[i][j].setFill(Color.GREEN);
+						} else if (myGrid.getCell(i, j).showCurrentState()==1){
+							thegrid[i][j].setFill(Color.RED);
+						} else {
+							thegrid[i][j].setFill(Color.YELLOW);
+						}
+					}
+				}
+				break;
+			}
+		}
+		timer++;
+		timedisplay.setText("Frame passed: " + Integer.toString(timer));
+
 	}
 	
-	
-	
 	public void Step(Grid myGrid, Calculator myCalc){
-		
-			myGrid.iterate();
-			
-			switch (SimType){
-				case "Game of Life":{
-					System.out.println(SimType);
-					for (int i=0;i<height;i++){
-						for (int j=0;j<width;j++){
-							if (myGrid.getCell(i, j).showCurrentState()==0){
-								thegrid[i][j].setFill(Color.BLACK);
-							} 
-							else {
-								thegrid[i][j].setFill(Color.WHITE);
-							}
-						}
-					}
-					break;
-				}
-				case "Segregation":{
-					for (int i=0;i<height; i++){
-						for (int j=0;j<width;j++){
-							if (myGrid.getCell(i, j).showCurrentState()==0){
-								thegrid[i][j].setFill(Color.RED);
-							} else if (myGrid.getCell(i, j).showCurrentState()==1){
-								thegrid[i][j].setFill(Color.BLUE);
-							} else {
-								thegrid[i][j].setFill(Color.WHITE);
-							}
-						}
-					}
-					break;
-				}
-				case "Wator":{
-					for (int i=0;i<height; i++){
-						for (int j=0;j<width;j++){
-							if (myGrid.getCell(i, j).showCurrentState()==0){
-								thegrid[i][j].setFill(Color.GREEN);
-							} else if (myGrid.getCell(i, j).showCurrentState()==1){
-								thegrid[i][j].setFill(Color.BLUE);
-							} else {
-								thegrid[i][j].setFill(Color.WHITE);
-							}
-						}
-					}
-					break;
-				}
-				case "Fire":{
-					for (int i=0;i<height; i++){
-						for (int j=0;j<width;j++){
-							if (myGrid.getCell(i, j).showCurrentState()==0){
-								thegrid[i][j].setFill(Color.GREEN);
-							} else if (myGrid.getCell(i, j).showCurrentState()==1){
-								thegrid[i][j].setFill(Color.RED);
-							} else {
-								thegrid[i][j].setFill(Color.YELLOW);
-							}
-						}
-					}
-					break;
-				}
-			}
-			
-		
+		if (pauser==false){
+		mover(myGrid,myCalc);
+		}
 	}
 	
 	public static void handleKeyInput(KeyCode keyCode){
