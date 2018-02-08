@@ -1,0 +1,19 @@
+<?xml version = "1.0"?>
+
+<simulation>
+	<basicinfo>
+		<simulationName>Fire</simulationName>
+		<simulationTitle>Our Amazing Game</simulationTitle>
+		<simulationAuthor>Eric Fu, Frank Yin, Jing Yang</simulationAuthor>
+	</basicinfo>
+	<globalsettings>
+		<propertystring>Tree,Burning,Empty</propertystring>
+		<probcatch>0.4</probcatch>
+	</globalsettings>
+	<gridconfig>
+		<gridheight>20</gridheight>
+		<gridwidth>20</gridwidth>
+		<treepercentage>0.8</treepercentage>
+		<burningpercentage>0.2</burningpercentage>
+	</gridconfig>
+</simulation>
