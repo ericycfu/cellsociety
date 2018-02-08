@@ -8,21 +8,26 @@ public abstract class Grid {
 	protected int myRowNum;
 	protected int myColNum;
 	protected Calculator myCalculator;
+
 	protected ArrayList<Cell> myCellsUnoccupiedNextIteration;
 	protected boolean end = false;
-	
-	public Grid(int rownum, int colnum, Calculator calculator){
+	protected Cell myCellType;
+
+	public Grid(int rownum, int colnum, Calculator calculator, Cell CellType){
+
 		myRowNum = rownum;
 		myColNum = colnum;
 		myCells = new Cell[rownum][colnum];
 		myCalculator = calculator;
 		myCellsUnoccupiedNextIteration = new ArrayList<Cell>();
+		myCellType = CellType;
 	}
 	
 	protected int getRandomNumberInRange(int min, int max) {
     	if (min > max) {
     		throw new IllegalArgumentException("max must be greater than min");
     	}
+    	if (min==max) return min;
     	Random r = new Random();
     	return r.nextInt((max - min) + 1) + min;
     }
@@ -55,39 +60,27 @@ public abstract class Grid {
 		myCells[row][col] = cell;
 	}
 	
-	public abstract ArrayList<Cell> findAdjacentCells(int row, int col);
+	protected abstract ArrayList<Cell> findAdjacentCells(int row, int col);
 	
-	public abstract ArrayList<Cell> findAdjacentCellsWithCurrentProperty(int row, int col, String property);
+	protected abstract ArrayList<Cell> findAdjacentCellsWithCurrentProperty(int row, int col, String property);
 	
-	public abstract ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, String property);
+	protected abstract ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, String property);
+	
 	
 	public void iterate(){
-		//while (!end){
 		updateUnoccupiedCellArray();
-		//int blue = 0;
-		//int red = 0;
 		for (int i = 0; i < myRowNum; i++){
 			for (int j = 0; j < myColNum; j++){
-				//System.out.println(myCells[i][j].showCurrentProperty());
-				System.out.print(myCalculator.calculation(findAdjacentCells(i,j), getCell(i,j))+ " ");
 				updateCell(myCalculator.calculation(findAdjacentCells(i,j), getCell(i,j)),i,j);
 			}
-			System.out.println(" ");
 		}
-		//System.out.print(blue);
-		//System.out.print(" ");
-		
-		//System.out.println(red);
-		//end = checkTerminate();
-		update();
-		//}
 	}
+		//}
 	
 	private void updateUnoccupiedCellArray() {
 		// TODO Auto-generated method stub
 		
 	}
-
 	protected void update(){
 		for (int i = 0; i < myRowNum; i++)
 			for (int j = 0; j < myColNum; j++){

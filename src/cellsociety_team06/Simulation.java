@@ -342,7 +342,6 @@ public class Simulation extends Application{
 	public Scene sceneCreator(int L, int W, Paint background){
 		pauser = false;
 		root = new Group();
-		
 		thegrid = new Rectangle[height][width];
 		
 		for (int i=0;i<height;i++){
@@ -421,7 +420,84 @@ public class Simulation extends Application{
 		SLOWER.setStyle("-fx-text-fill: #ff4500; -fx-border-color: #ff4500; -fx-border-width: 1px;");
 		FASTER.setMinSize(100, 50);
 		SLOWER.setMinSize(100, 50);
+		thegrid = new Rectangle[height][width];
 		
+		for (int i=0;i<height;i++){
+			for (int j=0;j<width;j++){
+				Rectangle R = new Rectangle(i,j,celllength-1,celllength-1);
+				R.setX(i * celllength + 100);
+				R.setY(j * celllength + 50);
+				thegrid[i][j] = R;
+				double p = Math.random();
+				switch (SimType){
+					case "Game of Life":{
+						if (p < Probabilities.get(0))
+							R.setFill(Color.BLACK);
+						else R.setFill(Color.WHITE);
+						break;
+					}
+					case "Segregation":{
+						if (p < Probabilities.get(0))
+							R.setFill(Color.RED);
+						else if (p < Probabilities.get(1)) 
+							R.setFill(Color.BLUE);
+						else R.setFill(Color.WHITE);
+						break;
+					}
+					case "Wator":{
+						if (p < Probabilities.get(0))
+							R.setFill(Color.GREEN);
+						else if (p < Probabilities.get(1)) 
+							R.setFill(Color.BLUE);
+						else R.setFill(Color.WHITE);
+						break;
+					}
+					case "Fire":{
+						if (p < Probabilities.get(1))
+							R.setFill(Color.RED);
+						else if ( Probabilities.get(1)<= p && p < Probabilities.get(0)) 
+							R.setFill(Color.GREEN);
+						else R.setFill(Color.YELLOW);
+						break;
+					}
+				}
+				
+				
+				root.getChildren().add(R);
+			}
+		}
+		
+		PAUSE.setStyle("-fx-text-fill: #0000ff; -fx-border-color: #0000ff; -fx-border-width: 1px;");
+		PAUSE.setMinWidth(80);
+		FINISH.setStyle("-fx-text-fill: #0000ff; -fx-border-color: #0000ff; -fx-border-width: 1px;");
+		FINISH.setMinWidth(80);
+		EXIT.setStyle("-fx-text-fill: #8B0000; -fx-border-color: #8B0000; -fx-border-width: 5px;");
+		EXIT.setMinWidth(80);
+		SWITCH.setStyle("-fx-text-fill: #0000ff; -fx-border-color: #0000ff; -fx-border-width: 1px;");
+		SWITCH.setMinWidth(80);
+		STEP.setStyle("-fx-text-fill: #228B22; -fx-border-color: #228B22; -fx-border-width: 2px;");
+		STEP.setMinWidth(80);
+		
+		tilePane = new TilePane();
+		tilePane.getChildren().add(PAUSE);
+		tilePane.getChildren().add(FINISH);
+		tilePane.getChildren().add(STEP);
+		tilePane.getChildren().add(SWITCH);
+		tilePane.getChildren().add(EXIT);
+		        
+		STEP.setDisable(true);
+		        
+		tilePane.setHgap(70);
+		tilePane.setVgap(10);
+		tilePane.setLayoutX(50);
+		tilePane.setLayoutY(600);
+		        
+		root.getChildren().add(tilePane);
+		        
+		FASTER.setStyle("-fx-text-fill: #ff4500; -fx-border-color: #ff4500; -fx-border-width: 1px;");
+		SLOWER.setStyle("-fx-text-fill: #ff4500; -fx-border-color: #ff4500; -fx-border-width: 1px;");
+		FASTER.setMinSize(100, 50);
+		SLOWER.setMinSize(100, 50);
 		speeder = new TilePane();
 		speeder.getChildren().add(FASTER);
 		speeder.getChildren().add(SLOWER);
@@ -445,6 +521,7 @@ public class Simulation extends Application{
 	}
 	
 	/*public void cellgenerator(int x, int y){
+<<<<<<< HEAD
 		
 		Rectangle R = new Rectangle(x,y,celllength,celllength);
 		R.setFill(Color.PLUM);
@@ -455,7 +532,10 @@ public class Simulation extends Application{
 	
 	public void mover(Grid myGrid, Calculator myCalc){
 		myGrid.iterate();
-		
+		Rectangle R = new Rectangle(x,y,celllength,celllength);
+		R.setFill(Color.PLUM);
+		root.getChildren().add(R);
+
 		switch (SimType){
 			case "Game of Life":{
 				System.out.println(SimType);
@@ -518,6 +598,7 @@ public class Simulation extends Application{
 		timedisplay.setText("Frame passed: " + Integer.toString(timer));
 
 	}
+	
 	public void Step(Grid myGrid, Calculator myCalc){
 		if (pauser==false){
 		mover(myGrid,myCalc);
