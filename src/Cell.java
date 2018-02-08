@@ -47,7 +47,7 @@ public abstract class Cell{
 	public Cell(String cellType, double centerXLocation, double centerYLocation, double sideLength, String[] properties, Color[] colors, int initialState, double initialEnergyinput, boolean vision){
 		myProperties = properties;
 		currentState = initialState;
-		futureState = currentState;
+		futureState = currentState; // initialize futureState to be the same with currentState
 		myChronon = 0;
 		myEnergy = initialEnergy;
 		initialEnergy = initialEnergyinput;

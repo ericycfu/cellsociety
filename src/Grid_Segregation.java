@@ -4,8 +4,7 @@ import java.util.ArrayList;
 
 public class Grid_Segregation extends Grid{
 	
-	protected ArrayList<Cell> myCellsUnoccupiedNextIteration;
-	
+	private ArrayList<Cell> myCellsUnoccupiedNextIteration;
 	
 	public Grid_Segregation(int rownum, int column, Calculator myCalculator, Cell cellType) {
 		super(rownum, column, myCalculator, cellType);
@@ -90,6 +89,9 @@ public class Grid_Segregation extends Grid{
 		return null;
 	}
 	
+<<<<<<< HEAD:src/cellsociety_team06/Grid_Segregation.java
 	
+=======
+>>>>>>> 14adc2eaa9c8234d259707f5cac09b011385651b:src/Grid_Segregation.java
 }
 

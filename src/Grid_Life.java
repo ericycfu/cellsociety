@@ -13,8 +13,7 @@ public class Grid_Life extends Grid{
 		if (prob==1)
 			myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Live"));
 		else if (prob==0){
-			System.out.println(myCalculator.getState("Dead")+"!!!");
-
+			//System.out.println(myCalculator.getState("Dead")+"!!!");
 			myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Dead"));
 		}
 	}
@@ -50,7 +49,7 @@ public class Grid_Life extends Grid{
 	}
 
 	@Override
-	public ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, String property) {
+	protected ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, String property) {
 		// TODO Auto-generated method stub
 		return null;
 	}
