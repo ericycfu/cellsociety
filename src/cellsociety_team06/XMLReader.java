@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
 import javax.xml.parsers.DocumentBuilder; 
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -36,6 +37,7 @@ public class XMLReader {
 		//System.out.println(mySimu+"!!!");
 		switch (mySimu) {
 			case "Game of Life": {
+				//System.out.println(mySimu+"!!!");
 				basicInfo.add(getNodeData("simulationName"));
 				basicInfo.add(getNodeData("simulationTitle"));
 				basicInfo.add(getNodeData("simulationAuthor"));
@@ -47,6 +49,7 @@ public class XMLReader {
 				break;
 			} 
 			case "Segregation": {
+				//System.out.println(mySimu+"!!!");
 				basicInfo.add(getNodeData("simulationName"));
 				basicInfo.add(getNodeData("simulationTitle"));
 				basicInfo.add(getNodeData("simulationAuthor"));
@@ -60,6 +63,7 @@ public class XMLReader {
 				break;
 			} 
 			case "Wator": {
+				//System.out.println(mySimu+"!!!");
 				basicInfo.add(getNodeData("simulationName"));
 				basicInfo.add(getNodeData("simulationTitle"));
 				basicInfo.add(getNodeData("simulationAuthor"));

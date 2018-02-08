@@ -55,7 +55,7 @@ public class Grid_Segregation extends Grid{
 		}
 		return adjacentCells;
 	}
-
+	
 	protected void updateUnoccupiedCellArray() {
 		myCellsUnoccupiedNextIteration = new ArrayList<Cell>();
 		//System.out.println(1);
@@ -89,9 +89,5 @@ public class Grid_Segregation extends Grid{
 		return null;
 	}
 	
-<<<<<<< HEAD:src/cellsociety_team06/Grid_Segregation.java
-	
-=======
->>>>>>> 14adc2eaa9c8234d259707f5cac09b011385651b:src/Grid_Segregation.java
 }
 

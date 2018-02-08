@@ -27,7 +27,7 @@ public class Calculator_Segregation extends Calculator{
 		}
 		
 		alike = alike/neighbor;
-
+		//System.out.println(alike);
 		if (alike>=myParameter)
 			return 0;
 		else

@@ -8,13 +8,10 @@ public abstract class Grid {
 	protected int myRowNum;
 	protected int myColNum;
 	protected Calculator myCalculator;
-
-	protected ArrayList<Cell> myCellsUnoccupiedNextIteration;
 	protected boolean end = false;
 	protected Cell myCellType;
-
+	
 	public Grid(int rownum, int colnum, Calculator calculator, Cell CellType){
-
 		myRowNum = rownum;
 		myColNum = colnum;
 		myCells = new Cell[rownum][colnum];
@@ -60,39 +57,20 @@ public abstract class Grid {
 	}
 	
 	protected abstract ArrayList<Cell> findAdjacentCells(int row, int col);
-<<<<<<< HEAD:src/cellsociety_team06/Grid.java
-	
-	protected abstract ArrayList<Cell> findAdjacentCellsWithCurrentProperty(int row, int col, String property);
-	
-	protected abstract ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, String property);
-	
-	
-	public void iterate(){
-		updateUnoccupiedCellArray();
-=======
 	
 	protected abstract ArrayList<Cell> findAdjacentCellsWithCurrentProperty(int row, int col, String property);
 	
 	protected abstract ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, String property);
 	
 	public void iterate(){
->>>>>>> 14adc2eaa9c8234d259707f5cac09b011385651b:src/Grid.java
 		for (int i = 0; i < myRowNum; i++){
 			for (int j = 0; j < myColNum; j++){
 				updateCell(myCalculator.calculation(findAdjacentCells(i,j), getCell(i,j)),i,j);
 			}
 		}
-<<<<<<< HEAD:src/cellsociety_team06/Grid.java
-	}
-		//}
-	
-	private void updateUnoccupiedCellArray() {
-		// TODO Auto-generated method stub
-		
-=======
 		update();
->>>>>>> 14adc2eaa9c8234d259707f5cac09b011385651b:src/Grid.java
 	}
+
 	protected void update(){
 		for (int i = 0; i < myRowNum; i++)
 			for (int j = 0; j < myColNum; j++){
