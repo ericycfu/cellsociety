@@ -1,0 +1,19 @@
+<?xml version = "1.0"?>
+
+<simulation>
+	<basicinfo>
+		<simulationName>Segregation</simulationName>
+		<simulationTitle>Our Amazing Game</simulationTitle>
+		<simulationAuthor>Eric Fu, Frank Yin, Jing Yang</simulationAuthor>
+	</basicinfo>
+	<globalsettings>
+		<propertystring>X,O,Unoccupied</propertystring>
+		<satisfylevel>0.6</satisfylevel>
+	</globalsettings>
+	<gridconfig>
+		<gridheight>4</gridheight>
+		<gridwidth>4</gridwidth>
+		<xpercentage>0.3</xpercentage>
+		<opercentage>0.4</opercentage>
+	</gridconfig>
+</simulation>

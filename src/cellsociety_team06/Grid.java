@@ -9,16 +9,18 @@ public abstract class Grid {
 	protected int myColNum;
 	protected Calculator myCalculator;
 	protected ArrayList<Cell> myCellsUnoccupiedNextIteration;
+	protected boolean end = false;
 	
-	public Grid(int rownum, int colnum, Calculator myCalculator){
+	public Grid(int rownum, int colnum, Calculator calculator){
 		myRowNum = rownum;
 		myColNum = colnum;
 		myCells = new Cell[rownum][colnum];
+		myCalculator = calculator;
 		myCellsUnoccupiedNextIteration = new ArrayList<Cell>();
 	}
 	
 	protected int getRandomNumberInRange(int min, int max) {
-    	if (min >= max) {
+    	if (min > max) {
     		throw new IllegalArgumentException("max must be greater than min");
     	}
     	Random r = new Random();
@@ -60,19 +62,38 @@ public abstract class Grid {
 	public abstract ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, String property);
 	
 	public void iterate(){
-		for (int i = 0; i < myRowNum; i++)
+		//while (!end){
+		updateUnoccupiedCellArray();
+		//int blue = 0;
+		//int red = 0;
+		for (int i = 0; i < myRowNum; i++){
 			for (int j = 0; j < myColNum; j++){
+				//System.out.println(myCells[i][j].showCurrentProperty());
+				System.out.print(myCalculator.calculation(findAdjacentCells(i,j), getCell(i,j))+ " ");
 				updateCell(myCalculator.calculation(findAdjacentCells(i,j), getCell(i,j)),i,j);
 			}
+			System.out.println(" ");
+		}
+		//System.out.print(blue);
+		//System.out.print(" ");
+		
+		//System.out.println(red);
+		//end = checkTerminate();
 		update();
+		//}
 	}
 	
+	private void updateUnoccupiedCellArray() {
+		// TODO Auto-generated method stub
+		
+	}
+
 	protected void update(){
 		for (int i = 0; i < myRowNum; i++)
 			for (int j = 0; j < myColNum; j++){
 				myCells[i][j].update();
 			}
-		updateUnoccupiedCellArray();
+		
 	}
 	
 	public boolean checkTerminate(){
@@ -86,8 +107,4 @@ public abstract class Grid {
 			return true;
 		else return false;
 	}
-	
-	protected abstract void updateUnoccupiedCellArray();
-	
 }
-

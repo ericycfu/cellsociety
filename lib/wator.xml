@@ -1,0 +1,21 @@
+<?xml version = "1.0"?>
+
+<simulation>
+	<basicinfo>
+		<simulationName>Wator</simulationName>
+		<simulationTitle>Our Amazing Game</simulationTitle>
+		<simulationAuthor>Eric Fu, Frank Yin, Jing Yang</simulationAuthor>
+	</basicinfo>
+	<globalsettings>
+		<propertystring>Fish,Shark,Unoccupied</propertystring>
+		<initialenergy>5</initialenergy>
+		<energygain>10</energygain>
+		<reproducetime>10</reproducetime>
+	</globalsettings>
+	<gridconfig>
+		<gridheight>20</gridheight>
+		<gridwidth>20</gridwidth>
+		<sharkpercentage>0.2</sharkpercentage>
+		<fishpercentage>0.3</fishpercentage>
+	</gridconfig>
+</simulation>

@@ -54,14 +54,7 @@ public class Grid_Fire extends Grid{
 		if (checkBoundary(row,col+1) && myCells[row][col+1].showFutureProperty().equals(property)) adjacentCells.add(getCell(row,col+1));
 		if (checkBoundary(row+1,col) && myCells[row+1][col].showFutureProperty().equals(property)) adjacentCells.add(getCell(row+1,col));
 		return adjacentCells;
-	}
-
-	@Override
-	protected void updateUnoccupiedCellArray() {
-		// TODO Auto-generated method stub
-		
-	}
-	
-	
+	}	
 	
 }
+

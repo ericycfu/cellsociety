@@ -1,0 +1,17 @@
+<?xml version = "1.0"?>
+
+<simulation>
+	<basicinfo>
+		<simulationName>Game of Life</simulationName>
+		<simulationTitle>Our Amazing Game</simulationTitle>
+		<simulationAuthor>Eric Fu, Frank Yin, Jing Yang</simulationAuthor>
+	</basicinfo>
+	<globalsettings>
+		<propertystring>Live,Dead</propertystring>
+	</globalsettings>
+	<gridconfig>
+		<gridheight>20</gridheight>
+		<gridwidth>20</gridwidth>
+		<livecellpercent>0.5</livecellpercent>
+	</gridconfig>
+</simulation>
