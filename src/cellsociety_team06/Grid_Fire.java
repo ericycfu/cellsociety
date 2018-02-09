@@ -26,8 +26,15 @@ public class Grid_Fire extends Grid{
 
 	@Override
 	protected ArrayList<Cell> findAdjacentCells(int row, int col) {
-		// TODO Auto-generated method stub
-		return new ArrayList<Cell>();
+		ArrayList<Cell> adjacentCells = new ArrayList<Cell>();
+		Cell currentCell = myCells[row][col];
+		for (int i = 0; i < myRowNum; i++){
+			for (int j = 0; j < myColNum; j++){
+				if (currentCell.checkSideAdjacency(myCells[i][j]))
+					adjacentCells.add(myCells[i][j]);
+			}
+		}
+		return adjacentCells;
 	}
 
 	@Override
