@@ -165,9 +165,6 @@ private void sharkBehavior(int centerCellRow, int centerCellCol){
   return adjacentCells;
  }*/
  
- protected void updateUnoccupiedCellArray() {
-  
- }
  
 }
 

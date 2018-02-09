@@ -1,6 +1,6 @@
 package cellsociety_team06;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Calculator_Segregation extends Calculator{
 	
@@ -14,7 +14,7 @@ public class Calculator_Segregation extends Calculator{
 		// TODO Auto-generated constructor stub
 	}
 
-	public double calculation(ArrayList<Cell> relatedCells, Cell centerCell){
+	public double calculation(List<Cell> relatedCells, Cell centerCell){
 		if (centerCell.showCurrentProperty().equals("Unoccupied")) return 0;
 		double alike = 0;
 		double neighbor = 0;
@@ -27,7 +27,7 @@ public class Calculator_Segregation extends Calculator{
 		}
 		
 		alike = alike/neighbor;
-		System.out.println(alike);
+		//System.out.println(alike);
 		if (alike>=myParameter)
 			return 0;
 		else
