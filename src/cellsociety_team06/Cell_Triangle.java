@@ -4,7 +4,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
 public class Cell_Triangle extends Cell{
-	private double[] myThreePoints;
 	private boolean upwardTriangle;
 	
 	public Cell_Triangle(String cellType, double centerXLocation, double centerYLocation, double sideLength, String[] properties, Color[] colors, int initialState, boolean upward){
@@ -14,6 +13,7 @@ public class Cell_Triangle extends Cell{
 	}
 	
 	protected void makePolygon(){
+		double[] myThreePoints;
 		if (upwardTriangle){
 			myThreePoints = new double[]
 					{	

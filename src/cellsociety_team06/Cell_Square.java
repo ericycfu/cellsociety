@@ -4,7 +4,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
 public class Cell_Square extends Cell{
-	private double[] myFourPoints;
 	
 	public Cell_Square(String cellType, double centerXLocation, double centerYLocation, double sideLength, String[] properties, Color[] colors, int initialState){
 		super(cellType, centerXLocation, centerYLocation, sideLength, properties, colors, initialState);
@@ -12,7 +11,7 @@ public class Cell_Square extends Cell{
 	}
 	
 	protected void makePolygon(){
-		myFourPoints = new double[]
+		double[] myFourPoints = new double[]
 				{	
 					myCenterXLocation - mySideLength/2, myCenterYLocation - mySideLength/2, // top left corner 
 					myCenterXLocation + mySideLength/2, myCenterYLocation - mySideLength/2, // top right corner

@@ -29,9 +29,7 @@ public abstract class Grid {
     }
 	
 	protected boolean checkBoundary(int row, int col){
-		if (row<0 || row>=myRowNum || col<0 || col>=myColNum)
-			return false;
-		return true;
+		return (row<0 || row>=myRowNum || col<0 || col>=myColNum);
 	}
 	
 	protected Cell getCell(int row, int col){
@@ -40,11 +38,12 @@ public abstract class Grid {
 	
 	protected ArrayList<Cell> getCellswithProperty(String property){
 		ArrayList<Cell> myCellsUnoccupied = new ArrayList<Cell>();
-		for (int i = 0; i < myRowNum; i++)
+		for (int i = 0; i < myRowNum; i++){
 			for (int j = 0; j < myColNum; j++){
 				if (myCells[i][j].showCurrentProperty().equals(property))
 					myCellsUnoccupied.add(myCells[i][j]);
 			}
+		}
 		return myCellsUnoccupied;
 	}
 	
@@ -86,8 +85,6 @@ public abstract class Grid {
 				if (myCells[i][j].showCurrentState()==myCells[i][j].showFutureState())
 					unchangedCellNum++;
 			}
-		if (unchangedCellNum == myRowNum*myColNum)
-			return true;
-		else return false;
+		return (unchangedCellNum == myRowNum*myColNum);
 	}
 }

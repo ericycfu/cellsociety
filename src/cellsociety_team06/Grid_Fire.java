@@ -13,8 +13,7 @@ public class Grid_Fire extends Grid{
 			myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Empty"));
 		if (myCells[centerCellRow][centerCellCol].showCurrentProperty().equals("Tree") && myCells[centerCellRow][centerCellCol].showFutureProperty().equals("Tree")){
 			if (prob==1){ // one adjacent on fire
-				int random = getRandomNumberInRange(0,100);
-				if (random<=myCalculator.showParameter()*100){
+				if (Math.random()<=myCalculator.showParameter()*100){
 					myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Burning"));
 				}
 				else myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Tree"));
@@ -28,19 +27,19 @@ public class Grid_Fire extends Grid{
 	@Override
 	protected ArrayList<Cell> findAdjacentCells(int row, int col) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Cell>();
 	}
 
 	@Override
 	protected ArrayList<Cell> findAdjacentCellsWithCurrentProperty(int row, int col, String property) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Cell>();
 	}
 
 	@Override
 	protected ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, String property) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Cell>();
 	}
 	
 	

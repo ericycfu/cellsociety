@@ -45,13 +45,13 @@ public class Grid_Life extends Grid{
 	@Override
 	protected ArrayList<Cell> findAdjacentCellsWithCurrentProperty(int row, int col, String property) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Cell>();
 	}
 
 	@Override
 	protected ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, String property) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Cell>();
 	}
 
 	
