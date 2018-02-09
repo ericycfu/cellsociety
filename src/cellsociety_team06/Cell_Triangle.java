@@ -46,9 +46,30 @@ public class Cell_Triangle extends Cell{
 		myEnergy = myEnergy + value;
 	}
 	
+	public boolean checkTopAdjacency(Cell cell){
+		if (!upwardTriangle)
+			return (myCenterXLocation == (cell.showCenterXLoc() ) && myCenterYLocation == (cell.showCenterYLoc() + Math.sqrt(3)*mySideLength/2));
+		else return false;
+	}
+	
+	public boolean checkBotAdjacency(Cell cell){
+		if (upwardTriangle)
+			return (myCenterXLocation == (cell.showCenterXLoc() ) && myCenterYLocation == (cell.showCenterYLoc() - Math.sqrt(3)*mySideLength/2));
+		else return false;
+	}
+	
+	public boolean checkRightAdjacency(Cell cell){
+		return (myCenterXLocation == (cell.showCenterXLoc() - mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc()));
+	}
+	
+	public boolean checkLeftAdjacency(Cell cell){
+		return (myCenterXLocation == (cell.showCenterXLoc() + mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc()));
+	}
+	
 	@Override
 	public boolean checkSideAdjacency(Cell cell){
-		if (upwardTriangle)
+		return (checkLeftAdjacency(cell) || checkRightAdjacency(cell) || checkBotAdjacency(cell) || checkTopAdjacency(cell));
+		/*if (upwardTriangle)
 			return ((myCenterXLocation == (cell.showCenterXLoc() ) && myCenterYLocation == (cell.showCenterYLoc() - Math.sqrt(3)*mySideLength/2)) ||
 					(myCenterXLocation == (cell.showCenterXLoc() - mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc())) ||
 					(myCenterXLocation == (cell.showCenterXLoc() + mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc()))
@@ -57,33 +78,57 @@ public class Cell_Triangle extends Cell{
 			return ((myCenterXLocation == (cell.showCenterXLoc() ) && myCenterYLocation == (cell.showCenterYLoc() + Math.sqrt(3)*mySideLength/2)) ||
 					(myCenterXLocation == (cell.showCenterXLoc() - mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc())) ||
 					(myCenterXLocation == (cell.showCenterXLoc() + mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc()))
-					);
+					);*/
+	}
+	
+	private boolean upwardTriangleDiagonalCheck_Top(Cell cell){
+		return ((myCenterXLocation == (cell.showCenterXLoc() - mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() + Math.sqrt(3)*mySideLength/2)) ||
+				(myCenterXLocation == (cell.showCenterXLoc() + mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() + Math.sqrt(3)*mySideLength/2)) ||
+				(myCenterXLocation == cell.showCenterXLoc() && myCenterYLocation == (cell.showCenterYLoc() + Math.sqrt(3)*mySideLength/2)));
+	}
+	
+	private boolean upwardTriangleDiagonalCheck_Bot(Cell cell){
+		return ((myCenterXLocation == (cell.showCenterXLoc() - mySideLength) && myCenterYLocation == (cell.showCenterYLoc() - Math.sqrt(3)*mySideLength/2)) ||
+				(myCenterXLocation == (cell.showCenterXLoc() - mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() - Math.sqrt(3)*mySideLength/2)) ||
+				(myCenterXLocation == (cell.showCenterXLoc() + mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() - Math.sqrt(3)*mySideLength/2)) ||
+				(myCenterXLocation == (cell.showCenterXLoc() + mySideLength) && myCenterYLocation == (cell.showCenterYLoc() - Math.sqrt(3)*mySideLength/2)));
+	}
+	
+	private boolean upwardTriangleDiagonalCheck_Middle(Cell cell){
+		return ((myCenterXLocation == (cell.showCenterXLoc() - mySideLength) && myCenterYLocation == cell.showCenterYLoc()) ||
+				(myCenterXLocation == (cell.showCenterXLoc() + mySideLength) && myCenterYLocation == cell.showCenterYLoc()));
 	}
 	
 	@Override
 	public boolean checkDiagonalAdjacency(Cell cell){
 		if (upwardTriangle)
-			return ((myCenterXLocation == (cell.showCenterXLoc() - mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() + Math.sqrt(3)*mySideLength/2)) ||
-					(myCenterXLocation == (cell.showCenterXLoc() + mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() + Math.sqrt(3)*mySideLength/2)) ||
-					(myCenterXLocation == cell.showCenterXLoc() && myCenterYLocation == (cell.showCenterYLoc() + Math.sqrt(3)*mySideLength/2)) ||
-					(myCenterXLocation == (cell.showCenterXLoc() - mySideLength) && myCenterYLocation == cell.showCenterYLoc()) ||
-					(myCenterXLocation == (cell.showCenterXLoc() + mySideLength) && myCenterYLocation == cell.showCenterYLoc()) ||
-					(myCenterXLocation == (cell.showCenterXLoc() - mySideLength) && myCenterYLocation == (cell.showCenterYLoc() - Math.sqrt(3)*mySideLength/2)) ||
-					(myCenterXLocation == (cell.showCenterXLoc() - mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() - Math.sqrt(3)*mySideLength/2)) ||
-					(myCenterXLocation == (cell.showCenterXLoc() + mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() - Math.sqrt(3)*mySideLength/2)) ||
-					(myCenterXLocation == (cell.showCenterXLoc() + mySideLength) && myCenterYLocation == (cell.showCenterYLoc() - Math.sqrt(3)*mySideLength/2))
+			return (upwardTriangleDiagonalCheck_Top(cell) ||
+					upwardTriangleDiagonalCheck_Middle(cell) ||
+					upwardTriangleDiagonalCheck_Bot(cell)
 					);
 		else 
-			return ((myCenterXLocation == (cell.showCenterXLoc() - mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() - Math.sqrt(3)*mySideLength/2)) ||
-					(myCenterXLocation == (cell.showCenterXLoc() + mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() - Math.sqrt(3)*mySideLength/2)) ||
-					(myCenterXLocation == cell.showCenterXLoc() && myCenterYLocation == (cell.showCenterYLoc() - Math.sqrt(3)*mySideLength/2)) ||
-					(myCenterXLocation == (cell.showCenterXLoc() - mySideLength) && myCenterYLocation == cell.showCenterYLoc()) ||
-					(myCenterXLocation == (cell.showCenterXLoc() + mySideLength) && myCenterYLocation == cell.showCenterYLoc()) ||
-					(myCenterXLocation == (cell.showCenterXLoc() - mySideLength) && myCenterYLocation == (cell.showCenterYLoc() + Math.sqrt(3)*mySideLength/2)) ||
-					(myCenterXLocation == (cell.showCenterXLoc() - mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() + Math.sqrt(3)*mySideLength/2)) ||
-					(myCenterXLocation == (cell.showCenterXLoc() + mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() + Math.sqrt(3)*mySideLength/2)) ||
-					(myCenterXLocation == (cell.showCenterXLoc() + mySideLength) && myCenterYLocation == (cell.showCenterYLoc() + Math.sqrt(3)*mySideLength/2))
+			return (downwardTriangleDiagonalCheck_Bot(cell) ||
+					downwardTriangleDiagonalCheck_Middle(cell) ||
+					downwardTriangleDiagonalCheck_Top(cell)
 					);
+	}
+	
+	private boolean downwardTriangleDiagonalCheck_Bot(Cell cell){
+		return ((myCenterXLocation == (cell.showCenterXLoc() - mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() - Math.sqrt(3)*mySideLength/2)) ||
+				(myCenterXLocation == (cell.showCenterXLoc() + mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() - Math.sqrt(3)*mySideLength/2)) ||
+				(myCenterXLocation == cell.showCenterXLoc() && myCenterYLocation == (cell.showCenterYLoc() - Math.sqrt(3)*mySideLength/2)));
+	}
+	
+	private boolean downwardTriangleDiagonalCheck_Top(Cell cell){
+		return ((myCenterXLocation == (cell.showCenterXLoc() - mySideLength) && myCenterYLocation == (cell.showCenterYLoc() + Math.sqrt(3)*mySideLength/2)) ||
+				(myCenterXLocation == (cell.showCenterXLoc() - mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() + Math.sqrt(3)*mySideLength/2)) ||
+				(myCenterXLocation == (cell.showCenterXLoc() + mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() + Math.sqrt(3)*mySideLength/2)) ||
+				(myCenterXLocation == (cell.showCenterXLoc() + mySideLength) && myCenterYLocation == (cell.showCenterYLoc() + Math.sqrt(3)*mySideLength/2)));
+	}
+	
+	private boolean downwardTriangleDiagonalCheck_Middle(Cell cell){
+		return (myCenterXLocation == (cell.showCenterXLoc() - mySideLength) && myCenterYLocation == cell.showCenterYLoc()) ||
+				(myCenterXLocation == (cell.showCenterXLoc() + mySideLength) && myCenterYLocation == cell.showCenterYLoc());
 	}
 	
 	public double showEnergy(){

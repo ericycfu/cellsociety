@@ -4,7 +4,6 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
 public class Cell_Hexagon extends Cell{
-	private double[] mySixPoints;
 	
 	public Cell_Hexagon(String cellType, double centerXLocation, double centerYLocation, double sideLength, String[] properties, Color[] colors, int initialState){
 		super(cellType, centerXLocation, centerYLocation, sideLength, properties, colors, initialState);
@@ -12,7 +11,7 @@ public class Cell_Hexagon extends Cell{
 	}
 	
 	protected void makePolygon(){
-		mySixPoints = new double[]
+		double[] mySixPoints = new double[]
 				{	
 					myCenterXLocation, myCenterYLocation - mySideLength, // very top point
 					myCenterXLocation - Math.sqrt(3)*mySideLength/2, myCenterYLocation - mySideLength/2, // upper left point 
@@ -39,15 +38,33 @@ public class Cell_Hexagon extends Cell{
 	}
 	
 	@Override
-	public boolean checkSideAdjacency(Cell cell){
+	public boolean checkTopAdjacency(Cell cell){
 		return ((myCenterXLocation == (cell.showCenterXLoc() + Math.sqrt(3)*mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() + 1.5*mySideLength)) ||
-				(myCenterXLocation == (cell.showCenterXLoc() - Math.sqrt(3)*mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() + 1.5*mySideLength)) ||
-				(myCenterXLocation == (cell.showCenterXLoc() + Math.sqrt(3)*mySideLength) && myCenterYLocation == (cell.showCenterYLoc())) ||
-				(myCenterXLocation == (cell.showCenterXLoc() - Math.sqrt(3)*mySideLength) && myCenterYLocation == (cell.showCenterYLoc())) ||
-				(myCenterXLocation == (cell.showCenterXLoc() + 1.5*mySideLength) && myCenterYLocation == (cell.showCenterYLoc() - mySideLength*Math.sqrt(3)/2)) ||
-				(myCenterXLocation == (cell.showCenterXLoc() - 1.5*mySideLength) && myCenterYLocation == (cell.showCenterYLoc() - mySideLength*Math.sqrt(3)/2)) ||
-				(myCenterXLocation == (cell.showCenterXLoc() + Math.sqrt(3)*mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() - 1.5*mySideLength)) ||
-				(myCenterXLocation == (cell.showCenterXLoc() - Math.sqrt(3)*mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() - 1.5*mySideLength))
+				(myCenterXLocation == (cell.showCenterXLoc() - Math.sqrt(3)*mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() + 1.5*mySideLength)));
+	}
+	
+	@Override 
+	public boolean checkLeftAdjacency(Cell cell){
+		return ((myCenterXLocation == (cell.showCenterXLoc() + Math.sqrt(3)*mySideLength) && myCenterYLocation == (cell.showCenterYLoc())));
+	}
+	
+	@Override 
+	public boolean checkRightAdjacency(Cell cell){
+		return ((myCenterXLocation == (cell.showCenterXLoc() - Math.sqrt(3)*mySideLength) && myCenterYLocation == (cell.showCenterYLoc())));
+	}
+	
+	@Override 
+	public boolean checkBotAdjacency(Cell cell){
+		return ((myCenterXLocation == (cell.showCenterXLoc() + Math.sqrt(3)*mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() - 1.5*mySideLength)) ||
+				(myCenterXLocation == (cell.showCenterXLoc() - Math.sqrt(3)*mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() - 1.5*mySideLength)));
+	}
+	
+	@Override
+	public boolean checkSideAdjacency(Cell cell){
+		return (checkTopAdjacency(cell) ||
+				checkLeftAdjacency(cell) ||
+				checkRightAdjacency(cell) ||
+				checkBotAdjacency(cell)
 		       );
 	}
 	

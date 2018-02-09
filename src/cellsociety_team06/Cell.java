@@ -72,6 +72,14 @@ public abstract class Cell{
 		myEnergy = myEnergy + value;
 	}
 	
+	public abstract boolean checkTopAdjacency(Cell cell);
+	
+	public abstract boolean checkBotAdjacency(Cell cell);
+
+	public abstract boolean checkLeftAdjacency(Cell cell);
+	
+	public abstract boolean checkRightAdjacency(Cell cell);
+	
 	public abstract boolean checkSideAdjacency(Cell cell);
 	
 	public abstract boolean checkDiagonalAdjacency(Cell cell);
