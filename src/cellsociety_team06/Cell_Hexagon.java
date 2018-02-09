@@ -39,24 +39,24 @@ public class Cell_Hexagon extends Cell{
 	
 	@Override
 	public boolean checkTopAdjacency(Cell cell){
-		return ((myCenterXLocation == (cell.showCenterXLoc() + Math.sqrt(3)*mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() + 1.5*mySideLength)) ||
-				(myCenterXLocation == (cell.showCenterXLoc() - Math.sqrt(3)*mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() + 1.5*mySideLength)));
+		return ((locationMatch(myCenterXLocation, (cell.showCenterXLoc() + Math.sqrt(3)*mySideLength/2)) && locationMatch(myCenterYLocation, (cell.showCenterYLoc() + 1.5*mySideLength))) ||
+				(locationMatch(myCenterXLocation, (cell.showCenterXLoc() - Math.sqrt(3)*mySideLength/2)) && locationMatch(myCenterYLocation, (cell.showCenterYLoc() + 1.5*mySideLength))));
 	}
 	
 	@Override 
 	public boolean checkLeftAdjacency(Cell cell){
-		return ((myCenterXLocation == (cell.showCenterXLoc() + Math.sqrt(3)*mySideLength) && myCenterYLocation == (cell.showCenterYLoc())));
+		return ((locationMatch(myCenterXLocation, (cell.showCenterXLoc() + Math.sqrt(3)*mySideLength)) && locationMatch(myCenterYLocation, (cell.showCenterYLoc()))));
 	}
 	
 	@Override 
 	public boolean checkRightAdjacency(Cell cell){
-		return ((myCenterXLocation == (cell.showCenterXLoc() - Math.sqrt(3)*mySideLength) && myCenterYLocation == (cell.showCenterYLoc())));
+		return ((locationMatch(myCenterXLocation, (cell.showCenterXLoc() - Math.sqrt(3)*mySideLength)) && locationMatch(myCenterYLocation, (cell.showCenterYLoc()))));
 	}
 	
 	@Override 
 	public boolean checkBotAdjacency(Cell cell){
-		return ((myCenterXLocation == (cell.showCenterXLoc() + Math.sqrt(3)*mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() - 1.5*mySideLength)) ||
-				(myCenterXLocation == (cell.showCenterXLoc() - Math.sqrt(3)*mySideLength/2) && myCenterYLocation == (cell.showCenterYLoc() - 1.5*mySideLength)));
+		return ((locationMatch(myCenterXLocation, (cell.showCenterXLoc() + Math.sqrt(3)*mySideLength/2)) && locationMatch(myCenterYLocation, (cell.showCenterYLoc() - 1.5*mySideLength))) ||
+				(locationMatch(myCenterXLocation, (cell.showCenterXLoc() - Math.sqrt(3)*mySideLength/2)) && locationMatch(myCenterYLocation, (cell.showCenterYLoc() - 1.5*mySideLength))));
 	}
 	
 	@Override

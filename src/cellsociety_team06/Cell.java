@@ -18,6 +18,7 @@ public abstract class Cell{
 	protected double mySideLength;
 	protected Polygon myPolygon;
 	protected boolean myVision; // cell that has vision can also check diagonal cells
+	private static double delta = 0.001;
 	
 	public Cell(String cellType, double centerXLocation, double centerYLocation, double sideLength, String[] properties, Color[] colors, int initialState){
 		myProperties = properties;
@@ -56,6 +57,10 @@ public abstract class Cell{
 		myType = cellType;
 		mySideLength = sideLength;
 		myVision = vision;
+	}
+	
+	protected boolean locationMatch(double loc1, double loc2){
+		return (Math.abs(loc1-loc2) < delta);
 	}
 	
 	protected abstract void makePolygon();

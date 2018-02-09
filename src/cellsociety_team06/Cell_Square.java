@@ -37,22 +37,22 @@ public class Cell_Square extends Cell{
 	
 	@Override
 	public boolean checkTopAdjacency(Cell cell){
-		return ((myCenterXLocation == cell.showCenterXLoc() && myCenterYLocation == (cell.showCenterYLoc() + mySideLength)));
+		return ((locationMatch(myCenterXLocation, cell.showCenterXLoc()) && locationMatch(myCenterYLocation, (cell.showCenterYLoc() + mySideLength))));
 	}
 	
 	@Override 
 	public boolean checkLeftAdjacency(Cell cell){
-		return ((myCenterXLocation == (cell.showCenterXLoc() + mySideLength) && myCenterYLocation == (cell.showCenterYLoc())));
+		return ((locationMatch(myCenterXLocation, (cell.showCenterXLoc() + mySideLength)) && locationMatch(myCenterYLocation, (cell.showCenterYLoc()))));
 	}
 	
 	@Override
 	public boolean checkRightAdjacency(Cell cell){
-		return ((myCenterXLocation == (cell.showCenterXLoc() - mySideLength) && myCenterYLocation == (cell.showCenterYLoc())));
+		return ((locationMatch(myCenterXLocation, (cell.showCenterXLoc() - mySideLength)) && locationMatch(myCenterYLocation, (cell.showCenterYLoc()))));
 	}
 	
 	@Override
 	public boolean checkBotAdjacency(Cell cell){
-		return ((myCenterXLocation == cell.showCenterXLoc() && myCenterYLocation == (cell.showCenterYLoc() - mySideLength)));
+		return ((locationMatch(myCenterXLocation, cell.showCenterXLoc()) && locationMatch(myCenterYLocation, (cell.showCenterYLoc() - mySideLength))));
 	}
 	
 	@Override
@@ -65,13 +65,13 @@ public class Cell_Square extends Cell{
 	}
 	
 	private boolean checkSquareTopDiagonal(Cell cell){
-		return ((myCenterXLocation == (cell.showCenterXLoc() + mySideLength) && myCenterYLocation == (cell.showCenterYLoc() + mySideLength)) ||
-				(myCenterXLocation == (cell.showCenterXLoc() - mySideLength) && myCenterYLocation == (cell.showCenterYLoc() + mySideLength)));
+		return ((locationMatch(myCenterXLocation, (cell.showCenterXLoc() + mySideLength)) && locationMatch(myCenterYLocation, (cell.showCenterYLoc() + mySideLength))) ||
+				(locationMatch(myCenterXLocation, (cell.showCenterXLoc() - mySideLength)) && locationMatch(myCenterYLocation, (cell.showCenterYLoc() + mySideLength))));
 	}
 	
 	private boolean checkSquareBotDiagonal(Cell cell){
-		return ((myCenterXLocation == (cell.showCenterXLoc() + mySideLength) && myCenterYLocation == (cell.showCenterYLoc() - mySideLength))||
-				(myCenterXLocation == (cell.showCenterXLoc() - mySideLength) && myCenterYLocation == (cell.showCenterYLoc() - mySideLength)));
+		return ((locationMatch(myCenterXLocation, (cell.showCenterXLoc() + mySideLength)) && locationMatch(myCenterYLocation, (cell.showCenterYLoc() - mySideLength)))||
+				(locationMatch(myCenterXLocation, (cell.showCenterXLoc() - mySideLength)) && locationMatch(myCenterYLocation, (cell.showCenterYLoc() - mySideLength))));
 	}
 	@Override
 	public boolean checkDiagonalAdjacency(Cell cell){
