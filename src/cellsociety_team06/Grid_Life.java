@@ -13,21 +13,9 @@ public class Grid_Life extends Grid{
 		if (prob==1)
 			myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Live"));
 		else if (prob==0){
-			//System.out.println(myCalculator.getState("Dead")+"!!!");
 			myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Dead"));
 		}
 	}
-
-	/*@Override
-	public ArrayList<Cell> findAdjacentCells(int row, int col) {
-		// TODO Auto-generated method stub
-		ArrayList<Cell> adjacentCells = new ArrayList<Cell>();
-		if (checkBoundary(row-1,col)) adjacentCells.add(getCell(row-1,col));
-		if (checkBoundary(row,col-1)) adjacentCells.add(getCell(row,col-1));
-		if (checkBoundary(row,col+1)) adjacentCells.add(getCell(row,col+1));
-		if (checkBoundary(row+1,col)) adjacentCells.add(getCell(row+1,col));
-		return adjacentCells;
-	}*/
 	
 	@Override
 	protected ArrayList<Cell> findAdjacentCells(int row, int col){
