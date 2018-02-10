@@ -89,6 +89,14 @@ public abstract class Cell{
 	
 	public abstract boolean checkDiagonalAdjacency(Cell cell);
 	
+	public boolean showVision(){
+		return myVision;
+	}
+	
+	public void setVision(boolean vis){
+		myVision = vis;
+	}
+	
 	public double showEnergy(){
 		return myEnergy;
 	}
