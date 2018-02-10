@@ -1,6 +1,6 @@
 package cellsociety_team06;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public class Calculator_Fire extends Calculator{
 	
@@ -9,7 +9,7 @@ public class Calculator_Fire extends Calculator{
 	}
 	
 	@Override
-	public double calculation(ArrayList<Cell> relatedCells, Cell centerCell) {
+	public double calculation(List<Cell> relatedCells, Cell centerCell) {
 		for (Cell c: relatedCells)
 				if (c.showCurrentProperty().equals("Burning"))
 					return 1; 

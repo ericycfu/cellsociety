@@ -1,6 +1,6 @@
 package cellsociety_team06;
 
-import java.util.ArrayList;
+import java.util.List;
 
 public abstract class Calculator {
 	
@@ -11,13 +11,13 @@ public abstract class Calculator {
 		myProperties = properties;
 	}
 	
-	public double showParameter(){
-		return myParameter;
-	}
-	
 	public Calculator(String[] properties, double parameter) {
 		myProperties = properties;
 		myParameter = parameter;
+	}
+	
+	public double showParameter(){
+		return myParameter;
 	}
 	
 	protected int getState(String property){
@@ -27,6 +27,6 @@ public abstract class Calculator {
 		return -1; // state not found (error)
 	}
 	
-	public abstract double calculation(ArrayList<Cell> relatedCells, Cell centerCell);
+	public abstract double calculation(List<Cell> relatedCells, Cell centerCell);
 
 }
