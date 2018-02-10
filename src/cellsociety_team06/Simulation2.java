@@ -1,6 +1,28 @@
 package cellsociety_team06;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
+import javafx.application.Application;
+import javafx.scene.Group;
+import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.CheckBox;
+import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.TilePane;
+import javafx.scene.paint.Color;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Line;
+import javafx.scene.shape.Rectangle;
+import javafx.stage.FileChooser;
+import javafx.stage.Stage;
+import javafx.util.Duration;
+import java.util.*;
 
-public abstract class Simulation {
+import javax.xml.parsers.ParserConfigurationException;
 
 import org.xml.sax.SAXException;
 
@@ -15,7 +37,7 @@ import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 
-public class Simulation extends Application{
+public class Simulation2 extends Application{
 	
 	private int celllength = 10;
 	private int buttonwidth = 40;
@@ -42,7 +64,6 @@ public class Simulation extends Application{
 	private Grid lifeGrid;
 	private Calculator lifecalc;
 	
-	private FileChooser.ExtensionFilter extFilter;
 	private String SimType;
 	private String SimTitle;
 	private String SimAuthors;
@@ -60,8 +81,13 @@ public class Simulation extends Application{
 	private Button FASTER = new Button("Faster");
 	private Button SLOWER = new Button("Slower");
 	private TilePane speeder = new TilePane();
-	private Label timedisplay;
+	
 	private FileChooser fileChooser;
+	private FileChooser.ExtensionFilter extFilter;
+	
+	private Timeline animation;
+	private Label timedisplay;
+	
 	private String[] properties ;
 	private Cell thiscell;
 	private Scene scene;
@@ -82,22 +108,28 @@ public class Simulation extends Application{
 				States = new ArrayList<String>(Arrays.asList(myproperties));
 				//System.out.println(States.get(0));
 				//System.out.println(States.get(1));
+				Probabilities = new ArrayList<Float>();
 				Probabilities.add(Float.parseFloat(myReader.showgridConfig().get(2)));
+				CellParameters = new ArrayList<Float>();
 				break;
 			}
 			case "Segregation":{
 				String[] myproperties = myReader.showglobalSettings().get(0).split(",");
 				States = new ArrayList<String>(Arrays.asList(myproperties));
+				Probabilities = new ArrayList<Float>();
 				Probabilities.add(Float.parseFloat(myReader.showgridConfig().get(2)));
 				Probabilities.add(Float.parseFloat(myReader.showgridConfig().get(3)));
+				CellParameters = new ArrayList<Float>();
 				CellParameters.add(Float.parseFloat(myReader.showglobalSettings().get(1)));
 				break;
 			}
 			case "Wator":{
 				String[] myproperties = myReader.showglobalSettings().get(0).split(",");
 				States = new ArrayList<String>(Arrays.asList(myproperties));
+				Probabilities = new ArrayList<Float>();
 				Probabilities.add(Float.parseFloat(myReader.showgridConfig().get(2)));
 				Probabilities.add(Float.parseFloat(myReader.showgridConfig().get(3)));
+				CellParameters = new ArrayList<Float>();
 				CellParameters.add(Float.parseFloat(myReader.showglobalSettings().get(1)));
 				CellParameters.add(Float.parseFloat(myReader.showglobalSettings().get(2)));
 				CellParameters.add(Float.parseFloat(myReader.showglobalSettings().get(3)));
@@ -106,13 +138,16 @@ public class Simulation extends Application{
 			case "Fire":{
 				String[] myproperties = myReader.showglobalSettings().get(0).split(",");
 				States = new ArrayList<String>(Arrays.asList(myproperties));
+				Probabilities = new ArrayList<Float>();
 				Probabilities.add(Float.parseFloat(myReader.showgridConfig().get(2)));
 				Probabilities.add(Float.parseFloat(myReader.showgridConfig().get(3)));
+				CellParameters = new ArrayList<Float>();
 				CellParameters.add(Float.parseFloat(myReader.showglobalSettings().get(1)));
 				break;
 			}
 		}
 	}
+	
 	private void chooseFile(Stage primaryStage){
 		fileChooser = new FileChooser();
         extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
@@ -222,6 +257,70 @@ public class Simulation extends Application{
 	    	}
         }
 	}
+	
+	public void setButtonActions(Stage primaryStage, Timeline animate){
+		
+		PAUSE.setOnAction(value ->  {
+            pauser = true;
+            PAUSE.setText("Resume");
+            pausing();
+           });
+        
+        SWITCH.setOnAction(value ->  {
+        	   pauser = true;
+        	   fileChooser = new FileChooser();
+        	            extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+        	            fileChooser.getExtensionFilters().add(extFilter);
+        	            File newfile = fileChooser.showOpenDialog(primaryStage);
+        	            filename = newfile.getPath();
+        	            try {
+        	            	readFile(filename);
+        	            	} catch (IOException e1) {
+        	            		e1.printStackTrace();
+        	            	} catch (SAXException e1) {
+        	            	} catch (ParserConfigurationException e1) {
+        	            	}
+        	            celllength = 500/width;
+        	            Scene newscene = sceneCreator(900,900,BACKGROUND);
+        	            myPrimaryStage.setScene(newscene);
+        	            myPrimaryStage.show();
+        	            cellGenerate();
+        	            /*for (int i=0;i<height;i++){
+        	            	for (int j=0;j<width;j++){
+        	            		System.out.print(lifeGrid.getCell(i, j).showCurrentState() + " ");
+        	            	}
+        	            	System.out.println(" ");
+        	            }*/
+        	            timer = 0;
+        });
+        
+     
+        FINISH.setOnAction(value ->  {
+        	pauser = true;
+        	PAUSE.setDisable(true);
+        	FINISH.setText("Fnished");
+        	FINISH.setDisable(true);
+        });
+     
+        STEP.setOnAction(value ->  {
+        	pauser = true;
+        	mover(lifeGrid,lifecalc);
+        });
+     
+        EXIT.setOnAction(value ->  {
+            primaryStage.close();
+        });
+        
+        FASTER.setOnAction(value ->  {
+			animate.setRate(animate.getRate() * 2);
+		});
+			  
+		SLOWER.setOnAction(value ->  {
+			animate.setRate(animate.getRate() * 0.5);
+		});
+		
+	}
+	
 	@Override
     public void start(Stage primaryStage) throws Exception {
 		chooseFile(primaryStage);
@@ -235,63 +334,16 @@ public class Simulation extends Application{
         primaryStage.show();
 
         cellGenerate();
-        PAUSE.setOnAction(value ->  {
-            pauser = true;
-            PAUSE.setText("Resume");
-            pausing();
-           });
         
-        SWITCH.setOnAction(value ->  {
-        	   pauser = true;
-        	   FileChooser newfileChooser = new FileChooser();
-        	            FileChooser.ExtensionFilter newextFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
-        	            fileChooser.getExtensionFilters().add(extFilter);
-        	            File newfile = fileChooser.showOpenDialog(primaryStage);
-        	            filename = newfile.getPath();
-        	            try {
-        	            	readFile(filename);
-        	            	} catch (IOException e1) {
-        	            		e1.printStackTrace();
-        	            	} catch (SAXException e1) {
-        	            	} catch (ParserConfigurationException e1) {
-        	            	}
-        	            
-        	            Scene newscene = sceneCreator(900,900,BACKGROUND);
-        	            myPrimaryStage.setScene(newscene);
-        	            myPrimaryStage.show();
-        	            cellGenerate();
-        	            
-        	        });
         
-     
-     FINISH.setOnAction(value ->  {
-      pauser = true;
-      PAUSE.setDisable(true);
-      FINISH.setText("Fnished");
-      FINISH.setDisable(true);
-           });
-     
-     STEP.setOnAction(value ->  {
-      pauser = true;
-      mover(lifeGrid,lifecalc);
-           });
-     
-     EXIT.setOnAction(value ->  {
-            primaryStage.close();
-           });
 		KeyFrame frame = new KeyFrame(Duration.millis(1000),
                 e -> Step(lifeGrid, lifecalc));
-		Timeline animation = new Timeline();
+		animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
-		FASTER.setOnAction(value ->  {
-			   animation.setRate(animation.getRate() * 2);
-			        });
-			  
-			  SLOWER.setOnAction(value ->  {
-			   animation.setRate(animation.getRate() * 0.5);
-			        });
+		
+		setButtonActions(primaryStage, animation);
 		
 	}
 	
@@ -306,7 +358,7 @@ public class Simulation extends Application{
 		  SLOWER.setDisable(true);
 		 }
 		 
-		 public void resuming(){
+	public void resuming(){
 		  pauser = false;
 		  PAUSE.setOnAction(valuevalue ->  {
 		   pausing();
@@ -315,7 +367,7 @@ public class Simulation extends Application{
 		  STEP.setDisable(true);
 		  FASTER.setDisable(false);
 		  SLOWER.setDisable(false);
-		 }
+	}
 	
 	public Scene sceneCreator(int L, int W, Paint background){
 		pauser = false;
@@ -496,7 +548,6 @@ public class Simulation extends Application{
 		timedisplay.setText("Frame passed: " + Integer.toString(timer));
 
 	}
-	
 	public void Step(Grid myGrid, Calculator myCalc){
 		if (pauser==false){
 		mover(myGrid,myCalc);
