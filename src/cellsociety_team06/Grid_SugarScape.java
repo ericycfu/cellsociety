@@ -175,24 +175,6 @@ private Cell getMaxSugarCells(ArrayList<Cell> adjacentpatches){
  protected ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, String property){
 		return new ArrayList<Cell>();
  }
- /*protected ArrayList<Cell> findAdjacentCellsWithCurrentProperty(int row, int col, String property){
-  ArrayList<Cell> adjacentCells = new ArrayList<Cell>();
-  if (checkBoundary(row-1,col) && myCells[row-1][col].showCurrentProperty().equals(property)) adjacentCells.add(getCell(row-1,col));
-  if (checkBoundary(row,col-1) && myCells[row][col-1].showCurrentProperty().equals(property)) adjacentCells.add(getCell(row,col-1));
-  if (checkBoundary(row,col+1) && myCells[row][col+1].showCurrentProperty().equals(property)) adjacentCells.add(getCell(row,col+1));
-  if (checkBoundary(row+1,col) && myCells[row+1][col].showCurrentProperty().equals(property)) adjacentCells.add(getCell(row+1,col));
-  return adjacentCells;
- }
- 
- protected ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, String property){
-  ArrayList<Cell> adjacentCells = new ArrayList<Cell>();
-  if (checkBoundary(row-1,col) && myCells[row-1][col].showFutureProperty().equals(property)) adjacentCells.add(getCell(row-1,col));
-  if (checkBoundary(row,col-1) && myCells[row][col-1].showFutureProperty().equals(property)) adjacentCells.add(getCell(row,col-1));
-  if (checkBoundary(row,col+1) && myCells[row][col+1].showFutureProperty().equals(property)) adjacentCells.add(getCell(row,col+1));
-  if (checkBoundary(row+1,col) && myCells[row+1][col].showFutureProperty().equals(property)) adjacentCells.add(getCell(row+1,col));
-  return adjacentCells;
- }*/
- 
  
 }
 

@@ -55,6 +55,18 @@ public abstract class Grid {
 		myCells[row][col] = cell;
 	}
 	
+	public int showRowNum(){
+		return myRowNum;
+	}
+	
+	public int showColNum(){
+		return myColNum;
+	}
+	
+	public Cell[][] showMyCells(){
+		return myCells.clone();
+	}
+	
 	protected abstract ArrayList<Cell> findAdjacentCells(int row, int col);
 	
 	protected abstract ArrayList<Cell> findAdjacentCellsWithCurrentProperty(int row, int col, String property);
