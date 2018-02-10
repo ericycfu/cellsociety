@@ -4,10 +4,10 @@ import java.util.ArrayList;
 
 public class Grid_Segregation extends Grid{
 	
-	protected ArrayList<Cell> myCellsUnoccupiedNextIteration;
+	private ArrayList<Cell> myCellsUnoccupiedNextIteration;
 	
-	public Grid_Segregation(int rownum, int column, Calculator myCalculator) {
-		super(rownum, column, myCalculator);
+	public Grid_Segregation(int rownum, int column, Calculator myCalculator, Cell cellType) {
+		super(rownum, column, myCalculator, cellType);
 		myCellsUnoccupiedNextIteration = new ArrayList<Cell>();
 	}
 
@@ -28,21 +28,27 @@ public class Grid_Segregation extends Grid{
 		}
 	}
 	
-	// takes in the locations of each cell and puts them into myGrid
-	
 	protected ArrayList<Cell> findAdjacentCells(int row, int col){
 		ArrayList<Cell> adjacentCells = new ArrayList<Cell>();
-		if (checkBoundary(row-1,col-1)) adjacentCells.add(getCell(row-1,col-1));
-		if (checkBoundary(row-1,col)) adjacentCells.add(getCell(row-1,col));
-		if (checkBoundary(row-1,col+1)) adjacentCells.add(getCell(row-1,col+1));
-		if (checkBoundary(row,col-1)) adjacentCells.add(getCell(row,col-1));
-		if (checkBoundary(row,col)) adjacentCells.add(getCell(row,col));
-		if (checkBoundary(row,col+1)) adjacentCells.add(getCell(row,col+1));
-		if (checkBoundary(row+1,col-1)) adjacentCells.add(getCell(row+1,col-1));
-		if (checkBoundary(row+1,col)) adjacentCells.add(getCell(row+1,col));
-		if (checkBoundary(row+1,col+1)) adjacentCells.add(getCell(row+1,col+1));
+		Cell currentCell = myCells[row][col];
+		for (int i = 0; i < myRowNum; i++){
+			for (int j = 0; j < myColNum; j++){
+				if (currentCell.checkSideAdjacency(myCells[i][j]) || currentCell.checkDiagonalAdjacency(myCells[i][j]))
+					adjacentCells.add(myCells[i][j]);
+			}
+		}
 		return adjacentCells;
 	}
+	
+	protected void updateUnoccupiedCellArray() {
+		myCellsUnoccupiedNextIteration = new ArrayList<Cell>();
+		for (int i = 0; i < myRowNum; i++)
+			for (int j = 0; j < myColNum; j++){
+				if (myCells[i][j].showCurrentProperty().equals("Unoccupied")) 
+					myCellsUnoccupiedNextIteration.add(myCells[i][j]);
+			}
+	}
+	
 	@Override
 	protected void update(){
 		for (int i = 0; i < myRowNum; i++)
@@ -51,28 +57,19 @@ public class Grid_Segregation extends Grid{
 			}
 		updateUnoccupiedCellArray();
 	}
-	
-	protected void updateUnoccupiedCellArray() {
-		myCellsUnoccupiedNextIteration = new ArrayList<Cell>();
-		//System.out.println(1);
-		for (int i = 0; i < myRowNum; i++)
-			for (int j = 0; j < myColNum; j++){
-				if (myCells[i][j].showCurrentProperty().equals("Unoccupied")) 
-					//System.out.println(myCellsUnoccupiedNextIteration.size());
-					myCellsUnoccupiedNextIteration.add(myCells[i][j]);
-			}
-	}
+
 	
 	@Override
 	protected ArrayList<Cell> findAdjacentCellsWithCurrentProperty(int row, int col, String property) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Cell>();
 	}
 
 	@Override
 	protected ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, String property) {
 		// TODO Auto-generated method stub
-		return null;
+		return new ArrayList<Cell>();
 	}
 	
 }
+
