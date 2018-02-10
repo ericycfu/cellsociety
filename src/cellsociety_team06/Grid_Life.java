@@ -19,7 +19,7 @@ public class Grid_Life extends Grid{
 	}
 
 	@Override
-	public ArrayList<Cell> findAdjacentCells(int row, int col) {
+	protected ArrayList<Cell> findAdjacentCells(int row, int col) {
 		// TODO Auto-generated method stub
 		ArrayList<Cell> adjacentCells = new ArrayList<Cell>();
 		if (checkBoundary(row-1,col)) adjacentCells.add(getCell(row-1,col));
@@ -30,13 +30,13 @@ public class Grid_Life extends Grid{
 	}
 
 	@Override
-	public ArrayList<Cell> findAdjacentCellsWithCurrentProperty(int row, int col, String property) {
+	protected ArrayList<Cell> findAdjacentCellsWithCurrentProperty(int row, int col, String property) {
 		// TODO Auto-generated method stub
 		return null;
 	}
 
 	@Override
-	public ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, String property) {
+	protected ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, String property) {
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -55,11 +55,11 @@ public abstract class Grid {
 		myCells[row][col] = cell;
 	}
 	
-	public abstract ArrayList<Cell> findAdjacentCells(int row, int col);
+	protected abstract ArrayList<Cell> findAdjacentCells(int row, int col);
 	
-	public abstract ArrayList<Cell> findAdjacentCellsWithCurrentProperty(int row, int col, String property);
+	protected abstract ArrayList<Cell> findAdjacentCellsWithCurrentProperty(int row, int col, String property);
 	
-	public abstract ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, String property);
+	protected abstract ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, String property);
 	
 	public void iterate(){
 		//while (!end){
