@@ -13,15 +13,15 @@
 		<useprobability>1</useprobability>
 	</globalsettings>
 	<gridparameter>
-		<sugarinterval>2</sugarinterval>
-		<sugarmetabolism>1</sugarmetabolism>
+		<sugarinterval>5</sugarinterval>
+		<sugarmetabolism>2</sugarmetabolism>
 	</gridparameter>
 	<cellparameter>
 		<initialenergy>10</initialenergy>
 		<vision>0.2</vision>
 	</cellparameter>
 	<calculatorparameter>
-		<reproducerate>3</reproducerate>
+		<reproducerate>10</reproducerate>
 	</calculatorparameter>
 	<gridconfig>
 		<gridheight>20</gridheight>

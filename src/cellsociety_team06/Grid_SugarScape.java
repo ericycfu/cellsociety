@@ -34,7 +34,9 @@ public void updateCell(double prob, int centerCellRow, int centerCellCol){
 			}
 		}
 	}
-	
+	else{
+		myCells[centerCellRow][centerCellCol].updateChronon(myCells[centerCellRow][centerCellCol].showChronon() + 1); 
+	}
 	
 }
 
@@ -43,7 +45,10 @@ public void update(){
 	for (int i = 0; i < myRowNum; i++){
 		for (int j = 0; j < myColNum; j++){
 			if (myCells[i][j].showCurrentState()<maxSugar && myCells[i][j].showCurrentState()==myCells[i][j].showFutureState()){
-				myCells[i][j].setFutureState(myCells[i][j].showCurrentState()+1);
+				if (myCells[i][j].showChronon()>=sugarGrowBackInterval){
+					myCells[i][j].setFutureState(myCells[i][j].showCurrentState()+1);
+					myCells[i][j].resetChronon();
+				}
 			}
 		}
 	}
