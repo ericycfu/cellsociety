@@ -44,6 +44,8 @@ public class Cell_Triangle extends Cell{
 		}
 		myPolygon = new Polygon(myThreePoints);
 		myPolygon.setFill(myColors[currentState]);
+		myPolygon.setStroke(Color.GREY);
+		myPolygon.setStrokeWidth(mySideLength/50);
 	}
 	
 	public void resetEnergy(){
