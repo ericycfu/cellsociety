@@ -20,6 +20,7 @@ public class Simulation_Triangle extends Simulation{
 		super(reader, sceneroot);
 	}
 	
+	@Override
 	public void cellGenerator(){
 		
 		Color[] lifeColor = colorGnerator(COLORS);

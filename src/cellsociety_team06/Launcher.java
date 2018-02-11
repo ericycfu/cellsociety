@@ -89,26 +89,30 @@ public class Launcher extends Application{
 		shape = myReader.showglobalSettings().get(2);
 		pauser = false;
 		root = new Group();
-		
+		shape = myReader.showglobalSettings().get(2);
+		System.out.println(shape);
 		switch (shape){
 			
 			case "square":{
-				Simulation currentSim = new Simulation_Square(myReader, root);
+				currentSim = new Simulation_Square(myReader, root);
+				break;
 			}
 			
 			case "triangle":{
-				Simulation currentSim = new Simulation_Triangle(myReader, root);
+				currentSim = new Simulation_Triangle(myReader, root);
+				break;
 			}
 			
 			case "hexagon":{
-				Simulation currentSim = new Simulation_Hexagon(myReader, root);
+				currentSim = new Simulation_Hexagon(myReader, root);
+				break;
 			}
 			
 		}
 		
 		currentCalc = currentSim.getCalc();
 		currentGrid = currentSim.getGrid();
-		
+		//System.out.println(currentGrid.checkTerminate());
 		PAUSE.setStyle("-fx-text-fill: #0000ff; -fx-border-color: #0000ff; -fx-border-width: 1px;");
 		PAUSE.setMinWidth(80);
 		FINISH.setStyle("-fx-text-fill: #0000ff; -fx-border-color: #0000ff; -fx-border-width: 1px;");

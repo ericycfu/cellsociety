@@ -16,8 +16,8 @@
 	<cellparameter></cellparameter>
 	<calculatorparameter></calculatorparameter>
 	<gridconfig>
-		<gridheight>20</gridheight>
-		<gridwidth>20</gridwidth>
+		<gridheight>3</gridheight>
+		<gridwidth>3</gridwidth>
 	</gridconfig>
 	<percentages>
 		<livepercentage>0.5</livepercentage>
