@@ -48,10 +48,11 @@ public class XMLReader {
 		doc.normalize();
 
 		Element root = doc.getDocumentElement();
-		
+		System.out.println(root.getNodeType());
 		NodeList myCategories = root.getChildNodes();
 		
-		Element basicinfo = (Element) myCategories.item(0);
+		System.out.println(myCategories.item(0).getNodeName());
+		Node basicinfo = myCategories.item(0);
 		NodeList basicinfos = basicinfo.getChildNodes();
 		for (int i = 0; i < basicinfos.getLength(); i += 1) {
 			basicInfo.add(basicinfos.item(i).getFirstChild().getNodeValue());
