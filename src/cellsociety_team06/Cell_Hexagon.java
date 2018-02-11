@@ -25,18 +25,6 @@ public class Cell_Hexagon extends Cell{
 		myPolygon.setFill(myColors[currentState]);
 	}
 	
-	public void resetEnergy(){
-		myEnergy = initialEnergy;
-	}
-	
-	public void setEnergy(double value){
-		myEnergy = value;
-	}
-	
-	public void changeEnergy(double value){
-		myEnergy = myEnergy + value;
-	}
-	
 	@Override
 	public boolean checkTopAdjacency(Cell cell){
 		return ((locationMatch(myCenterXLocation, (cell.showCenterXLoc() + Math.sqrt(3)*mySideLength/2)) && locationMatch(myCenterYLocation, (cell.showCenterYLoc() + 1.5*mySideLength))) ||
@@ -71,47 +59,6 @@ public class Cell_Hexagon extends Cell{
 	@Override
 	public boolean checkDiagonalAdjacency(Cell cell){
 		return checkDiagonalAdjacency(cell);		
-	}
-	
-	public double showEnergy(){
-		return myEnergy;
-	}
-	
-	public void resetChronon(){
-		myChronon = 0;
-	}
-	
-	public void updateChronon(double value){
-		myChronon = value;
-	}
-	
-	public double showChronon(){
-		return myChronon;
-	}
-	
-	public int showCurrentState(){
-		return currentState;
-	}
-	
-	public String showCurrentProperty(){
-		return myProperties[currentState];
-	}
-	
-	public int showFutureState(){
-		return futureState;
-	}
-	
-	public String showFutureProperty(){
-		return myProperties[futureState];
-	}
-	
-	public void update(){
-		currentState = futureState;
-		myPolygon.setFill(myColors[currentState]);
-	}
-	
-	public void setFutureState(int nextState){
-		futureState = nextState;
 	}
 	
 }
