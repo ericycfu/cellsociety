@@ -38,6 +38,9 @@ public class Simulation_Square extends Simulation{
 					States.add(i);
 				}
 			}
+			for (int i = States.size(); i < height*width; i++){
+				States.add(probabilities.size()-1);
+			}
 			Collections.shuffle(States);
 			int arranger = 0;
 			for (int i=0;i<height;i++){
