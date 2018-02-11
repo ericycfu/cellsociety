@@ -23,7 +23,7 @@ public class Simulation_Hexagon extends Simulation{
 		if (useProb == 0){
 			for (int i=0;i<height;i++){
 				for (int j=0;j<width;j++){
-					Cell currentCell = new Cell_Square(SQUARE, i*celllength+100, j*celllength+50, celllength, properties, lifeColor, cellstates[i][j]);
+					Cell currentCell = new Cell_Hexagon(SQUARE, i*celllength+100, j*celllength+50, celllength, properties, lifeColor, cellstates[i][j]);
 					Polygon cellVisual = currentCell.showPolygon();
 					root.getChildren().add(cellVisual);
 				}
@@ -40,7 +40,7 @@ public class Simulation_Hexagon extends Simulation{
 			int arranger = 0;
 			for (int i=0;i<height;i++){
 				for (int j=0;j<4;j++){
-					Cell currentCell = new Cell_Square(SQUARE, i*celllength+100, j*celllength+50, celllength, properties, lifeColor, States.get(arranger));
+					Cell currentCell = new Cell_Hexagon(SQUARE, i*celllength+100, j*celllength+50, celllength, properties, lifeColor, States.get(arranger));
 					Polygon cellVisual = currentCell.showPolygon();
 					root.getChildren().add(cellVisual);
 				}

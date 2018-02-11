@@ -12,6 +12,7 @@ import javafx.scene.shape.Rectangle;
 public class Simulation_Triangle extends Simulation{
 	
 	private String SQUARE;	
+	private boolean upup;
 
 	public Simulation_Triangle(XMLReader reader, Group sceneroot){
 		super(reader, sceneroot);
@@ -23,9 +24,10 @@ public class Simulation_Triangle extends Simulation{
 		if (useProb == 0){
 			for (int i=0;i<height;i++){
 				for (int j=0;j<width;j++){
-					Cell currentCell = new Cell_Square(SQUARE, i*celllength+100, j*celllength+50, celllength, properties, lifeColor, cellstates[i][j]);
+					Cell currentCell = new Cell_Triangle(SQUARE, i*celllength+100, j*celllength+50, celllength, properties, lifeColor, cellstates[i][j], upup);
 					Polygon cellVisual = currentCell.showPolygon();
 					root.getChildren().add(cellVisual);
+					upup = !upup;
 				}
 			}
 		} else {
@@ -40,9 +42,10 @@ public class Simulation_Triangle extends Simulation{
 			int arranger = 0;
 			for (int i=0;i<height;i++){
 				for (int j=0;j<4;j++){
-					Cell currentCell = new Cell_Square(SQUARE, i*celllength+100, j*celllength+50, celllength, properties, lifeColor, States.get(arranger));
+					Cell currentCell = new Cell_Triangle(SQUARE, i*celllength+100, j*celllength+50, celllength, properties, lifeColor, States.get(arranger), upup);
 					Polygon cellVisual = currentCell.showPolygon();
 					root.getChildren().add(cellVisual);
+					upup = !upup;
 				}
 			}
 			
