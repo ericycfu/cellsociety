@@ -128,6 +128,10 @@ public abstract class Simulation{
 		
 	}
 	
+	public Calculator getCalc(){
+		return currentCalculator;
+	}
+	
 	public Grid getGrid(){
 		return currentGrid;
 	}

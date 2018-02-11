@@ -45,10 +45,9 @@ public class Launcher extends Application{
 	
 	private String filename;
 	private Group root = new Group();
-	private Rectangle[][] thegrid;
 	
-	private Grid lifeGrid;
-	private Calculator lifecalc;
+	private Grid currentGrid;
+	private Calculator currentCalc;
 	
 	private FileChooser.ExtensionFilter extFilter;
 	private String SimType;
@@ -90,8 +89,6 @@ public class Launcher extends Application{
 		pauser = false;
 		root = new Group();
 		
-		thegrid = new Rectangle[height][width];
-		
 		switch (shape){
 			
 			case "square":{
@@ -107,6 +104,9 @@ public class Launcher extends Application{
 			}
 			
 		}
+		
+		currentCalc = currentSim.getCalc();
+		currentGrid = currentSim.getGrid();
 		
 		PAUSE.setStyle("-fx-text-fill: #0000ff; -fx-border-color: #0000ff; -fx-border-width: 1px;");
 		PAUSE.setMinWidth(80);
@@ -229,14 +229,14 @@ public class Launcher extends Application{
      
      STEP.setOnAction(value ->  {
       pauser = true;
-      mover(lifeGrid,lifecalc);
+      mover(currentGrid,currentCalc);
            });
      
      EXIT.setOnAction(value ->  {
             primaryStage.close();
            });
 		KeyFrame frame = new KeyFrame(Duration.millis(1000),
-                e -> Step(lifeGrid, lifecalc));
+                e -> Step(currentGrid, currentCalc));
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
@@ -301,12 +301,7 @@ public class Launcher extends Application{
 				System.out.println(SimType);
 				for (int i=0;i<height;i++){
 					for (int j=0;j<width;j++){
-						if (myGrid.getCell(i, j).showCurrentState()==0){
-							thegrid[i][j].setFill(Color.BLACK);
-						} 
-						else {
-							thegrid[i][j].setFill(Color.WHITE);
-						}
+						currentGrid.getCell(i, j).update();
 					}
 				}
 				break;
@@ -314,13 +309,7 @@ public class Launcher extends Application{
 			case "Segregation":{
 				for (int i=0;i<height; i++){
 					for (int j=0;j<width;j++){
-						if (myGrid.getCell(i, j).showCurrentState()==0){
-							thegrid[i][j].setFill(Color.RED);
-						} else if (myGrid.getCell(i, j).showCurrentState()==1){
-							thegrid[i][j].setFill(Color.BLUE);
-						} else {
-							thegrid[i][j].setFill(Color.WHITE);
-						}
+						currentGrid.getCell(i, j).update();
 					}
 				}
 				break;
@@ -328,13 +317,7 @@ public class Launcher extends Application{
 			case "Wator":{
 				for (int i=0;i<height; i++){
 					for (int j=0;j<width;j++){
-						if (myGrid.getCell(i, j).showCurrentState()==0){
-							thegrid[i][j].setFill(Color.GREEN);
-						} else if (myGrid.getCell(i, j).showCurrentState()==1){
-							thegrid[i][j].setFill(Color.BLUE);
-						} else {
-							thegrid[i][j].setFill(Color.WHITE);
-						}
+						currentGrid.getCell(i, j).update();
 					}
 				}
 				break;
@@ -342,13 +325,7 @@ public class Launcher extends Application{
 			case "Fire":{
 				for (int i=0;i<height; i++){
 					for (int j=0;j<width;j++){
-						if (myGrid.getCell(i, j).showCurrentState()==0){
-							thegrid[i][j].setFill(Color.GREEN);
-						} else if (myGrid.getCell(i, j).showCurrentState()==1){
-							thegrid[i][j].setFill(Color.RED);
-						} else {
-							thegrid[i][j].setFill(Color.YELLOW);
-						}
+						currentGrid.getCell(i, j).update();
 					}
 				}
 				break;

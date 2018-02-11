@@ -24,11 +24,12 @@ public class Simulation_Triangle extends Simulation{
 		if (useProb == 0){
 			for (int i=0;i<height;i++){
 				for (int j=0;j<width;j++){
-					Cell currentCell = new Cell_Triangle(TRANGLE, i*celllength+100, j*celllength+50, celllength, properties, lifeColor, cellstates[i][j], upup);
+					Cell currentCell = new Cell_Triangle(TRANGLE, i*0.5*celllength+100, j*Math.sqrt(3)/2*celllength+50, celllength, properties, lifeColor, cellstates[i][j], upup);
 					Polygon cellVisual = currentCell.showPolygon();
 					root.getChildren().add(cellVisual);
 					upup = !upup;
 				}
+				upup = !upup;
 			}
 		} else {
 			ArrayList<Integer> States = new ArrayList<Integer>();
@@ -42,11 +43,12 @@ public class Simulation_Triangle extends Simulation{
 			int arranger = 0;
 			for (int i=0;i<height;i++){
 				for (int j=0;j<width;j++){
-					Cell currentCell = new Cell_Triangle(TRANGLE, i*celllength+100, j*celllength+50, celllength, properties, lifeColor, States.get(arranger), upup);
+					Cell currentCell = new Cell_Triangle(TRANGLE, i*0.5*celllength+100, j*Math.sqrt(3)/2*celllength+50, celllength, properties, lifeColor, States.get(arranger), upup);
 					Polygon cellVisual = currentCell.showPolygon();
 					root.getChildren().add(cellVisual);
 					upup = !upup;
 				}
+				upup = !upup;
 			}
 			
 		}
