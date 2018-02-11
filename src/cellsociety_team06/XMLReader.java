@@ -48,7 +48,7 @@ public class XMLReader {
 		doc.normalize();
 
 		Element root = doc.getDocumentElement();
-		System.out.println(root.getNodeType());
+		
 		NodeList myCategories = root.getChildNodes();
 		
 		Node basicinfo = getElement(1, myCategories);
@@ -128,6 +128,8 @@ public class XMLReader {
 				n = getElement(ctr,cellList);
 				el = (Element) n;
 				NodeList elList = el.getChildNodes();
+				x = Integer.valueOf(el.getAttribute("x"));
+				y = Integer.valueOf(el.getAttribute("y"));
 				state = Integer.valueOf(getElement(1,elList).getFirstChild().getNodeValue());
 				//checks for invalid state
 				if ((state-1) >globalSettings.get(0).split(",").length) {
