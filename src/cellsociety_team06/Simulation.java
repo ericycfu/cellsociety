@@ -25,7 +25,7 @@ public abstract class Simulation{
 	protected int width;
 	protected int height;
 	protected double celllength;
-	protected List<Double> probabilities;
+	protected List<String> probabilities;
 	protected String[] properties;
 	protected String[] COLORS;
 	protected int useProb; //0 for no, 1 for yes

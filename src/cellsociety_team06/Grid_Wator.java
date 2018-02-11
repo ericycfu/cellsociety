@@ -63,6 +63,9 @@ private void sharkDies(Cell shark){
 }
  
 private void sharkBehavior(int centerCellRow, int centerCellCol){
+	if (myCells[centerCellRow][centerCellCol].showEnergy()<0){
+		sharkDies(myCells[centerCellRow][centerCellCol]);
+	}
 	ArrayList<Cell> fishspace = findAdjacentCellsWithFutureProperty(centerCellRow, centerCellCol, "Fish");
 	ArrayList<Cell> freespace = findAdjacentCellsWithFutureProperty(centerCellRow, centerCellCol, "Unoccupied");
 	if (!fishspace.isEmpty()){
@@ -70,15 +73,14 @@ private void sharkBehavior(int centerCellRow, int centerCellCol){
 		fishspace.get(randomfish).setFutureState(myCalculator.getState("Shark"));
 		fishspace.get(randomfish).updateChronon(myCells[centerCellRow][centerCellCol].showChronon()); 
 		fishspace.get(randomfish).setEnergy(myCells[centerCellRow][centerCellCol].showEnergy() + energyGain);
-		System.out.println(fishspace.get(randomfish).showFutureProperty());
+		//System.out.println(fishspace.get(randomfish).showFutureProperty());
 		if (fishspace.get(randomfish).showChronon()>=myCalculator.showParameter()){
 			myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Shark"));
 			fishspace.get(randomfish).resetChronon();
 			myCells[centerCellRow][centerCellCol].resetChronon();
 			myCells[centerCellRow][centerCellCol].resetEnergy();
 		}
-		if (fishspace.get(randomfish).showEnergy()<0) 
-			sharkDies(fishspace.get(randomfish));
+		
 	}
 	else if (!freespace.isEmpty()){
 		int randomwater = getRandomNumberInRange(0, freespace.size()-1);

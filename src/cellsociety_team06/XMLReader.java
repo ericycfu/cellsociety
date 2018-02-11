@@ -25,7 +25,7 @@ public class XMLReader {
 	private ArrayList<String> cellParameters = new ArrayList<String>();
 	private ArrayList<String> calculatorParameters = new ArrayList<String>();
 	private ArrayList<String> gridConfig = new ArrayList<String>();
-	private ArrayList<Double> myPercentages = new ArrayList<Double>();
+	private ArrayList<String> myPercentages = new ArrayList<String>();
 	private String mySimu;
 	private int myCells[][];
 	private int myEnergy[][];
@@ -91,6 +91,9 @@ public class XMLReader {
 			System.out.println("specific cell data not found or not enough data");
 			return;
 		}
+		System.out.println(Arrays.toString(myCells[0]));
+		System.out.println(Arrays.toString(myCells[1]));
+		System.out.println(Arrays.toString(myCells[2]));
 	}
 	
 	private Node getElement(int index, NodeList myList) {
@@ -172,7 +175,7 @@ public class XMLReader {
 		return Collections.unmodifiableList(myIntegerCopy);
 	}
 	
-	public List<Double> showmyPercentages(){
+	public List<String> showmyPercentages(){
 		return Collections.unmodifiableList(myPercentages);
 	}
 	

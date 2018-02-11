@@ -10,7 +10,7 @@
 		<propertystring>Fish,Shark,Unoccupied</propertystring>
 		<colors>#00FF00,#0000FF,#FFFFFF</colors>
 		<cellshape>square</cellshape>
-		<useprobability>0</useprobability>
+		<useprobability>1</useprobability>
 	</globalsettings>
 	<gridparameter>
 		<energygain>3</energygain>
@@ -22,8 +22,8 @@
 		<reproducerate>10</reproducerate>
 	</calculatorparameter>
 	<gridconfig>
-		<gridheight>3</gridheight>
-		<gridwidth>3</gridwidth>
+		<gridheight>10</gridheight>
+		<gridwidth>10</gridwidth>
 	</gridconfig>
 	<percentages>
 		<fishpercentage>0.3</fishpercentage>
@@ -31,19 +31,19 @@
 		<unoccupiedpercentage>0.5</unoccupiedpercentage>
 	</percentages>
 	<cellstates>
-		<cell x = "0" y = "0"><state>0</state></cell>
-		<cell x = "1" y = "0"><state>0</state></cell>
+		<cell x = "0" y = "0"><state>2</state></cell>
+		<cell x = "1" y = "0"><state>2</state></cell>
 		<cell x = "2" y = "0"><state>0</state></cell>
-		<cell x = "0" y = "1"><state>0</state></cell>
-		<cell x = "1" y = "1"><state>0</state></cell>
-		<cell x = "2" y = "1"><state>0</state></cell>
-		<cell x = "0" y = "2"><state>0</state></cell>
+		<cell x = "0" y = "1"><state>2</state></cell>
+		<cell x = "1" y = "1"><state>2</state></cell>
+		<cell x = "2" y = "1"><state>2</state></cell>
+		<cell x = "0" y = "2"><state>1</state></cell>
 		<cell x = "1" y = "2"><state>0</state></cell>
 		<cell x = "2" y = "2"><state>0</state></cell>
 	</cellstates>
 	<energystates>
 		<energy x = "0" y = "0"><state>0</state></energy>
-		<energy x = "1" y = "0"><state>0</state></energy>
+		<energy x = "1" y = "0"><state>5</state></energy>
 		<energy x = "2" y = "0"><state>0</state></energy>
 		<energy x = "0" y = "1"><state>0</state></energy>
 		<energy x = "1" y = "1"><state>0</state></energy>
