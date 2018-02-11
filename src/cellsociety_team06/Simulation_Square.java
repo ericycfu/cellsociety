@@ -31,7 +31,7 @@ public class Simulation_Square extends Simulation{
 					switch (cellParameters.size()){
 						case 0:{
 							//System.out.println(cellstates[i][j]);
-							currentCell = new Cell_Square(SQUARE, j*sidelength+100, i*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j]);
+							currentCell = new Cell_Square(SQUARE, j*sidelength+100+celllength/2, i*sidelength+50+celllength/2, sidelength, properties, lifeColor, cellstates[i][j]);
 							break;
 						}
 						case 1:{
@@ -39,12 +39,12 @@ public class Simulation_Square extends Simulation{
 							//System.out.println(Arrays.toString(cellstates[0]));
 							//System.out.println(Arrays.toString(cellstates[1]));
 							//System.out.println(Arrays.toString(cellstates[2]));
-							currentCell = new Cell_Square(SQUARE, j*sidelength+100, i*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)));
+							currentCell = new Cell_Square(SQUARE, j*sidelength+100+celllength/2, i*sidelength+50+celllength/2, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)));
 							break;
 						}
 						case 2:{
 							boolean visual = (Integer.parseInt(cellParameters.get(1)) == 1);
-							currentCell = new Cell_Square(SQUARE, j*sidelength+100, i*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)), visual);
+							currentCell = new Cell_Square(SQUARE, j*sidelength+100+celllength/2, i*sidelength+50+celllength/2, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)), visual);
 							break;
 						}
 					}
@@ -79,18 +79,18 @@ public class Simulation_Square extends Simulation{
 					switch (cellParameters.size()){
 					case 0:{
 						
-						currentCell = new Cell_Square(SQUARE, i*sidelength+100, j*sidelength+50, sidelength, properties, lifeColor, States.get(arranger));
+						currentCell = new Cell_Square(SQUARE, j*sidelength+100+celllength/2, i*sidelength+50+celllength/2, sidelength, properties, lifeColor, States.get(arranger));
 						//System.out.println(currentCell.showCurrentProperty());
 						break;
 					}
 					case 1:{
-						currentCell = new Cell_Square(SQUARE, i*sidelength+100, j*sidelength+50, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)));
+						currentCell = new Cell_Square(SQUARE, j*sidelength+100+celllength/2, i*sidelength+50+celllength/2, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)));
 						break;
 					}
 					case 2:{
 						boolean visual = (Integer.parseInt(cellParameters.get(1)) == 1);
 						
-						currentCell = new Cell_Square(SQUARE, i*sidelength+100, j*sidelength+50, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)), visual);
+						currentCell = new Cell_Square(SQUARE, j*sidelength+100+celllength/2, i*sidelength+50+celllength/2, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)), visual);
 						System.out.println(currentCell.showCurrentProperty());
 						break;
 					}

@@ -32,16 +32,16 @@ public class Simulation_Triangle extends Simulation{
 					System.out.println(cellParameters.size());
 					switch (cellParameters.size()){
 						case 0:{
-							currentCell = new Cell_Triangle(TRANGLE, j*0.5*sidelength+100, i*Math.sqrt(3)/2*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], upup);
+							currentCell = new Cell_Triangle(TRANGLE, j*0.5*sidelength+100+celllength/2, i*Math.sqrt(3)/2*sidelength+50+celllength/2, sidelength, properties, lifeColor, cellstates[i][j], upup);
 							break;
 						}
 						case 1:{
-							currentCell = new Cell_Triangle(TRANGLE, j*0.5*sidelength+100, i*Math.sqrt(3)/2*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)), upup);
+							currentCell = new Cell_Triangle(TRANGLE, j*0.5*sidelength+100+celllength/2, i*Math.sqrt(3)/2*sidelength+50+celllength/2, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)), upup);
 							break;
 						}
 						case 2:{
 							boolean visual = (Integer.parseInt(cellParameters.get(1)) == 1);
-							currentCell = new Cell_Triangle(TRANGLE, j*0.5*sidelength+100, i*Math.sqrt(3)/2*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)), visual, upup);
+							currentCell = new Cell_Triangle(TRANGLE, j*0.5*sidelength+100+celllength/2, i*Math.sqrt(3)/2*sidelength+50+celllength/2, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)), visual, upup);
 							break;
 						}
 					}
@@ -71,16 +71,16 @@ public class Simulation_Triangle extends Simulation{
 					upup = (index % 2 == 0);
 					switch (cellParameters.size()){
 					case 0:{
-						currentCell = new Cell_Triangle(TRANGLE, j*0.5*sidelength+100, i*Math.sqrt(3)/2*sidelength+50, sidelength, properties, lifeColor, States.get(arranger), upup);
+						currentCell = new Cell_Triangle(TRANGLE, j*0.5*sidelength+100+celllength/2, i*Math.sqrt(3)/2*sidelength+50+celllength/2, sidelength, properties, lifeColor, States.get(arranger), upup);
 						break;
 					}
 					case 1:{
-						currentCell = new Cell_Triangle(TRANGLE, j*0.5*sidelength+100, i*Math.sqrt(3)/2*sidelength+50, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)), upup);
+						currentCell = new Cell_Triangle(TRANGLE, j*0.5*sidelength+100+celllength/2, i*Math.sqrt(3)/2*sidelength+50+celllength/2, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)), upup);
 						break;
 					}
 					case 2:{
 						boolean visual = (Integer.parseInt(cellParameters.get(1)) == 1);
-						currentCell = new Cell_Triangle(TRANGLE, j*0.5*sidelength+100, i*Math.sqrt(3)/2*sidelength+50, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)), visual, upup);
+						currentCell = new Cell_Triangle(TRANGLE, j*0.5*sidelength+100+celllength/2, i*Math.sqrt(3)/2*sidelength+50+celllength/2, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)), visual, upup);
 						break;
 					}
 				}

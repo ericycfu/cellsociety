@@ -34,6 +34,8 @@ public class Cell_Hexagon extends Cell{
 		
 		myPolygon = new Polygon(mySixPoints);
 		myPolygon.setFill(myColors[currentState]);
+		myPolygon.setStroke(Color.GREY);
+		myPolygon.setStrokeWidth(mySideLength/50);
 	}
 	
 	@Override
