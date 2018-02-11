@@ -27,7 +27,14 @@
 		<gridheight>20</gridheight>
 		<gridwidth>20</gridwidth>
 	</gridconfig>
-	<percentages>0,0.1,0.2,0.2,0.4,0.1</percentages>
+	<percentages>
+		<zeropatchpercent>0</zeropatchpercent>
+		<onepatchpercent>0.1</onepatchpercent>
+		<twopatchpercent>0.2</twopatchpercent>
+		<threepatchpercent>0.2</threepatchpercent>
+		<fourpatchpercent>0.4</fourpatchpercent>
+		<agentpercent>0.1</agentpercent>
+	</percentages>
 	<cellstates>
 		<cell x = "0" y = "0"><state>0</state></cell>
 		<cell x = "1" y = "0"><state>0</state></cell>
