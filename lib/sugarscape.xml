@@ -1,0 +1,42 @@
+<?xml version = "1.0"?>
+
+<simulation>
+	<basicinfo>
+		<simulationName>SugarScape</simulationName>
+		<simulationTitle>Our Amazing Game</simulationTitle>
+		<simulationAuthor>Eric Fu, Frank Yin, Jing Yang</simulationAuthor>
+	</basicinfo>
+	<globalsettings>
+		<propertystring>ZeroPatch,OnePatch,TwoPatch,ThreePatch,FourPatch,Agent</propertystring>
+		<colors>#00FF00,#0000FF,#FFFFFF</colors>
+		<cellshape>square</cellshape>
+		<useprobability>1</useprobability>
+	</globalsettings>
+	<gridparameter>
+		<sugarinterval>2</sugarinterval>
+		<sugarmetabolism>1</sugarmetabolism>
+	</gridparameter>
+	<cellparameter>
+		<initialenergy>10</initialenergy>
+		<vision>1</vision>
+	</cellparameter>
+	<calculatorparameter>
+		<reproducerate>3</reproducerate>
+	</calculatorparameter>
+	<gridconfig>
+		<gridheight>20</gridheight>
+		<gridwidth>20</gridwidth>
+	</gridconfig>
+	<percentages>0,0.1,0.2,0.2,0.4,0.1</percentages>
+	<cellstates>
+		<cell x = "0" y = "0"><state>0</state></cell>
+		<cell x = "1" y = "0"><state>0</state></cell>
+		<cell x = "2" y = "0"><state>0</state></cell>
+		<cell x = "0" y = "1"><state>0</state></cell>
+		<cell x = "1" y = "1"><state>0</state></cell>
+		<cell x = "2" y = "1"><state>0</state></cell>
+		<cell x = "0" y = "2"><state>0</state></cell>
+		<cell x = "1" y = "2"><state>0</state></cell>
+		<cell x = "2" y = "2"><state>0</state></cell>
+	</cellstates>
+</simulation>
