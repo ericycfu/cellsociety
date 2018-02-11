@@ -34,4 +34,15 @@
 		<cell x = "1" y = "2"><state>0</state></cell>
 		<cell x = "2" y = "2"><state>0</state></cell>
 	</cellstates>
+	<energystates>
+		<energy x = "0" y = "0"><state>0</state></energy>
+		<energy x = "1" y = "0"><state>0</state></energy>
+		<energy x = "2" y = "0"><state>0</state></energy>
+		<energy x = "0" y = "1"><state>0</state></energy>
+		<energy x = "1" y = "1"><state>0</state></energy>
+		<energy x = "2" y = "1"><state>0</state></energy>
+		<energy x = "0" y = "2"><state>0</state></energy>
+		<energy x = "1" y = "2"><state>0</state></energy>
+		<energy x = "2" y = "2"><state>0</state></energy>
+	</energystates>
 </simulation>
