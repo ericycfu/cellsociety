@@ -1,6 +1,7 @@
 package cellsociety_team06;
 
 import java.io.File;
+import java.io.IOException;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 import javax.xml.parsers.ParserConfigurationException;
@@ -9,103 +10,71 @@ import javax.xml.transform.TransformerException;
 import javax.xml.transform.TransformerFactory;
 import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
-
-import org.w3c.dom.Attr;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.NamedNodeMap;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
+
 
 public class XMLcreator {
-	private String myFile;
+	
+	private String myFilepath;
 	private Grid myGrid;
 	
-	public XMLcreator(String filename, Grid grid) {
-		myFile = filename;
+	public XMLcreator(String filepath, Grid grid) {
+		myFilepath = filepath;
 		myGrid = grid;
 	}
+	
+	public void saveState() throws TransformerException, ParserConfigurationException, SAXException, IOException{
+		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
+		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
+		Document doc = docBuilder.parse(myFilepath);
 
-	public void writeToXML() {
-
-		  try {
-
-			DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
-			DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-
-			// root
-			Document doc = docBuilder.newDocument();
-			Element rootElement = doc.createElement("simulation");
-			doc.appendChild(rootElement);
-
-			// four main categories
-			Element basicinfo = doc.createElement("basicinfo");
-			rootElement.appendChild(basicinfo);
-			Element globalsettings = doc.createElement("globalsettings");
-			rootElement.appendChild(globalsettings);
-			Element gridconfig = doc.createElement("gridconfig");
-			rootElement.appendChild(gridconfig);
-			Element cellstates = doc.createElement("cellstates");
-			rootElement.appendChild(cellstates);
-			
-			//basic info subcategories
-			Element simName = doc.createElement("simulationName");
-			basicinfo.appendChild(simName);
-			Element simTitle = doc.createElement("simulationTitle");
-			basicinfo.appendChild(simTitle);
-			Element simAuthor = doc.createElement("simulationAuthor");
-			basicinfo.appendChild(simAuthor);
-			
-			//global settings subcategories
-			Element properties = doc.createElement("properties");
-			globalsettings.appendChild(properties);
-			
-			//grid config subcategories
-			Element gridheight = doc.createElement("gridheight");
-			gridconfig.appendChild(gridheight);
-			Element gridwidth = doc.createElement("gridwidth");
-			gridconfig.appendChild(gridwidth);
-			
-			//cellstates
-			Cell myCells = myGrid.showMyCells();
-			for (int i = 0; i < myGrid.showRowNum(); i+= 1) {
-				for (int j = 0; j < myGrid.showColNum(); j += 1) {
-					Element cell = doc.createElement("cell");
-					cellstates.appendChild(cell);
-					cell.setAttribute("x", Integer.toString(i));
-					cell.setAttribute("y", Integer.toString(j));
-					cell.appendChild(doc.createTextNode(myCells[i][j].showCurrentState()));
+		NodeList cells = doc.getElementsByTagName("cell");
+		NodeList energies = doc.getElementsByTagName("energy");
+		Node myCell;
+		Element el;
+		int ctr = 0;
+		for (int times = 0; times < myGrid.showRowNum()*myGrid.showColNum(); times += 1) {
+			for (int i = 0; i < myGrid.showRowNum(); i += 1) {
+				for (int j = 0; j < myGrid.showColNum(); j+=1) {
+					myCell = cells.item(ctr);
+					if (myCell instanceof Element) {
+						el = (Element) myCell;
+						if (el.getAttribute("x").equals(Integer.toString(j)) && el.getAttribute("y").equals(Integer.toString(i))) {
+							el.getFirstChild().setNodeValue(Integer.toString(myGrid.getCell(i, j).showCurrentState()));
+							ctr += 1;
+						}
+					}
 				}
 			}
-			
-			//adding to basicinfo
-			simName.appendChild(doc.createTextNode("Life"));
-			simTitle.appendChild(doc.createTextNode("Our Great Game"));
-			simAuthor.appendChild(doc.createTextNode("Eric Fu, Frank Yin, Jing Yang"));
-			
-			//adding to globalsettings
-			properties.appendChild(doc.createTextNode(myCells[0][0].showProperties())); //need to change properties to live,dead format
-			
-			//adding to grid config
-			gridheight.appendChild(doc.createTextNode("3"));
-			gridwidth.appendChild(doc.createTextNode("3"));
+		}
+		ctr= 0;
+		for (int times = 0; times < myGrid.showRowNum()*myGrid.showColNum(); times += 1) {
+			for (int i = 0; i < myGrid.showRowNum(); i += 1) {
+				for (int j = 0; j < myGrid.showColNum(); j+=1) {
+					myCell = energies.item(ctr);
+					if (myCell instanceof Element) {
+						el = (Element) myCell;
+						if (el.getAttribute("x").equals(Integer.toString(j)) && el.getAttribute("y").equals(Integer.toString(i))) {
+							el.getFirstChild().setNodeValue(Integer.toString((int) myGrid.getCell(i, j).showEnergy()));
+						}
+					}
+				}
+			}
+		}
+		
 
-			// write the content into xml file
-			TransformerFactory transformerFactory = TransformerFactory.newInstance();
-			Transformer transformer = transformerFactory.newTransformer();
-			DOMSource source = new DOMSource(doc);
-			StreamResult result = new StreamResult(new File("C:\\file.xml"));
+		// write the content into xml file
+		TransformerFactory transformerFactory = TransformerFactory.newInstance();
+		Transformer transformer = transformerFactory.newTransformer();
+		DOMSource source = new DOMSource(doc);
+		StreamResult result = new StreamResult(new File("lib/current.xml"));
+		transformer.transform(source, result);
 
-			// Output to console for testing
-			// StreamResult result = new StreamResult(System.out);
-
-			transformer.transform(source, result);
-
-			System.out.println("File saved!");
-
-		  	} 
-		  	catch (ParserConfigurationException pce) {
-		  		pce.printStackTrace();
-		  	} 
-		  	catch (TransformerException tfe) {
-		  		tfe.printStackTrace();
-		  	}
+		System.out.println("Done");
 	}
 }

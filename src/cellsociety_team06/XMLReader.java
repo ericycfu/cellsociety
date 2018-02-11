@@ -28,6 +28,7 @@ public class XMLReader {
 	private ArrayList<Double> myPercentages = new ArrayList<Double>();
 	private String mySimu;
 	private int myCells[][];
+	private int myEnergy[][];
 	private Document doc;
 	
 	public XMLReader(String filename){
@@ -95,30 +96,36 @@ public class XMLReader {
 		int height = Integer.valueOf(gridConfig.get(0));
 		int width = Integer.valueOf(gridConfig.get(1));
 		myCells = new int[height][width];
+		myEnergy = new int [height][width];
 		try {
-			NodeList cellList = doc.getElementsByTagName("cell");
-			Node n;
-			Element el;
-			int state;
-			int ctr = 0;
-			int x;
-			int y;
-			for (int i = 0; i < height; i+=1) {
-				for (int j = 0; j < width; j += 1) {
-					n = cellList.item(ctr);
-					if (n instanceof Element) {
-						el = (Element) n;
-						x = Integer.valueOf(el.getAttribute("x"));
-						y = Integer.valueOf(el.getAttribute("y"));
-						state = Integer.valueOf(el.getNodeValue());
-						//add cell constructor
-						myCells[x][y] = state;
-					}
-				}
-			}
+			getCellData("cell", height, width, myCells);
+			getCellData("energy", height, width, myEnergy);
 		}
 		catch(Exception e) {
 			System.out.println("specific cell data not found or not enough data");
+		}
+	}
+	
+	private void getCellData(String type, int height, int width, int data[][]) {
+		NodeList cellList = doc.getElementsByTagName(type);
+		Node n;
+		Element el;
+		int state;
+		int ctr = 0;
+		int x;
+		int y;
+		for (int i = 0; i < height; i+=1) {
+			for (int j = 0; j < width; j += 1) {
+				n = cellList.item(ctr);
+				if (n instanceof Element) {
+					el = (Element) n;
+					x = Integer.valueOf(el.getAttribute("x"));
+					y = Integer.valueOf(el.getAttribute("y"));
+					state = Integer.valueOf(el.getNodeValue());
+					data[x][y] = state;
+					ctr+=1;
+				}
+			}
 		}
 	}
 	
@@ -146,8 +153,16 @@ public class XMLReader {
 		return Collections.unmodifiableList(calculatorParameters);
 	}
 	
-	public List<String> showgridConfig(){
+	public List<Integer> showgridConfig(){
 		return Collections.unmodifiableList(gridConfig);
+	}
+	
+	public List<Double> showmyPercentages(){
+		return Collections.unmodifiableList(myPercentages);
+	}
+	
+	public int[][] showmyEnergy(){
+		return myEnergy.clone();
 	}
 	
 	public int[][] showmyCells(){
