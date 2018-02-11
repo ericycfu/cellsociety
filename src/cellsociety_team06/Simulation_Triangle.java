@@ -25,13 +25,14 @@ public class Simulation_Triangle extends Simulation{
 		if (useProb == 0){
 			for (int i=0;i<height;i++){
 				for (int j=0;j<width;j++){
+					int index = i+j;
+					if (index%2 == 0){upup = true;}
+					else {upup = false;}
 					Cell currentCell = new Cell_Triangle(TRANGLE, i*0.5*sidelength+100, j*Math.sqrt(3)/2*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], upup);
 					currentGrid.createCells(i, j, currentCell);
 					Polygon cellVisual = currentCell.showPolygon();
 					root.getChildren().add(cellVisual);
-					upup = !upup;
 				}
-				upup = !upup;
 			}
 		} else {
 			ArrayList<Integer> States = new ArrayList<Integer>();
@@ -45,13 +46,14 @@ public class Simulation_Triangle extends Simulation{
 			int arranger = 0;
 			for (int i=0;i<height;i++){
 				for (int j=0;j<width;j++){
+					int index = i+j;
+					if (index%2 == 0){upup = true;}
+					else {upup = false;}
 					Cell currentCell = new Cell_Triangle(TRANGLE, i*0.5*sidelength+100, j*Math.sqrt(3)/2*sidelength+50, sidelength, properties, lifeColor, States.get(arranger), upup);
 					currentGrid.createCells(i, j, currentCell);
 					Polygon cellVisual = currentCell.showPolygon();
 					root.getChildren().add(cellVisual);
-					upup = !upup;
 				}
-				upup = !upup;
 			}
 			
 		}
