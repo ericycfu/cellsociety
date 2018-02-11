@@ -16,7 +16,12 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
-
+/**
+ * Reads in the selected XML file and returns the information which can be used
+ * to load the simulation.
+ * @author Eric Fu
+ *
+ */
 public class XMLReader {
 	private String myFile;
 	private ArrayList<String> basicInfo = new ArrayList<String>();
@@ -30,11 +35,19 @@ public class XMLReader {
 	private int myCells[][];
 	private int myEnergy[][];
 	private Document doc;
-	
+	/**
+	 * Creates the XMLReader
+	 * @param filename is the path of the xml file to be read in.
+	 */
 	public XMLReader(String filename){
 		myFile = filename;
 	}
-	
+	/**
+	 * reads in the data from the XML file and adds the data to its respective list.
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 */
 	public void read() throws ParserConfigurationException, SAXException, IOException{
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
 		DocumentBuilder db = dbf.newDocumentBuilder(); //parser config exception
@@ -144,45 +157,75 @@ public class XMLReader {
 			}
 		}
 	}
-	
+	/**
+	 * Gets the name of the simulation
+	 * @return a string representing the type of simulation being run
+	 */
 	public String getSimType(){
 		return mySimu;
 	}
-	
+	/**
+	 * Gets the information stored under the basicinfo tag
+	 * @return a list containing the information stored in each child node of the basicinfo tag
+	 */
 	public List<String> showbasicInfo(){
 		return Collections.unmodifiableList(basicInfo);
 	}
-	
+	/**
+	 * Gets the information stored under the globalsettings tag
+	 * @return a list containing the information stored in each child node of the globalsettings tag
+	 */
 	public List<String> showglobalSettings(){
 		return Collections.unmodifiableList(globalSettings);
 	}
-	
+	/**
+	 * Gets the information stored under the gridparameters tag
+	 * @return a list containing the information stored in each child node of the gridparameters tag
+	 */
 	public List<String> showgridParameters(){
 		return Collections.unmodifiableList(gridParameters);
 	}
-	
+	/**
+	 * Gets the information stored under the cellparameters tag
+	 * @return a list containing the information stored in each child node of the cellparameters tag
+	 */
 	public List<String> showcellParameters(){
 		return Collections.unmodifiableList(cellParameters);
 	}
-	
+	/**
+	 * Gets the information stored under the calculatorparameters tag
+	 * @return a list containing the information stored in each child node of the calculatorparameters tag
+	 */
 	public List<String> showcalculatorParameters(){
 		return Collections.unmodifiableList(calculatorParameters);
 	}
-	
+	/**
+	 * Gets the information stored under the gridconfig tag
+	 * @return a list containing the information stored in each child node of the gridconfig tag
+	 */
 	public List<Integer> showgridConfig(){
 		ArrayList<Integer> myIntegerCopy = new ArrayList<Integer>();
 		for (String s : gridConfig) myIntegerCopy.add(Integer.valueOf(s));
 		return Collections.unmodifiableList(myIntegerCopy);
 	}
-	
+	/**
+	 * Gets the information stored under the percentages tag
+	 * @return a list containing the information stored in each child node of the percentages tag
+	 */
 	public List<String> showmyPercentages(){
 		return Collections.unmodifiableList(myPercentages);
 	}
-	
+	/**
+	 * Gets the state for each cell
+	 * @return a 2d array with each element representing the state of the cell in that position
+	 */
 	public int[][] showmyEnergy(){
 		return myEnergy.clone();
 	}
-	
+	/**
+	 * Gets the energy for each cell
+	 * @return a 2d array with each element representing the energy of the cell in that position
+	 */
 	public int[][] showmyCells(){
 		return myCells.clone();
 	}

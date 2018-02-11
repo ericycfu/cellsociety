@@ -18,17 +18,32 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
-
+/**
+ * Saves the current configuration of the simulation in an xml file.
+ * Depends on the Grid class obtained from the simulation class.
+ * @author Eric Fu
+ * 
+ */
 public class XMLcreator {
 	
 	private String myFilepath;
 	private Grid myGrid;
-	
+	/**
+	 * creates an XMLcreator
+	 * @param filepath The filepath of the xml file of the current simulation
+	 * @param grid The grid that contains the cells of the current simulation
+	 */
 	public XMLcreator(String filepath, Grid grid) {
 		myFilepath = filepath;
 		myGrid = grid;
 	}
-	
+	/**
+	 * writes the cell states into a new xml file
+	 * @throws TransformerException
+	 * @throws ParserConfigurationException
+	 * @throws SAXException
+	 * @throws IOException
+	 */
 	public void saveState() throws TransformerException, ParserConfigurationException, SAXException, IOException{
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
