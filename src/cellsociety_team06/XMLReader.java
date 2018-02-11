@@ -35,14 +35,15 @@ public class XMLReader {
 		myFile = filename;
 	}
 	
-	public void read() throws SAXException, IOException, ParserConfigurationException{
+	public void read() throws ParserConfigurationException, SAXException, IOException{
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
-		DocumentBuilder db = dbf.newDocumentBuilder();
-		try {
-		doc = db.parse(new File(myFile));
+		DocumentBuilder db = dbf.newDocumentBuilder(); //parser config exception
+		try{
+			doc = db.parse(new File(myFile));
 		}
-		catch (Exception e) {
-			System.out.println("Filename incorrect or file not found");
+		catch(IOException e) {
+			System.out.println("missing file or incorrect file path");
+			return;
 		}
 		doc.normalize();
 
@@ -56,6 +57,11 @@ public class XMLReader {
 			basicInfo.add(basicinfos.item(i).getFirstChild().getNodeValue());
 		}
 		mySimu = basicInfo.get(0);
+		String[] mySims = {"Fire", "Wator", "Segregation", "Game of Life", "SugarScape"};
+		if (!Arrays.asList(mySims).contains(mySimu)) {
+			throw new IOException("Simulation Type not found"); //needs to be handled in launcher class
+		}
+
 		
 		Element globalsetting = (Element) myCategories.item(1);
 		NodeList globalsettings = globalsetting.getChildNodes();
@@ -103,6 +109,7 @@ public class XMLReader {
 		}
 		catch(Exception e) {
 			System.out.println("specific cell data not found or not enough data");
+			return;
 		}
 	}
 	
@@ -122,6 +129,11 @@ public class XMLReader {
 					x = Integer.valueOf(el.getAttribute("x"));
 					y = Integer.valueOf(el.getAttribute("y"));
 					state = Integer.valueOf(el.getNodeValue());
+					//checks for invalid state
+					if ((state-1) >globalSettings.get(0).split(",").length) {
+						state = 0;
+						throw new IndexOutOfBoundsException("State was not within allowable range");
+					}					
 					data[x][y] = state;
 					ctr+=1;
 				}
