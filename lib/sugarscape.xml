@@ -18,7 +18,7 @@
 	</gridparameter>
 	<cellparameter>
 		<initialenergy>10</initialenergy>
-		<vision>1</vision>
+		<vision>0.2</vision>
 	</cellparameter>
 	<calculatorparameter>
 		<reproducerate>3</reproducerate>

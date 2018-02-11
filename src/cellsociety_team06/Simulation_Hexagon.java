@@ -38,8 +38,13 @@ public class Simulation_Hexagon extends Simulation{
 								break;
 							}
 							case 2:{
-								boolean visual = (Integer.parseInt(cellParameters.get(1)) == 1);
-								currentCell = new Cell_Hexagon(HEXAGON, j*Math.sqrt(3)*sidelength+100, i*1.5*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)), visual);
+								double visual = Double.parseDouble(cellParameters.get(1));
+								if (Math.random()<visual){
+									currentCell = new Cell_Hexagon(HEXAGON, j*sidelength+100+celllength/2, i*sidelength+50+celllength/2, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)), true);
+								}
+								else {
+									currentCell = new Cell_Hexagon(HEXAGON, j*sidelength+100+celllength/2, i*sidelength+50+celllength/2, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)), false);
+								}
 								break;
 							}
 						}
@@ -54,8 +59,13 @@ public class Simulation_Hexagon extends Simulation{
 								break;
 							}
 							case 2:{
-								boolean visual = (Integer.parseInt(cellParameters.get(1)) == 1);
-								currentCell = new Cell_Hexagon(HEXAGON, j*Math.sqrt(3)*sidelength+100+Math.sqrt(3)/2*sidelength+celllength/2, i*1.5*sidelength+50+celllength/2, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)), visual);
+								double visual = Double.parseDouble(cellParameters.get(1));
+								if (Math.random()<visual){
+									currentCell = new Cell_Hexagon(HEXAGON, j*sidelength+100+celllength/2, i*sidelength+50+celllength/2, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)), true);
+								}
+								else {
+									currentCell = new Cell_Hexagon(HEXAGON, j*sidelength+100+celllength/2, i*sidelength+50+celllength/2, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)), false);
+								}
 								break;
 							}
 						}
@@ -93,8 +103,13 @@ public class Simulation_Hexagon extends Simulation{
 								break;
 							}
 							case 2:{
-								boolean visual = (Integer.parseInt(cellParameters.get(1)) == 1);
-								currentCell = new Cell_Hexagon(HEXAGON, j*Math.sqrt(3)*sidelength+100+celllength/2, i*1.5*sidelength+50+celllength/2, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)), visual);
+								double visual = Double.parseDouble(cellParameters.get(1));
+								if (Math.random()<visual){
+									currentCell = new Cell_Hexagon(HEXAGON, j*sidelength+100+celllength/2, i*sidelength+50+celllength/2, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)), true);
+								}
+								else {
+									currentCell = new Cell_Hexagon(HEXAGON, j*sidelength+100+celllength/2, i*sidelength+50+celllength/2, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)), false);
+								}
 								break;
 							}
 						}
@@ -109,8 +124,13 @@ public class Simulation_Hexagon extends Simulation{
 								break;
 							}
 							case 2:{
-								boolean visual = (Integer.parseInt(cellParameters.get(1)) == 1);
-								currentCell = new Cell_Hexagon(HEXAGON, j*Math.sqrt(3)*sidelength+100+Math.sqrt(3)/2*sidelength+celllength/2, i*1.5*sidelength+50+celllength/2, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)), visual);
+								double visual = Double.parseDouble(cellParameters.get(1));
+								if (Math.random()<visual){
+									currentCell = new Cell_Hexagon(HEXAGON, j*sidelength+100+celllength/2, i*sidelength+50+celllength/2, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)), true);
+								}
+								else {
+									currentCell = new Cell_Hexagon(HEXAGON, j*sidelength+100+celllength/2, i*sidelength+50+celllength/2, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)), false);
+								}
 								break;
 							}
 						}
