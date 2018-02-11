@@ -19,6 +19,7 @@ public class Simulation_Square extends Simulation{
 		super(reader, sceneroot);
 	}
 	
+	@Override
 	public void cellGenerator(){
 		
 		Color[] lifeColor = colorGnerator(COLORS);
@@ -28,13 +29,17 @@ public class Simulation_Square extends Simulation{
 					switch (cellParameters.size()){
 						case 0:{
 							currentCell = new Cell_Square(SQUARE, i*sidelength+100, j*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j]);
+							break;
 						}
 						case 1:{
+							System.out.println(cellParameters.size());
 							currentCell = new Cell_Square(SQUARE, i*sidelength+100, j*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)));
+							break;
 						}
 						case 2:{
 							boolean visual = (Integer.parseInt(cellParameters.get(1)) == 1);
 							currentCell = new Cell_Square(SQUARE, i*sidelength+100, j*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)), visual);
+							break;
 						}
 					}
 					currentGrid.createCells(i, j, currentCell);

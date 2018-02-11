@@ -15,9 +15,9 @@ public abstract class Simulation{
 	protected Calculator currentCalculator;
 	protected XMLReader thisreader;
 	
-	protected ArrayList<String> basicInfo = new ArrayList<String>();
-	protected ArrayList<String> globalSettings = new ArrayList<String>();
-	protected ArrayList<Integer> gridConfig = new ArrayList<Integer>();
+	protected List<String> basicInfo = new ArrayList<String>();
+	protected List<String> globalSettings = new ArrayList<String>();
+	protected List<Integer> gridConfig = new ArrayList<Integer>();
 	
 	protected String mySimu;
 	protected String Shape;
@@ -42,10 +42,10 @@ public abstract class Simulation{
 		
 		thisreader = reader;
 		mySimu = thisreader.getSimType();
-		basicInfo = (ArrayList<String>) thisreader.showbasicInfo();
+		basicInfo = thisreader.showbasicInfo();
 		probabilities = thisreader.showmyPercentages();
-		globalSettings = (ArrayList<String>) thisreader.showglobalSettings();
-		gridConfig = (ArrayList<Integer>) thisreader.showgridConfig();
+		globalSettings = thisreader.showglobalSettings();
+		gridConfig = thisreader.showgridConfig();
 		
 		properties = globalSettings.get(0).split(",");
 		Shape = globalSettings.get(2);
@@ -56,7 +56,7 @@ public abstract class Simulation{
 		height = gridConfig.get(0);
 		width = gridConfig.get(1);
 		cellstates = thisreader.showmyCells();
-		
+		celllength = 500/width;
 		cellParameters = thisreader.showcellParameters();
 		
 		gridParameters = thisreader.showgridParameters();
@@ -76,8 +76,9 @@ public abstract class Simulation{
 	public void gridGenerator(){
 		
 		switch (mySimu) {
-        
+        	
 	        case "Game of Life":{
+	        	System.out.println("GOL create");
 	        	currentCalculator = new Calculator_Life(properties);
 	        	currentGrid = new Grid_Life(height, width, currentCalculator);
 	        	break;
@@ -99,12 +100,10 @@ public abstract class Simulation{
 	        }
 	        
 		}
-		
+		cellGenerator();
 	}
 	
-	public void cellGenerator(){
-		
-	}
+	public abstract void cellGenerator();
 	
 	public Calculator getCalc(){
 		return currentCalculator;
