@@ -48,7 +48,7 @@ public class XMLReader {
 		doc.normalize();
 
 		Element root = doc.getDocumentElement();
-		System.out.println(root.getNodeType());
+		
 		NodeList myCategories = root.getChildNodes();
 		
 		Node basicinfo = getElement(1, myCategories);

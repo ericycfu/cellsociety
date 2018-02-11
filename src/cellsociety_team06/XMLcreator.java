@@ -12,6 +12,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
+import org.w3c.dom.Attr;
 import org.w3c.dom.NamedNodeMap;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
@@ -33,39 +34,23 @@ public class XMLcreator {
 		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 		Document doc = docBuilder.parse(myFilepath);
 
-		NodeList cells = doc.getElementsByTagName("cell");
-		NodeList energies = doc.getElementsByTagName("energy");
-		Node myCell;
-		Element el;
-		int ctr = 0;
-		for (int times = 0; times < myGrid.showRowNum()*myGrid.showColNum(); times += 1) {
-			for (int i = 0; i < myGrid.showRowNum(); i += 1) {
-				for (int j = 0; j < myGrid.showColNum(); j+=1) {
-					myCell = cells.item(ctr);
-					if (myCell instanceof Element) {
-						el = (Element) myCell;
-						if (el.getAttribute("x").equals(Integer.toString(j)) && el.getAttribute("y").equals(Integer.toString(i))) {
-							el.getFirstChild().setNodeValue(Integer.toString(myGrid.getCell(i, j).showCurrentState()));
-							ctr += 1;
-						}
-					}
-				}
+		NodeList cellstates = doc.getElementsByTagName("cellstate");
+		NodeList energystates = doc.getElementsByTagName("energystates");
+		Node mycellstates = null;
+		Node myenergystates = null;
+		for (int i = 0; i < cellstates.getLength(); i +=1) {
+			if (cellstates.item(i) instanceof Element) {
+				mycellstates = cellstates.item(i);
+			}
+			if (energystates.item(i) instanceof Element) {
+				myenergystates = energystates.item(i);
 			}
 		}
-		ctr= 0;
-		for (int times = 0; times < myGrid.showRowNum()*myGrid.showColNum(); times += 1) {
-			for (int i = 0; i < myGrid.showRowNum(); i += 1) {
-				for (int j = 0; j < myGrid.showColNum(); j+=1) {
-					myCell = energies.item(ctr);
-					if (myCell instanceof Element) {
-						el = (Element) myCell;
-						if (el.getAttribute("x").equals(Integer.toString(j)) && el.getAttribute("y").equals(Integer.toString(i))) {
-							el.getFirstChild().setNodeValue(Integer.toString((int) myGrid.getCell(i, j).showEnergy()));
-						}
-					}
-				}
-			}
-		}
+		removeChildNodes(mycellstates);
+		removeChildNodes(myenergystates);
+		
+		addNodes(mycellstates, doc, "cell");
+		addNodes(myenergystates, doc, "energy");
 		
 
 		// write the content into xml file
@@ -76,5 +61,26 @@ public class XMLcreator {
 		transformer.transform(source, result);
 
 		System.out.println("Done");
+	}
+	
+	private void addNodes(Node node, Document doc, String type) {
+		for (int i = 0; i < myGrid.myColNum; i += 1) {
+			for (int j = 0; j < myGrid.myRowNum; j += 1) {
+				Element cell = doc.createElement(type);
+				node.appendChild(cell);
+				Attr x = doc.createAttribute("x");
+				Attr y = doc.createAttribute("y");
+				x.setValue(Integer.toString(i));
+				y.setValue(Integer.toString(j));
+				Element state = doc.createElement("state");
+				state.appendChild(doc.createTextNode(Integer.toString(myGrid.getCell(i,j).showCurrentState())));
+				cell.appendChild(state);
+			}
+		}
+	}
+	
+	
+	private void removeChildNodes(Node node) {
+		while (node.hasChildNodes()) node.removeChild(node.getFirstChild());
 	}
 }
