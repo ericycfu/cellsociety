@@ -8,12 +8,26 @@
 	</basicinfo>
 	<globalsettings>
 		<propertystring>X,O,Unoccupied</propertystring>
+		<colors>Colors.RED,Colors.BLUE,Colors.WHITE</colors>
 		<satisfylevel>0.6</satisfylevel>
+		<cellshape>square</cellshape>
 	</globalsettings>
 	<gridconfig>
-		<gridheight>4</gridheight>
-		<gridwidth>4</gridwidth>
+		<gridheight>3</gridheight>
+		<gridwidth>3</gridwidth>
 		<xpercentage>0.3</xpercentage>
 		<opercentage>0.4</opercentage>
+		<useprobability>yes</useprobability>
 	</gridconfig>
+	<cellstates>
+		<cell x = "0" y = "0"><state>0</state></cell>
+		<cell x = "1" y = "0"><state>0</state></cell>
+		<cell x = "2" y = "0"><state>0</state></cell>
+		<cell x = "0" y = "1"><state>0</state></cell>
+		<cell x = "1" y = "1"><state>0</state></cell>
+		<cell x = "2" y = "1"><state>0</state></cell>
+		<cell x = "0" y = "2"><state>0</state></cell>
+		<cell x = "1" y = "2"><state>0</state></cell>
+		<cell x = "2" y = "2"><state>0</state></cell>
+	</cellstates>
 </simulation>

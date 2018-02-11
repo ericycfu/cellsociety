@@ -8,14 +8,28 @@
 	</basicinfo>
 	<globalsettings>
 		<propertystring>Fish,Shark,Unoccupied</propertystring>
+		<colors>Colors.GREEN,Colors.BLUE,Colors.WHITE</colors>
+		<cellshape>square</cellshape>
 		<initialenergy>5</initialenergy>
 		<energygain>10</energygain>
 		<reproducetime>10</reproducetime>
 	</globalsettings>
 	<gridconfig>
-		<gridheight>20</gridheight>
-		<gridwidth>20</gridwidth>
+		<gridheight>3</gridheight>
+		<gridwidth>3</gridwidth>
 		<sharkpercentage>0.2</sharkpercentage>
 		<fishpercentage>0.3</fishpercentage>
+		<useprobability>yes</useprobability>
 	</gridconfig>
+	<cellstates>
+		<cell x = "0" y = "0"><state>0</state></cell>
+		<cell x = "1" y = "0"><state>0</state></cell>
+		<cell x = "2" y = "0"><state>0</state></cell>
+		<cell x = "0" y = "1"><state>0</state></cell>
+		<cell x = "1" y = "1"><state>0</state></cell>
+		<cell x = "2" y = "1"><state>0</state></cell>
+		<cell x = "0" y = "2"><state>0</state></cell>
+		<cell x = "1" y = "2"><state>0</state></cell>
+		<cell x = "2" y = "2"><state>0</state></cell>
+	</cellstates>
 </simulation>
