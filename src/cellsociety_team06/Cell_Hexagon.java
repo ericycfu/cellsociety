@@ -25,14 +25,17 @@ public class Cell_Hexagon extends Cell{
 				{	
 					myCenterXLocation, myCenterYLocation - mySideLength, // very top point
 					myCenterXLocation - Math.sqrt(3)*mySideLength/2, myCenterYLocation - mySideLength/2, // upper left point 
-					myCenterXLocation + Math.sqrt(3)*mySideLength/2, myCenterYLocation - mySideLength/2, // upper right point
 					myCenterXLocation - Math.sqrt(3)*mySideLength/2, myCenterYLocation + mySideLength/2, // lower left point 
+					myCenterXLocation, myCenterYLocation + mySideLength, // very bottom point
 					myCenterXLocation + Math.sqrt(3)*mySideLength/2, myCenterYLocation + mySideLength/2, // lower right point
-					myCenterXLocation, myCenterYLocation + mySideLength // very bottom point
+					myCenterXLocation + Math.sqrt(3)*mySideLength/2, myCenterYLocation - mySideLength/2 // upper right point
+					
 				};
 		
 		myPolygon = new Polygon(mySixPoints);
 		myPolygon.setFill(myColors[currentState]);
+		myPolygon.setStroke(Color.GREY);
+		myPolygon.setStrokeWidth(mySideLength/50);
 	}
 	
 	@Override
@@ -68,7 +71,7 @@ public class Cell_Hexagon extends Cell{
 	
 	@Override
 	public boolean checkDiagonalAdjacency(Cell cell){
-		return checkDiagonalAdjacency(cell);		
+		return false;
 	}
 	
 }

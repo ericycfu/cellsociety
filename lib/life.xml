@@ -9,7 +9,7 @@
 	<globalsettings>
 		<propertystring>Live,Dead</propertystring>
 		<colors>#000000,#FFFFFF</colors>
-		<cellshape>square</cellshape>
+		<cellshape>hexagon</cellshape>
 		<useprobability>0</useprobability>
 	</globalsettings>
 	<gridparameter></gridparameter>
@@ -24,13 +24,13 @@
 		<deadpercentage>0.5</deadpercentage>
 	</percentages>
 	<cellstates>
-		<cell x = "0" y = "0"><state>0</state></cell>
+		<cell x = "0" y = "0"><state>1</state></cell>
 		<cell x = "1" y = "0"><state>0</state></cell>
-		<cell x = "2" y = "0"><state>0</state></cell>
-		<cell x = "0" y = "1"><state>0</state></cell>
+		<cell x = "2" y = "0"><state>1</state></cell>
+		<cell x = "0" y = "1"><state>1</state></cell>
 		<cell x = "1" y = "1"><state>0</state></cell>
 		<cell x = "2" y = "1"><state>0</state></cell>
-		<cell x = "0" y = "2"><state>0</state></cell>
+		<cell x = "0" y = "2"><state>1</state></cell>
 		<cell x = "1" y = "2"><state>0</state></cell>
 		<cell x = "2" y = "2"><state>0</state></cell>
 	</cellstates>

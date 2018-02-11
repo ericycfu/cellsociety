@@ -70,7 +70,7 @@ private void sharkBehavior(int centerCellRow, int centerCellCol){
 		fishspace.get(randomfish).setFutureState(myCalculator.getState("Shark"));
 		fishspace.get(randomfish).updateChronon(myCells[centerCellRow][centerCellCol].showChronon()); 
 		fishspace.get(randomfish).setEnergy(myCells[centerCellRow][centerCellCol].showEnergy() + energyGain);
-		System.out.println(fishspace.get(randomfish).showFutureProperty());
+		//System.out.println(fishspace.get(randomfish).showFutureProperty());
 		if (fishspace.get(randomfish).showChronon()>=myCalculator.showParameter()){
 			myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Shark"));
 			fishspace.get(randomfish).resetChronon();

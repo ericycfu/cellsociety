@@ -30,27 +30,33 @@ public class Simulation_Hexagon extends Simulation{
 					if (oddodd){
 						switch (cellParameters.size()){
 							case 0:{
-								currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100, j*1.5*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j]);
+								currentCell = new Cell_Hexagon(HEXAGON, j*Math.sqrt(3)*sidelength+100+celllength/2, i*1.5*sidelength+50+celllength/2, sidelength, properties, lifeColor, cellstates[i][j]);
+								break;
 							}
 							case 1:{
-								currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100, j*1.5*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)));
+								currentCell = new Cell_Hexagon(HEXAGON, j*Math.sqrt(3)*sidelength+100+celllength/2, i*1.5*sidelength+50+celllength/2, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)));
+								break;
 							}
 							case 2:{
 								boolean visual = (Integer.parseInt(cellParameters.get(1)) == 1);
-								currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100, j*1.5*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)), visual);
+								currentCell = new Cell_Hexagon(HEXAGON, j*Math.sqrt(3)*sidelength+100, i*1.5*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)), visual);
+								break;
 							}
 						}
 					} else {
 						switch (cellParameters.size()){
 							case 0:{
-								currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100-Math.sqrt(3)/3*sidelength, j*1.5*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j]);
+								currentCell = new Cell_Hexagon(HEXAGON, j*Math.sqrt(3)*sidelength+100+Math.sqrt(3)/2*sidelength+celllength/2, i*1.5*sidelength+50+celllength/2, sidelength, properties, lifeColor, cellstates[i][j]);
+								break;
 							}
 							case 1:{
-								currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100-Math.sqrt(3)/3*sidelength, j*1.5*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)));
+								currentCell = new Cell_Hexagon(HEXAGON, j*Math.sqrt(3)*sidelength+100+Math.sqrt(3)/2*sidelength+celllength/2, i*1.5*sidelength+50+celllength/2, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)));
+								break;
 							}
 							case 2:{
 								boolean visual = (Integer.parseInt(cellParameters.get(1)) == 1);
-								currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100-Math.sqrt(3)/3*sidelength, j*1.5*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)), visual);
+								currentCell = new Cell_Hexagon(HEXAGON, j*Math.sqrt(3)*sidelength+100+Math.sqrt(3)/2*sidelength+celllength/2, i*1.5*sidelength+50+celllength/2, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)), visual);
+								break;
 							}
 						}
 					}
@@ -63,7 +69,8 @@ public class Simulation_Hexagon extends Simulation{
 		} else {
 			ArrayList<Integer> States = new ArrayList<Integer>();
 			for (int i=0;i<probabilities.size();i++){
-				int number = (int) (probabilities.get(i) * height * width);
+				double prob = Double.parseDouble(probabilities.get(i));
+				int number = (int) (prob * height * width);
 				for (int j=0;j<number;j++){
 					States.add(i);
 				}
@@ -78,33 +85,40 @@ public class Simulation_Hexagon extends Simulation{
 					if (oddodd){
 						switch (cellParameters.size()){
 							case 0:{
-								currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100, j*1.5*sidelength+50, sidelength, properties, lifeColor, States.get(arranger));
+								currentCell = new Cell_Hexagon(HEXAGON, j*Math.sqrt(3)*sidelength+100+celllength/2, i*1.5*sidelength+50+celllength/2, sidelength, properties, lifeColor, States.get(arranger));
+								break;
 							}
 							case 1:{
-								currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100, j*1.5*sidelength+50, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)));
+								currentCell = new Cell_Hexagon(HEXAGON, j*Math.sqrt(3)*sidelength+100+celllength/2, i*1.5*sidelength+50+celllength/2, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)));
+								break;
 							}
 							case 2:{
 								boolean visual = (Integer.parseInt(cellParameters.get(1)) == 1);
-								currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100, j*1.5*sidelength+50, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)), visual);
+								currentCell = new Cell_Hexagon(HEXAGON, j*Math.sqrt(3)*sidelength+100+celllength/2, i*1.5*sidelength+50+celllength/2, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)), visual);
+								break;
 							}
 						}
 					} else {
 						switch (cellParameters.size()){
 							case 0:{
-								currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100-Math.sqrt(3)/3*sidelength, j*1.5*sidelength+50, sidelength, properties, lifeColor, States.get(arranger));
+								currentCell = new Cell_Hexagon(HEXAGON, j*Math.sqrt(3)*sidelength+100+Math.sqrt(3)/2*sidelength+celllength/2, i*1.5*sidelength+50+celllength/2, sidelength, properties, lifeColor, States.get(arranger));
+								break;
 							}
 							case 1:{
-								currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100-Math.sqrt(3)/3*sidelength, j*1.5*sidelength+50, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)));
+								currentCell = new Cell_Hexagon(HEXAGON, j*Math.sqrt(3)*sidelength+100+Math.sqrt(3)/2*sidelength+celllength/2, i*1.5*sidelength+50+celllength/2, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)));
+								break;
 							}
 							case 2:{
 								boolean visual = (Integer.parseInt(cellParameters.get(1)) == 1);
-								currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100-Math.sqrt(3)/3*sidelength, j*1.5*sidelength+50, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)), visual);
+								currentCell = new Cell_Hexagon(HEXAGON, j*Math.sqrt(3)*sidelength+100+Math.sqrt(3)/2*sidelength+celllength/2, i*1.5*sidelength+50+celllength/2, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)), visual);
+								break;
 							}
 						}
 					}
 					currentGrid.createCells(i, j, currentCell);
 					Polygon cellVisual = currentCell.showPolygon();
 					root.getChildren().add(cellVisual);
+					arranger++;
 				}
 				oddodd = !oddodd;
 			}

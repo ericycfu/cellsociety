@@ -13,7 +13,7 @@ public class Grid_Fire extends Grid{
 			myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Empty"));
 		if (myCells[centerCellRow][centerCellCol].showCurrentProperty().equals("Tree") && myCells[centerCellRow][centerCellCol].showFutureProperty().equals("Tree")){
 			if (prob==1){ // one adjacent on fire
-				if (Math.random()<=myCalculator.showParameter()*100){
+				if (Math.random()<=myCalculator.showParameter()){
 					myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Burning"));
 				}
 				else myCells[centerCellRow][centerCellCol].setFutureState(myCalculator.getState("Tree"));

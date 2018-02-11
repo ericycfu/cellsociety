@@ -25,12 +25,14 @@ public class Cell_Square extends Cell{
 				{	
 					myCenterXLocation - mySideLength/2, myCenterYLocation - mySideLength/2, // top left corner 
 					myCenterXLocation + mySideLength/2, myCenterYLocation - mySideLength/2, // top right corner
-					myCenterXLocation - mySideLength/2, myCenterYLocation + mySideLength/2, // bottom left corner
-					myCenterXLocation + mySideLength/2, myCenterYLocation + mySideLength/2  // bottom right corner
+					myCenterXLocation + mySideLength/2, myCenterYLocation + mySideLength/2,  // bottom right corner
+					myCenterXLocation - mySideLength/2, myCenterYLocation + mySideLength/2 // bottom left corner
 				};
 		
 		myPolygon = new Polygon(myFourPoints);
 		myPolygon.setFill(myColors[currentState]);
+		myPolygon.setStroke(Color.GREY);
+		myPolygon.setStrokeWidth(mySideLength/50);
 	}
 	
 	@Override

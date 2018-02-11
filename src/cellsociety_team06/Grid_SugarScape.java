@@ -138,7 +138,7 @@ private Cell getMaxSugarCells(ArrayList<Cell> adjacentpatches){
 		for (int i = 0; i < myRowNum; i++){
 			for (int j = 0; j < myColNum; j++){
 				if (currentCell.showVision()){
-					if (!myCells[i][j].showCurrentProperty().equals("Agent") && (currentCell.checkSideAdjacency(myCells[i][j]) || currentCell.checkDiagonalAdjacency(myCells[i][j]))){
+					if (!myCells[i][j].showCurrentProperty().equals("Agent") && ((currentCell.checkSideAdjacency(myCells[i][j]) || currentCell.checkDiagonalAdjacency(myCells[i][j])))){
 						adjacentCells.add(myCells[i][j]);
 					}
 				}
@@ -158,7 +158,7 @@ private Cell getMaxSugarCells(ArrayList<Cell> adjacentpatches){
 		for (int i = 0; i < myRowNum; i++){
 			for (int j = 0; j < myColNum; j++){
 				if (currentCell.showVision()){
-					if (myCells[i][j].showCurrentProperty().equals(property) && (currentCell.checkSideAdjacency(myCells[i][j]) || currentCell.checkDiagonalAdjacency(myCells[i][j]))){
+					if (myCells[i][j].showCurrentProperty().equals(property) && ((currentCell.checkSideAdjacency(myCells[i][j]) || currentCell.checkDiagonalAdjacency(myCells[i][j])))){
 						adjacentCells.add(myCells[i][j]);
 					}
 				}

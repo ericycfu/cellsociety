@@ -25,7 +25,7 @@ public abstract class Simulation{
 	protected int width;
 	protected int height;
 	protected double celllength;
-	protected List<Double> probabilities;
+	protected List<String> probabilities;
 	protected String[] properties;
 	protected String[] COLORS;
 	protected int useProb; //0 for no, 1 for yes
@@ -85,6 +85,7 @@ public abstract class Simulation{
 	        }
 	        case "Fire":{
 	        	currentCalculator = new Calculator_Fire(properties, Float.parseFloat(calcParameters.get(0)));
+	        	//System.out.println(currentCalculator.showParameter());
 	        	currentGrid = new Grid_Fire(height, width, currentCalculator);
 	        	break;
 	        }
@@ -97,6 +98,10 @@ public abstract class Simulation{
 	        	currentCalculator = new Calculator_Segregation(properties, Float.parseFloat(calcParameters.get(0)));
 	        	currentGrid = new Grid_Segregation(height, width, currentCalculator);
 	        	break;
+	        }
+	        case "SugarScape":{
+	        	currentCalculator = new Calculator_SugarScape(properties, Float.parseFloat(calcParameters.get(0)));
+	        	currentGrid = new Grid_SugarScape(height, width, currentCalculator, Integer.parseInt(gridParameters.get(0)), Integer.parseInt(gridParameters.get(1)));
 	        }
 	        
 		}

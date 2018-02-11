@@ -109,7 +109,7 @@ public class Launcher extends Application{
 			}
 			
 		}
-		
+		currentSim.gridGenerator();
 		currentCalc = currentSim.getCalc();
 		currentGrid = currentSim.getGrid();
 		//System.out.println(currentGrid.checkTerminate());
@@ -195,7 +195,8 @@ public class Launcher extends Application{
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        currentSim.gridGenerator();
+        
+        //System.out.println(currentSim.getGrid().getCell(0, 0).showCurrentProperty());
         PAUSE.setOnAction(value ->  {
             pauser = true;
             PAUSE.setText("Resume");
@@ -288,8 +289,8 @@ public class Launcher extends Application{
 		SimAuthors = myReader.showbasicInfo().get(2);
 		height = myReader.showgridConfig().get(0);
 		width = myReader.showgridConfig().get(1);
-		
-		
+		System.out.println(height);
+		System.out.println(width);
 		
 	}
 	

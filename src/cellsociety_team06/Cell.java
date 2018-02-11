@@ -38,6 +38,7 @@ public abstract class Cell{
 		futureState = currentState; // initialize futureState to be the same with currentState
 		myChronon = 0;
 		myEnergy = initialEnergy;
+		myColors = colors;
 		initialEnergy = initialEnergyinput;
 		myCenterXLocation = centerXLocation;
 		myCenterYLocation = centerYLocation;
@@ -51,6 +52,7 @@ public abstract class Cell{
 		futureState = currentState; // initialize futureState to be the same with currentState
 		myChronon = 0;
 		myEnergy = initialEnergy;
+		myColors = colors;
 		initialEnergy = initialEnergyinput;
 		myCenterXLocation = centerXLocation;
 		myCenterYLocation = centerYLocation;

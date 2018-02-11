@@ -74,6 +74,8 @@ public abstract class Grid {
 	public void iterate(){
 		for (int i = 0; i < myRowNum; i++){
 			for (int j = 0; j < myColNum; j++){
+				//System.out.print(i);
+				//System.out.println(j);
 				updateCell(myCalculator.calculation(findAdjacentCells(i,j), getCell(i,j)),i,j);
 			}
 		}
