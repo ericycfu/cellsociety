@@ -25,7 +25,7 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
-public class Launcher {
+public class Launcher extends Application{
 	
 	private int celllength = 10;
 	private int buttonwidth = 40;
@@ -39,8 +39,6 @@ public class Launcher {
 	private ArrayList<Float> Probabilities = new ArrayList<Float>();
 	private ArrayList<Float> CellParameters = new ArrayList<Float>();
 	
-	private int MILLISECOND_DELAY = 1000 / 60;
-	private double SECOND_DELAY = 1.0 / 60;
 	private Paint BACKGROUND = Color.GREY;
 	
 	private String TITLE = "CellSociety_team06";
@@ -77,6 +75,10 @@ public class Launcher {
 	private Scene scene;
 	
 	private String cellType;
+	private String shape;
+	
+	private boolean whetherfix;
+	private int[][] gridGenerator;
 
 	public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
         Application.launch(args);
@@ -307,8 +309,19 @@ public class Launcher {
         }
 	}
 	
+	private void chooseFile(Stage primaryStage){
+		fileChooser = new FileChooser();
+        extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = fileChooser.showOpenDialog(primaryStage);
+        filename = file.getName();
+        myPrimaryStage = primaryStage;
+	}
+
+	
+	@Override
 	public void start(Stage primaryStage) throws Exception {
-		//chooseFile(primaryStage);
+		chooseFile(primaryStage);
         readFile("lib/"+filename);
 		pauser = false;
 		celllength = 500/width;
@@ -404,7 +417,6 @@ public class Launcher {
 	public void readFile(String thisfile) throws IOException, SAXException, ParserConfigurationException{
 		myReader = new XMLReader(thisfile);
 		myReader.read();
-		//System.out.println(myReader.showbasicInfo().size());
 		SimType = myReader.showbasicInfo().get(0);
 		System.out.println(SimType);
 		SimTitle = myReader.showbasicInfo().get(1);
@@ -415,8 +427,6 @@ public class Launcher {
 			case "Game of Life":{
 				String[] myproperties = myReader.showglobalSettings().get(0).split(",");
 				States = new ArrayList<String>(Arrays.asList(myproperties));
-				//System.out.println(States.get(0));
-				//System.out.println(States.get(1));
 				Probabilities.add(Float.parseFloat(myReader.showgridConfig().get(2)));
 				break;
 			}
@@ -473,7 +483,7 @@ public class Launcher {
 				}
 				break;
 			}
-			/*case "Segregation":{
+			case "Segregation":{
 				for (int i=0;i<height; i++){
 					for (int j=0;j<width;j++){
 						if (myGrid.getCell(i, j).showCurrentState()==0){
@@ -514,7 +524,7 @@ public class Launcher {
 					}
 				}
 				break;
-			}*/
+			}
 		}
 		timer++;
 		timedisplay.setText("Frame passed: " + Integer.toString(timer));
