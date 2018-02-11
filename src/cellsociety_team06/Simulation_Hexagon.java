@@ -9,11 +9,11 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 import javafx.scene.shape.Rectangle;
 
-public class Simulation_Square extends Simulation{
+public class Simulation_Hexagon extends Simulation{
 	
 	private String SQUARE;	
 
-	public Simulation_Square(XMLReader reader, Group sceneroot){
+	public Simulation_Hexagon(XMLReader reader, Group sceneroot){
 		super(reader, sceneroot);
 	}
 	

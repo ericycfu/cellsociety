@@ -1,6 +1,9 @@
 package cellsociety_team06;
 
-public class Launcher {
+import java.io.File;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.xml.parsers.ParserConfigurationException;
 
@@ -76,6 +79,8 @@ public class Launcher extends Application{
 	
 	private boolean whetherfix;
 	private int[][] gridGenerator;
+	
+	private Simulation currentSim;
 
 	public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
         Application.launch(args);
@@ -87,49 +92,20 @@ public class Launcher extends Application{
 		
 		thegrid = new Rectangle[height][width];
 		
-		for (int i=0;i<height;i++){
-			for (int j=0;j<width;j++){
-				Rectangle R = new Rectangle(i,j,celllength-1,celllength-1);
-				R.setX(i * celllength + 100);
-				R.setY(j * celllength + 50);
-				thegrid[i][j] = R;
-				double p = Math.random();
-				switch (SimType){
-					case "Game of Life":{
-						if (p < Probabilities.get(0))
-							R.setFill(Color.BLACK);
-						else R.setFill(Color.WHITE);
-						break;
-					}
-					case "Segregation":{
-						if (p < Probabilities.get(0))
-							R.setFill(Color.RED);
-						else if (p < Probabilities.get(1)) 
-							R.setFill(Color.BLUE);
-						else R.setFill(Color.WHITE);
-						break;
-					}
-					case "Wator":{
-						if (p < Probabilities.get(0))
-							R.setFill(Color.GREEN);
-						else if (p < Probabilities.get(1)) 
-							R.setFill(Color.BLUE);
-						else R.setFill(Color.WHITE);
-						break;
-					}
-					case "Fire":{
-						if (p < Probabilities.get(1))
-							R.setFill(Color.RED);
-						else if ( Probabilities.get(1)<= p && p < Probabilities.get(0)) 
-							R.setFill(Color.GREEN);
-						else R.setFill(Color.YELLOW);
-						break;
-					}
-				}
-				
-				
-				root.getChildren().add(R);
+		switch (shape){
+			
+			case "square":{
+				Simulation currentSim = new Simulation_Square(myReader, root);
 			}
+			
+			case "triangle":{
+				Simulation currentSim = new Simulation_Triangle(myReader, root);
+			}
+			
+			case "hexagon":{
+				Simulation currentSim = new Simulation_Hexagon(myReader, root);
+			}
+			
 		}
 		
 		PAUSE.setStyle("-fx-text-fill: #0000ff; -fx-border-color: #0000ff; -fx-border-width: 1px;");
@@ -214,7 +190,7 @@ public class Launcher extends Application{
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        cellGenerate();
+        currentSim.gridGenerator();
         PAUSE.setOnAction(value ->  {
             pauser = true;
             PAUSE.setText("Resume");
@@ -239,7 +215,7 @@ public class Launcher extends Application{
         	            Scene newscene = sceneCreator(900,900,BACKGROUND);
         	            myPrimaryStage.setScene(newscene);
         	            myPrimaryStage.show();
-        	            cellGenerate();
+        	            currentSim.cellGenerator();
         	            
         	        });
         
@@ -304,42 +280,11 @@ public class Launcher extends Application{
 		System.out.println(SimType);
 		SimTitle = myReader.showbasicInfo().get(1);
 		SimAuthors = myReader.showbasicInfo().get(2);
-		height = Integer.parseInt(myReader.showgridConfig().get(0));
-		width = Integer.parseInt(myReader.showgridConfig().get(1));
-		switch (SimType){
-			case "Game of Life":{
-				String[] myproperties = myReader.showglobalSettings().get(0).split(",");
-				States = new ArrayList<String>(Arrays.asList(myproperties));
-				Probabilities.add(Float.parseFloat(myReader.showgridConfig().get(2)));
-				break;
-			}
-			case "Segregation":{
-				String[] myproperties = myReader.showglobalSettings().get(0).split(",");
-				States = new ArrayList<String>(Arrays.asList(myproperties));
-				Probabilities.add(Float.parseFloat(myReader.showgridConfig().get(2)));
-				Probabilities.add(Float.parseFloat(myReader.showgridConfig().get(3)));
-				CellParameters.add(Float.parseFloat(myReader.showglobalSettings().get(1)));
-				break;
-			}
-			case "Wator":{
-				String[] myproperties = myReader.showglobalSettings().get(0).split(",");
-				States = new ArrayList<String>(Arrays.asList(myproperties));
-				Probabilities.add(Float.parseFloat(myReader.showgridConfig().get(2)));
-				Probabilities.add(Float.parseFloat(myReader.showgridConfig().get(3)));
-				CellParameters.add(Float.parseFloat(myReader.showglobalSettings().get(1)));
-				CellParameters.add(Float.parseFloat(myReader.showglobalSettings().get(2)));
-				CellParameters.add(Float.parseFloat(myReader.showglobalSettings().get(3)));
-				break;
-			}
-			case "Fire":{
-				String[] myproperties = myReader.showglobalSettings().get(0).split(",");
-				States = new ArrayList<String>(Arrays.asList(myproperties));
-				Probabilities.add(Float.parseFloat(myReader.showgridConfig().get(2)));
-				Probabilities.add(Float.parseFloat(myReader.showgridConfig().get(3)));
-				CellParameters.add(Float.parseFloat(myReader.showglobalSettings().get(1)));
-				break;
-			}
-		}
+		height = myReader.showgridConfig().get(0);
+		width = myReader.showgridConfig().get(1);
+		
+		
+		
 	}
 	
 	public void Step(Grid myGrid, Calculator myCalc){
