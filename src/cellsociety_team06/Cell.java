@@ -77,6 +77,14 @@ public abstract class Cell{
 		myEnergy = myEnergy + value;
 	}
 	
+	public String[] showProperties(){
+		return myProperties;
+	}
+	
+	public Color[] showColors(){
+		return myColors;
+	}
+	
 	public abstract boolean checkTopAdjacency(Cell cell);
 	
 	public abstract boolean checkBotAdjacency(Cell cell);
