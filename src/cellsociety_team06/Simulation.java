@@ -29,8 +29,9 @@ public abstract class Simulation{
 	protected String[] properties;
 	protected String[] COLORS;
 	protected int useProb; //0 for no, 1 for yes
-	protected ArrayList<Float> cellParameters = new ArrayList<Float>();
-	protected ArrayList<Float> gridParameters = new ArrayList<Float>();
+	protected List<String> cellParameters = new ArrayList<String>();
+	protected List<String> gridParameters = new ArrayList<String>();
+	protected List<String> calcParameters = new ArrayList<String>();
 	protected int[][] cellstates;
 	
 	protected Group root;
@@ -54,6 +55,11 @@ public abstract class Simulation{
 		
 		height = gridConfig.get(0);
 		width = gridConfig.get(1);
+		cellstates = thisreader.showmyCells();
+		
+		cellParameters = thisreader.showcellParameters();
+		gridParameters = thisreader.showgridParameters();
+		calcParameters = thisreader.showcalculatorParameters();
 	}
 	
 	public Color[] colorGnerator(String[] ColorString){
@@ -76,17 +82,17 @@ public abstract class Simulation{
 	        	break;
 	        }
 	        case "Fire":{
-	        	currentCalculator = new Calculator_Fire(properties, cellParameters.get(0));
+	        	currentCalculator = new Calculator_Fire(properties, Float.parseFloat(calcParameters.get(0)));
 	        	currentGrid = new Grid_Fire(height, width, currentCalculator);
 	        	break;
 	        }
 	        case "Wator":{
-	        	currentCalculator = new Calculator_Wator(properties,cellParameters.get(0));
+	        	currentCalculator = new Calculator_Wator(properties,Float.parseFloat(calcParameters.get(0)));
 	        	currentGrid = new Grid_Wator(height,width,currentCalculator);
 	        	break;
 	        }
 	        case "Segregation":{
-	        	currentCalculator = new Calculator_Segregation(properties, cellParameters.get(0));
+	        	currentCalculator = new Calculator_Segregation(properties, Float.parseFloat(calcParameters.get(0)));
 	        	currentGrid = new Grid_Segregation(height, width, currentCalculator);
 	        	break;
 	        }

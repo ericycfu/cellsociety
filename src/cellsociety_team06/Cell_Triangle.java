@@ -12,6 +12,16 @@ public class Cell_Triangle extends Cell{
 		makePolygon();
 	}
 	
+	public Cell_Triangle(String cellType, double centerXLocation, double centerYLocation, double sideLength, String[] properties, Color[] colors, int initialState, double initialEnergyInput){
+		super(cellType, centerXLocation, centerYLocation, sideLength, properties, colors, initialState, initialEnergyInput);
+		makePolygon();
+	}
+	
+	public Cell_Triangle(String cellType, double centerXLocation, double centerYLocation, double sideLength, String[] properties, Color[] colors, int initialState, double initialEnergyInput, boolean vision){
+		super(cellType, centerXLocation, centerYLocation, sideLength, properties, colors, initialState, initialEnergyInput, vision);
+		makePolygon();
+	}
+	
 	protected void makePolygon(){
 		double[] myThreePoints;
 		if (upwardTriangle){
@@ -33,7 +43,19 @@ public class Cell_Triangle extends Cell{
 		myPolygon = new Polygon(myThreePoints);
 		myPolygon.setFill(myColors[currentState]);
 	}
-
+	
+	public void resetEnergy(){
+		myEnergy = initialEnergy;
+	}
+	
+	public void setEnergy(double value){
+		myEnergy = value;
+	}
+	
+	public void changeEnergy(double value){
+		myEnergy = myEnergy + value;
+	}
+	
 	public boolean checkTopAdjacency(Cell cell){
 		if (!upwardTriangle)
 			return (locationMatch(myCenterXLocation, cell.showCenterXLoc()) && locationMatch(myCenterYLocation, cell.showCenterYLoc() + Math.sqrt(3)*mySideLength/2));
@@ -117,6 +139,47 @@ public class Cell_Triangle extends Cell{
 	private boolean downwardTriangleDiagonalCheck_Middle(Cell cell){
 		return (locationMatch(myCenterXLocation, (cell.showCenterXLoc() - mySideLength)) && locationMatch(myCenterYLocation, cell.showCenterYLoc())) ||
 				(locationMatch(myCenterXLocation, (cell.showCenterXLoc() + mySideLength)) && locationMatch(myCenterYLocation, cell.showCenterYLoc()));
+	}
+	
+	public double showEnergy(){
+		return myEnergy;
+	}
+	
+	public void resetChronon(){
+		myChronon = 0;
+	}
+	
+	public void updateChronon(double value){
+		myChronon = value;
+	}
+	
+	public double showChronon(){
+		return myChronon;
+	}
+	
+	public int showCurrentState(){
+		return currentState;
+	}
+	
+	public String showCurrentProperty(){
+		return myProperties[currentState];
+	}
+	
+	public int showFutureState(){
+		return futureState;
+	}
+	
+	public String showFutureProperty(){
+		return myProperties[futureState];
+	}
+	
+	public void update(){
+		currentState = futureState;
+		myPolygon.setFill(myColors[currentState]);
+	}
+	
+	public void setFutureState(int nextState){
+		futureState = nextState;
 	}
 	
 }

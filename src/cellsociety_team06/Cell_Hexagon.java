@@ -10,6 +10,16 @@ public class Cell_Hexagon extends Cell{
 		makePolygon();
 	}
 	
+	public Cell_Hexagon(String cellType, double centerXLocation, double centerYLocation, double sideLength, String[] properties, Color[] colors, int initialState, double initialEnergyInput){
+		super(cellType, centerXLocation, centerYLocation, sideLength, properties, colors, initialState, initialEnergyInput);
+		makePolygon();
+	}
+	
+	public Cell_Hexagon(String cellType, double centerXLocation, double centerYLocation, double sideLength, String[] properties, Color[] colors, int initialState, double initialEnergyInput, boolean vision){
+		super(cellType, centerXLocation, centerYLocation, sideLength, properties, colors, initialState, initialEnergyInput, vision);
+		makePolygon();
+	}
+	
 	protected void makePolygon(){
 		double[] mySixPoints = new double[]
 				{	
