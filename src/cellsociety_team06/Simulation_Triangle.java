@@ -25,6 +25,7 @@ public class Simulation_Triangle extends Simulation{
 			for (int i=0;i<height;i++){
 				for (int j=0;j<width;j++){
 					Cell currentCell = new Cell_Triangle(TRANGLE, i*0.5*celllength+100, j*Math.sqrt(3)/2*celllength+50, celllength, properties, lifeColor, cellstates[i][j], upup);
+					currentGrid.createCells(i, j, currentCell);
 					Polygon cellVisual = currentCell.showPolygon();
 					root.getChildren().add(cellVisual);
 					upup = !upup;
@@ -44,6 +45,7 @@ public class Simulation_Triangle extends Simulation{
 			for (int i=0;i<height;i++){
 				for (int j=0;j<width;j++){
 					Cell currentCell = new Cell_Triangle(TRANGLE, i*0.5*celllength+100, j*Math.sqrt(3)/2*celllength+50, celllength, properties, lifeColor, States.get(arranger), upup);
+					currentGrid.createCells(i, j, currentCell);
 					Polygon cellVisual = currentCell.showPolygon();
 					root.getChildren().add(cellVisual);
 					upup = !upup;

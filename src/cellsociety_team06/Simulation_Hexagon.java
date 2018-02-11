@@ -30,6 +30,7 @@ public class Simulation_Hexagon extends Simulation{
 					} else {
 						currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*celllength+100-Math.sqrt(3)/3*celllength, j*1.5*celllength+50, celllength, properties, lifeColor, cellstates[i][j]);
 					}
+					currentGrid.createCells(i, j, currentCell);
 					Polygon cellVisual = currentCell.showPolygon();
 					root.getChildren().add(cellVisual);
 				}
@@ -52,6 +53,7 @@ public class Simulation_Hexagon extends Simulation{
 					} else {
 						currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*celllength+100-Math.sqrt(3)/3*celllength, j*1.5*celllength+50, celllength, properties, lifeColor, States.get(arranger));
 					}
+					currentGrid.createCells(i, j, currentCell);
 					Polygon cellVisual = currentCell.showPolygon();
 					root.getChildren().add(cellVisual);
 				}
