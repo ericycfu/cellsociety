@@ -8,17 +8,19 @@
 	</basicinfo>
 	<globalsettings>
 		<propertystring>Tree,Burning,Empty</propertystring>
-		<colors>Colors.GREEN,Colors.RED,Colors.YELLOW</colors>
+		<colors>#00FF00,#FF0000,#FFFF00</colors>
 		<probcatch>0.4</probcatch>
 		<cellshape>square</cellshape>
+		<useprobability>0</useprobability>
 	</globalsettings>
+	<gridparameter></gridparameter>
+	<cellparameter></cellparameter>
+	<calculatorparameter></calculatorparameter>
 	<gridconfig>
 		<gridheight>3</gridheight>
 		<gridwidth>3</gridwidth>
-		<treepercentage>0.8</treepercentage>
-		<burningpercentage>0.2</burningpercentage>
-		<useprobability>no</useprobability>
 	</gridconfig>
+	<percentages>0.8,0.2,0</percentages>
 	<cellstates>
 		<cell x = "0" y = "0"><state>0</state></cell>
 		<cell x = "1" y = "0"><state>0</state></cell>

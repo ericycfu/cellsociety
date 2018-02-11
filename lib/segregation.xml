@@ -8,17 +8,21 @@
 	</basicinfo>
 	<globalsettings>
 		<propertystring>X,O,Unoccupied</propertystring>
-		<colors>Colors.RED,Colors.BLUE,Colors.WHITE</colors>
+		<colors>#FF0000,#0000FF,#FFFFFF</colors>
 		<satisfylevel>0.6</satisfylevel>
 		<cellshape>square</cellshape>
+		<useprobability>0</useprobability>
 	</globalsettings>
+	<gridparameter></gridparameter>
+	<cellparameter></cellparameter>
+	<calculatorparameter>
+		<satisfylevel>0.6</satisfylevel>
+	</calculatorparameter>
 	<gridconfig>
 		<gridheight>3</gridheight>
 		<gridwidth>3</gridwidth>
-		<xpercentage>0.3</xpercentage>
-		<opercentage>0.4</opercentage>
-		<useprobability>yes</useprobability>
 	</gridconfig>
+	<percentages>0.4,0.3,0.3</percentages>
 	<cellstates>
 		<cell x = "0" y = "0"><state>0</state></cell>
 		<cell x = "1" y = "0"><state>0</state></cell>
