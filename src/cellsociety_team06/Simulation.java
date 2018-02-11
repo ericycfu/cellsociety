@@ -16,30 +16,34 @@ import org.w3c.dom.Document;
 
 public abstract class Simulation{
 	
-	private Grid currentGrid;
-	private Calculator currentCalculator;
-	private XMLReader thisreader;
+	protected Grid currentGrid;
+	protected Calculator currentCalculator;
+	protected XMLReader thisreader;
 	
-	private ArrayList<String> basicInfo = new ArrayList<String>();
-	private ArrayList<String> globalSettings = new ArrayList<String>();
-	private ArrayList<String> gridConfig = new ArrayList<String>();
+	protected ArrayList<String> basicInfo = new ArrayList<String>();
+	protected ArrayList<String> globalSettings = new ArrayList<String>();
+	protected ArrayList<String> gridConfig = new ArrayList<String>();
 	
-	private String mySimu;
-	private String Shape;
+	protected String mySimu;
+	protected String Shape;
 	
-	private int width;
-	private int height;
-	private double celllength;
-	private float[] probabilities;
-	private String[] properties;
-	private String[] COLORS;
-	private int useProb; //0 for no, 1 for yes
-	private ArrayList<Float> cellParameters = new ArrayList<Float>();
-	private ArrayList<Float> gridParameters = new ArrayList<Float>();
-	private int[][] cellstates;
+	protected int width;
+	protected int height;
+	protected double celllength;
+	protected double[] probabilities;
+	protected String[] properties;
+	protected String[] COLORS;
+	protected int useProb; //0 for no, 1 for yes
+	protected ArrayList<Float> cellParameters = new ArrayList<Float>();
+	protected ArrayList<Float> gridParameters = new ArrayList<Float>();
+	protected int[][] cellstates;
 	
+	protected Group root;
 	
-	public Simulation(XMLReader reader, int gridwidth, int gridheight, double theCelllength){
+	public Simulation(XMLReader reader, Group sceneroot){
+		
+		root = sceneroot;
+		
 		thisreader = reader;
 		mySimu = thisreader.getSimType();
 		basicInfo = (ArrayList<String>) thisreader.showbasicInfo();
@@ -55,6 +59,16 @@ public abstract class Simulation{
 		
 		height = Integer.parseInt(gridConfig.get(0));
 		width = Integer.parseInt(gridConfig.get(1));
+	}
+	
+	public Color[] colorGnerator(String[] ColorString){
+		
+		Color[] cellColors = new Color[COLORS.length];
+		for (int i=0;i<COLORS.length;i++){
+			cellColors[i] = Color.web(COLORS[i]);
+		}
+		return cellColors;
+		
 	}
 	
 	public void gridGenerator(){
@@ -86,91 +100,6 @@ public abstract class Simulation{
 		
 	}
 	
-	public void cellGenerator(){
-		
-		switch (SimType){
-    	case "Game of Life":{
-    		Color[] LIVES = new Color[2];
-    		LIVES[0] = Color.BLACK;
-    		LIVES[1] = Color.WHITE;
-    		for (int i=0;i<height;i++){
-    			for (int j=0;j<width;j++){
-    				if (thegrid[i][j].getFill() == Color.BLACK){
-    					thiscell = new Cell_Square(cellType, i*celllength+100, j*celllength+50, celllength, properties, LIVES, 1);
-    					lifeGrid.createCells(i, j, thiscell);
-    				} else {
-    					thiscell = new Cell_Square(cellType, i*celllength+100, j*celllength+50, celllength, properties, LIVES, 0);
-    					lifeGrid.createCells(i, j, thiscell);
-    				}
-    			}
-    		}
-    		break;
-    	}
-    	case "Fire":{
-    		Color[] FIRES = new Color[3];
-    		FIRES[0] = Color.GREEN;
-    		FIRES[1] = Color.RED;
-    		FIRES[2] = Color.YELLOW;
-            for (int i=0;i<height;i++){
-            	for (int j=0;j<width;j++){
-            		if (thegrid[i][j].getFill() == Color.GREEN){
-            			thiscell = new Cell_Square(cellType, i*celllength+100, j*celllength+50, celllength, properties, FIRES, 0);
-            			lifeGrid.createCells(i, j, thiscell);
-            		} else if (thegrid[i][j].getFill() == Color.RED){
-            			thiscell = new Cell_Square(cellType, i*celllength+100, j*celllength+50, celllength, properties, FIRES, 1);
-            			lifeGrid.createCells(i, j, thiscell);
-            		} else {
-            			thiscell = new Cell_Square(cellType, i*celllength+100, j*celllength+50, celllength, properties, FIRES, 2);
-            			lifeGrid.createCells(i, j, thiscell);
-            		}
-            	}
-            	}
-            break;
-        }
-    	case "Wator":{
-    		Color[] WATORS = new Color[3];
-    		WATORS[0] = Color.GREEN;
-    		WATORS[1] = Color.BLUE;
-    		WATORS[2] = Color.WHITE;
-            for (int i=0;i<height;i++){
-            	for (int j=0;j<width;j++){
-            		if (thegrid[i][j].getFill() == Color.GREEN){
-            			thiscell = new Cell_Square(cellType, i*celllength+100, j*celllength+50, celllength, properties, WATORS, 0);
-            			lifeGrid.createCells(i, j, thiscell);
-            		} else if (thegrid[i][j].getFill() == Color.BLUE){
-            			thiscell = new Cell_Square(cellType, i*celllength+100, j*celllength+50, celllength, properties, WATORS, 1);
-            			lifeGrid.createCells(i, j, thiscell);
-            		} else {
-            			thiscell = new Cell_Square(cellType, i*celllength+100, j*celllength+50, celllength, properties, WATORS, 2);
-            			lifeGrid.createCells(i, j, thiscell);
-            		}
-            	}
-            	}
-            	break;
-           	}
-    	case "Segregation":{
-    		Color[] SEGS = new Color[3];
-    		SEGS[0] = Color.RED;
-    		SEGS[1] = Color.BLUE;
-    		SEGS[2] = Color.WHITE;
-            for (int i=0;i<height;i++){
-            	for (int j=0;j<width;j++){
-            		if (thegrid[i][j].getFill() == Color.RED) {
-            			thiscell = new Cell_Square(cellType, i*celllength+100, j*celllength+50, celllength, properties, SEGS, 0);
-            			lifeGrid.createCells(i, j, thiscell);
-            		} else if (thegrid[i][j].getFill() == Color.BLUE){
-            			thiscell = new Cell_Square(cellType, i*celllength+100, j*celllength+50, celllength, properties, SEGS, 1);
-            			lifeGrid.createCells(i, j, thiscell);
-            		} else {
-            			thiscell = new Cell_Square(cellType, i*celllength+100, j*celllength+50, celllength, properties, SEGS, 2);
-            			lifeGrid.createCells(i, j, thiscell);
-            		}
-            	}
-            }
-            break;
-    	}
-    }
-		
-	}
+	
 	
 }
