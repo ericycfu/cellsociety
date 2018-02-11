@@ -9,13 +9,14 @@
 	<globalsettings>
 		<propertystring>Tree,Burning,Empty</propertystring>
 		<colors>#00FF00,#FF0000,#FFFF00</colors>
-		<probcatch>0.4</probcatch>
 		<cellshape>square</cellshape>
 		<useprobability>0</useprobability>
 	</globalsettings>
 	<gridparameter></gridparameter>
 	<cellparameter></cellparameter>
-	<calculatorparameter></calculatorparameter>
+	<calculatorparameter>
+		<probcatch>0.4</probcatch>
+	</calculatorparameter>
 	<gridconfig>
 		<gridheight>3</gridheight>
 		<gridwidth>3</gridwidth>

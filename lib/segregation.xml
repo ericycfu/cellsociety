@@ -9,7 +9,6 @@
 	<globalsettings>
 		<propertystring>X,O,Unoccupied</propertystring>
 		<colors>#FF0000,#0000FF,#FFFFFF</colors>
-		<satisfylevel>0.6</satisfylevel>
 		<cellshape>square</cellshape>
 		<useprobability>0</useprobability>
 	</globalsettings>
@@ -22,7 +21,11 @@
 		<gridheight>3</gridheight>
 		<gridwidth>3</gridwidth>
 	</gridconfig>
-	<percentages>0.4,0.3,0.3</percentages>
+	<percentages>
+		<xpercentage>0.3</xpercentage>
+		<opercentage>0.3</opercentage>
+		<unoccupiedpercentage>0.4</unoccupiedpercentage>
+	</percentages>
 	<cellstates>
 		<cell x = "0" y = "0"><state>0</state></cell>
 		<cell x = "1" y = "0"><state>0</state></cell>
