@@ -27,9 +27,29 @@ public class Simulation_Hexagon extends Simulation{
 			for (int i=0;i<height;i++){
 				for (int j=0;j<width;j++){
 					if (oddodd){
-						currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100, j*1.5*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j]);
+						switch (cellParameters.size()){
+							case 0:{
+								currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100, j*1.5*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j]);
+							}
+							case 1:{
+								currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100, j*1.5*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], cellParameters.get(0));
+							}
+							case 2:{
+								currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100, j*1.5*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], cellParameters.get(0), cellParameters.get(1));
+							}
+						}
 					} else {
-						currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100-Math.sqrt(3)/3*sidelength, j*1.5*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j]);
+						switch (cellParameters.size()){
+							case 0:{
+								currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100-Math.sqrt(3)/3*sidelength, j*1.5*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j]);
+							}
+							case 1:{
+								currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100-Math.sqrt(3)/3*sidelength, j*1.5*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], cellParameters.get(0));
+							}
+							case 2:{
+								currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100-Math.sqrt(3)/3*sidelength, j*1.5*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], cellParameters.get(0), cellParameters.get(1));
+							}
+						}
 					}
 					currentGrid.createCells(i, j, currentCell);
 					Polygon cellVisual = currentCell.showPolygon();
@@ -53,9 +73,29 @@ public class Simulation_Hexagon extends Simulation{
 			for (int i=0;i<height;i++){
 				for (int j=0;j<width;j++){
 					if (oddodd){
-						currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100, j*1.5*sidelength+50, sidelength, properties, lifeColor, States.get(arranger));
+						switch (cellParameters.size()){
+							case 0:{
+								currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100, j*1.5*sidelength+50, sidelength, properties, lifeColor, States.get(arranger));
+							}
+							case 1:{
+								currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100, j*1.5*sidelength+50, sidelength, properties, lifeColor, States.get(arranger), cellParameters.get(0));
+							}
+							case 2:{
+								currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100, j*1.5*sidelength+50, sidelength, properties, lifeColor, States.get(arranger), cellParameters.get(0), cellParameters.get(1));
+							}
+						}
 					} else {
-						currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100-Math.sqrt(3)/3*sidelength, j*1.5*sidelength+50, sidelength, properties, lifeColor, States.get(arranger));
+						switch (cellParameters.size()){
+							case 0:{
+								currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100-Math.sqrt(3)/3*sidelength, j*1.5*sidelength+50, sidelength, properties, lifeColor, States.get(arranger));
+							}
+							case 1:{
+								currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100-Math.sqrt(3)/3*sidelength, j*1.5*sidelength+50, sidelength, properties, lifeColor, States.get(arranger), cellParameters.get(0));
+							}
+							case 2:{
+								currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100-Math.sqrt(3)/3*sidelength, j*1.5*sidelength+50, sidelength, properties, lifeColor, States.get(arranger), cellParameters.get(0), cellParameters.get(1));
+							}
+						}
 					}
 					currentGrid.createCells(i, j, currentCell);
 					Polygon cellVisual = currentCell.showPolygon();
