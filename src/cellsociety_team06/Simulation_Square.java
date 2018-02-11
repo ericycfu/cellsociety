@@ -13,6 +13,7 @@ public class Simulation_Square extends Simulation{
 	
 	private String SQUARE = "square";	
 	private double sidelength = celllength;
+	Cell currentCell;
 
 	public Simulation_Square(XMLReader reader, Group sceneroot){
 		super(reader, sceneroot);
@@ -24,7 +25,17 @@ public class Simulation_Square extends Simulation{
 		if (useProb == 0){
 			for (int i=0;i<height;i++){
 				for (int j=0;j<width;j++){
-					Cell currentCell = new Cell_Square(SQUARE, i*sidelength+100, j*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j]);
+					switch (cellParameters.size()){
+						case 0:{
+							currentCell = new Cell_Square(SQUARE, i*sidelength+100, j*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j]);
+						}
+						case 1:{
+							currentCell = new Cell_Square(SQUARE, i*sidelength+100, j*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], cellParameters.get(0));
+						}
+						case 2:{
+							currentCell = new Cell_Square(SQUARE, i*sidelength+100, j*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], cellParameters.get(0), cellParameters.get(1));
+						}
+					}
 					currentGrid.createCells(i, j, currentCell);
 					Polygon cellVisual = currentCell.showPolygon();
 					root.getChildren().add(cellVisual);
@@ -45,7 +56,17 @@ public class Simulation_Square extends Simulation{
 			int arranger = 0;
 			for (int i=0;i<height;i++){
 				for (int j=0;j<width;j++){
-					Cell currentCell = new Cell_Square(SQUARE, i*sidelength+100, j*sidelength+50, sidelength, properties, lifeColor, States.get(arranger));
+					switch (cellParameters.size()){
+					case 0:{
+						currentCell = new Cell_Square(SQUARE, i*sidelength+100, j*sidelength+50, sidelength, properties, lifeColor, States.get(arranger));
+					}
+					case 1:{
+						currentCell = new Cell_Square(SQUARE, i*sidelength+100, j*sidelength+50, sidelength, properties, lifeColor, States.get(arranger), cellParameters.get(0));
+					}
+					case 2:{
+						currentCell = new Cell_Square(SQUARE, i*sidelength+100, j*sidelength+50, sidelength, properties, lifeColor, States.get(arranger), cellParameters.get(0), cellParameters.get(1));
+					}
+				}
 					currentGrid.createCells(i, j, currentCell);
 					Polygon cellVisual = currentCell.showPolygon();
 					root.getChildren().add(cellVisual);
