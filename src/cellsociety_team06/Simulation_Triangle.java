@@ -13,6 +13,7 @@ public class Simulation_Triangle extends Simulation{
 	
 	private String TRANGLE = "trangle";	
 	private boolean upup = true;
+	Cell currentCell;
 	private double sidelength = celllength * 2;
 
 	public Simulation_Triangle(XMLReader reader, Group sceneroot){
@@ -27,7 +28,18 @@ public class Simulation_Triangle extends Simulation{
 				for (int j=0;j<width;j++){
 					int index = i+j;
 					upup = (index % 2 == 0);
-					Cell currentCell = new Cell_Triangle(TRANGLE, i*0.5*sidelength+100, j*Math.sqrt(3)/2*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], upup);
+					switch (cellParameters.size()){
+						case 0:{
+							currentCell = new Cell_Triangle(TRANGLE, i*0.5*sidelength+100, j*Math.sqrt(3)/2*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], upup);
+						}
+						case 1:{
+							currentCell = new Cell_Triangle(TRANGLE, i*0.5*sidelength+100, j*Math.sqrt(3)/2*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)), upup);
+						}
+						case 2:{
+							boolean visual = (Integer.parseInt(cellParameters.get(1)) == 1);
+							currentCell = new Cell_Triangle(TRANGLE, i*0.5*sidelength+100, j*Math.sqrt(3)/2*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)), visual, upup);
+						}
+					}
 					currentGrid.createCells(i, j, currentCell);
 					Polygon cellVisual = currentCell.showPolygon();
 					root.getChildren().add(cellVisual);
@@ -50,7 +62,18 @@ public class Simulation_Triangle extends Simulation{
 				for (int j=0;j<width;j++){
 					int index = i+j;
 					upup = (index % 2 == 0);
-					Cell currentCell = new Cell_Triangle(TRANGLE, i*0.5*sidelength+100, j*Math.sqrt(3)/2*sidelength+50, sidelength, properties, lifeColor, States.get(arranger), upup);
+					switch (cellParameters.size()){
+					case 0:{
+						currentCell = new Cell_Triangle(TRANGLE, i*0.5*sidelength+100, j*Math.sqrt(3)/2*sidelength+50, sidelength, properties, lifeColor, States.get(arranger), upup);
+					}
+					case 1:{
+						currentCell = new Cell_Triangle(TRANGLE, i*0.5*sidelength+100, j*Math.sqrt(3)/2*sidelength+50, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)), upup);
+					}
+					case 2:{
+						boolean visual = (Integer.parseInt(cellParameters.get(1)) == 1);
+						currentCell = new Cell_Triangle(TRANGLE, i*0.5*sidelength+100, j*Math.sqrt(3)/2*sidelength+50, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)), visual, upup);
+					}
+				}
 					currentGrid.createCells(i, j, currentCell);
 					Polygon cellVisual = currentCell.showPolygon();
 					root.getChildren().add(cellVisual);
