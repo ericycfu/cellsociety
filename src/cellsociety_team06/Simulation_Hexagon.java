@@ -11,7 +11,9 @@ import javafx.scene.shape.Rectangle;
 
 public class Simulation_Hexagon extends Simulation{
 	
-	private String SQUARE;	
+	private String HEXAGON = "hexagon";	
+	private boolean oddodd = true;
+	Cell currentCell;
 
 	public Simulation_Hexagon(XMLReader reader, Group sceneroot){
 		super(reader, sceneroot);
@@ -23,10 +25,15 @@ public class Simulation_Hexagon extends Simulation{
 		if (useProb == 0){
 			for (int i=0;i<height;i++){
 				for (int j=0;j<width;j++){
-					Cell currentCell = new Cell_Hexagon(SQUARE, i*celllength+100, j*celllength+50, celllength, properties, lifeColor, cellstates[i][j]);
+					if (oddodd){
+						currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*celllength+100, j*1.5*celllength+50, celllength, properties, lifeColor, cellstates[i][j]);
+					} else {
+						currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*celllength+100-Math.sqrt(3)/3*celllength, j*1.5*celllength+50, celllength, properties, lifeColor, cellstates[i][j]);
+					}
 					Polygon cellVisual = currentCell.showPolygon();
 					root.getChildren().add(cellVisual);
 				}
+				oddodd = !oddodd;
 			}
 		} else {
 			ArrayList<Integer> States = new ArrayList<Integer>();
@@ -39,11 +46,16 @@ public class Simulation_Hexagon extends Simulation{
 			Collections.shuffle(States);
 			int arranger = 0;
 			for (int i=0;i<height;i++){
-				for (int j=0;j<4;j++){
-					Cell currentCell = new Cell_Hexagon(SQUARE, i*celllength+100, j*celllength+50, celllength, properties, lifeColor, States.get(arranger));
+				for (int j=0;j<width;j++){
+					if (oddodd){
+						currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*celllength+100, j*1.5*celllength+50, celllength, properties, lifeColor, States.get(arranger));
+					} else {
+						currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*celllength+100-Math.sqrt(3)/3*celllength, j*1.5*celllength+50, celllength, properties, lifeColor, States.get(arranger));
+					}
 					Polygon cellVisual = currentCell.showPolygon();
 					root.getChildren().add(cellVisual);
 				}
+				oddodd = !oddodd;
 			}
 			
 		}
