@@ -12,273 +12,165 @@ import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import java.util.*;
 
-<<<<<<< HEAD
+import org.w3c.dom.Document;
+
 public abstract class Simulation{
-=======
-public abstract class Simulation {
-
-import org.xml.sax.SAXException;
-
-import java.io.File;  
-import java.io.InputStreamReader;
-import java.io.RandomAccessFile;
-import java.io.BufferedReader;  
-import java.io.BufferedWriter;  
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-
-public class Simulation extends Application{
 	
-	private int celllength = 10;
-	private int buttonwidth = 40;
-	private int buttonheight = 20;
+	private Grid currentGrid;
+	private Calculator currentCalculator;
+	private XMLReader thisreader;
 	
-	private String SIMUL;
-	private Stage myPrimaryStage;
-	private int width;
-	private int height;
-	private ArrayList<String> States = new ArrayList<String>();
-	private ArrayList<Float> Probabilities = new ArrayList<Float>();
-	private ArrayList<Float> CellParameters = new ArrayList<Float>();
+	private ArrayList<String> basicInfo = new ArrayList<String>();
+	private ArrayList<String> globalSettings = new ArrayList<String>();
+	private ArrayList<String> gridConfig = new ArrayList<String>();
 	
-	private int MILLISECOND_DELAY = 1000 / 60;
-	private double SECOND_DELAY = 1.0 / 60;
-	private Paint BACKGROUND = Color.GREY;
->>>>>>> ab73babb85065016a6e05c8160651ca215ad7cab
-	
-	private Grid thisGrid;
+	private String mySimu;
 	private String Shape;
 	
-	public Simulation(Grid simulGrid, String simulShape){
-		thisGrid = simulGrid;
-		Shape = simulShape;
+	private int width;
+	private int height;
+	private double celllength;
+	private float[] probabilities;
+	private String[] properties;
+	private String[] COLORS;
+	private int useProb; //0 for no, 1 for yes
+	private ArrayList<Float> cellParameters = new ArrayList<Float>();
+	private ArrayList<Float> gridParameters = new ArrayList<Float>();
+	private int[][] cellstates;
+	
+	
+	public Simulation(XMLReader reader, int gridwidth, int gridheight, double theCelllength){
+		thisreader = reader;
+		mySimu = thisreader.getSimType();
+		basicInfo = (ArrayList<String>) thisreader.showbasicInfo();
+		//probabilities = thisreader.getProbs;
+		globalSettings = (ArrayList<String>) thisreader.showglobalSettings();
+		gridConfig = (ArrayList<String>) thisreader.showgridConfig();
+		//Shape = thisreader.getShape;
+		
+		properties = globalSettings.get(0).split(",");
+		COLORS = globalSettings.get(1).split(",");
+		Shape = globalSettings.get(2);
+		useProb = Integer.parseInt(globalSettings.get(3));
+		
+		height = Integer.parseInt(gridConfig.get(0));
+		width = Integer.parseInt(gridConfig.get(1));
 	}
 	
-	public Cell[][] cellGenerator(int width,int height,String Shape){
+	public void gridGenerator(){
 		
-	}
-	
-<<<<<<< HEAD
-=======
-	public void pausing(){
-		  pauser = true;
-		  PAUSE.setOnAction(valuevalue ->  {
-		   resuming();
-		        });
-		  PAUSE.setText("Resume");
-		  STEP.setDisable(false);
-		  FASTER.setDisable(true);
-		  SLOWER.setDisable(true);
-		 }
-		 
-		 public void resuming(){
-		  pauser = false;
-		  PAUSE.setOnAction(valuevalue ->  {
-		   pausing();
-		        });
-		  PAUSE.setText("Pause");
-		  STEP.setDisable(true);
-		  FASTER.setDisable(false);
-		  SLOWER.setDisable(false);
-		 }
-	
-	public Scene sceneCreator(int L, int W, Paint background){
-		pauser = false;
-		root = new Group();
-		
-		thegrid = new Rectangle[height][width];
-		
-		for (int i=0;i<height;i++){
-			for (int j=0;j<width;j++){
-				Rectangle R = new Rectangle(i,j,celllength-1,celllength-1);
-				R.setX(i * celllength + 100);
-				R.setY(j * celllength + 50);
-				thegrid[i][j] = R;
-				double p = Math.random();
-				switch (SimType){
-					case "Game of Life":{
-						if (p < Probabilities.get(0))
-							R.setFill(Color.BLACK);
-						else R.setFill(Color.WHITE);
-						break;
-					}
-					case "Segregation":{
-						if (p < Probabilities.get(0))
-							R.setFill(Color.RED);
-						else if (p < Probabilities.get(1)) 
-							R.setFill(Color.BLUE);
-						else R.setFill(Color.WHITE);
-						break;
-					}
-					case "Wator":{
-						if (p < Probabilities.get(0))
-							R.setFill(Color.GREEN);
-						else if (p < Probabilities.get(1)) 
-							R.setFill(Color.BLUE);
-						else R.setFill(Color.WHITE);
-						break;
-					}
-					case "Fire":{
-						if (p < Probabilities.get(1))
-							R.setFill(Color.RED);
-						else if ( Probabilities.get(1)<= p && p < Probabilities.get(0)) 
-							R.setFill(Color.GREEN);
-						else R.setFill(Color.YELLOW);
-						break;
-					}
-				}
-				
-				
-				root.getChildren().add(R);
-			}
+		switch (mySimu) {
+        
+	        case "Game of Life":{
+	        	currentCalculator = new Calculator_Life(properties);
+	        	currentGrid = new Grid_Life(height, width, currentCalculator);
+	        	break;
+	        }
+	        case "Fire":{
+	        	currentCalculator = new Calculator_Fire(properties, cellParameters.get(0));
+	        	currentGrid = new Grid_Fire(height, width, currentCalculator);
+	        	break;
+	        }
+	        case "Wator":{
+	        	currentCalculator = new Calculator_Wator(properties,cellParameters.get(0));
+	        	currentGrid = new Grid_Wator(height,width,currentCalculator);
+	        	break;
+	        }
+	        case "Segregation":{
+	        	currentCalculator = new Calculator_Segregation(properties, cellParameters.get(0));
+	        	currentGrid = new Grid_Segregation(height, width, currentCalculator);
+	        	break;
+	        }
+	        
 		}
 		
-		PAUSE.setStyle("-fx-text-fill: #0000ff; -fx-border-color: #0000ff; -fx-border-width: 1px;");
-		PAUSE.setMinWidth(80);
-		FINISH.setStyle("-fx-text-fill: #0000ff; -fx-border-color: #0000ff; -fx-border-width: 1px;");
-		FINISH.setMinWidth(80);
-		EXIT.setStyle("-fx-text-fill: #8B0000; -fx-border-color: #8B0000; -fx-border-width: 5px;");
-		EXIT.setMinWidth(80);
-		SWITCH.setStyle("-fx-text-fill: #0000ff; -fx-border-color: #0000ff; -fx-border-width: 1px;");
-		SWITCH.setMinWidth(80);
-		STEP.setStyle("-fx-text-fill: #228B22; -fx-border-color: #228B22; -fx-border-width: 2px;");
-		STEP.setMinWidth(80);
-		
-		tilePane = new TilePane();
-		tilePane.getChildren().add(PAUSE);
-		tilePane.getChildren().add(FINISH);
-		tilePane.getChildren().add(STEP);
-		tilePane.getChildren().add(SWITCH);
-		tilePane.getChildren().add(EXIT);
-		        
-		STEP.setDisable(true);
-		        
-		tilePane.setHgap(70);
-		tilePane.setVgap(10);
-		tilePane.setLayoutX(50);
-		tilePane.setLayoutY(600);
-		        
-		root.getChildren().add(tilePane);
-		        
-		FASTER.setStyle("-fx-text-fill: #ff4500; -fx-border-color: #ff4500; -fx-border-width: 1px;");
-		SLOWER.setStyle("-fx-text-fill: #ff4500; -fx-border-color: #ff4500; -fx-border-width: 1px;");
-		FASTER.setMinSize(100, 50);
-		SLOWER.setMinSize(100, 50);
-		
-		speeder = new TilePane();
-		speeder.getChildren().add(FASTER);
-		speeder.getChildren().add(SLOWER);
-		speeder.setHgap(80);
-		        
-		speeder.setLayoutX(100);
-		speeder.setLayoutY(700);
-		        
-		root.getChildren().add(speeder);
-		        
-		timedisplay = new Label("Frame passed: " + Integer.toString(timer));
-		timedisplay.setLayoutX(width * celllength - 20);
-		timedisplay.setLayoutY(20);
-		timedisplay.setStyle("-fx-text-fill: #ffffff");
-		root.getChildren().add(timedisplay);
-		Scene newscene = new Scene(root, L, W, background);
-		
-		newscene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
-		return newscene;
-		
 	}
 	
-	/*public void cellgenerator(int x, int y){
-		
-		Rectangle R = new Rectangle(x,y,celllength,celllength);
-		R.setFill(Color.PLUM);
-		root.getChildren().add(R);
-		
-	}*/
-	
-	
-	public void mover(Grid myGrid, Calculator myCalc){
-		myGrid.iterate();
+	public void cellGenerator(){
 		
 		switch (SimType){
-			case "Game of Life":{
-				System.out.println(SimType);
-				for (int i=0;i<height;i++){
-					for (int j=0;j<width;j++){
-						if (myGrid.getCell(i, j).showCurrentState()==0){
-							thegrid[i][j].setFill(Color.BLACK);
-						} 
-						else {
-							thegrid[i][j].setFill(Color.WHITE);
-						}
-					}
-				}
-				break;
-			}
-			case "Segregation":{
-				for (int i=0;i<height; i++){
-					for (int j=0;j<width;j++){
-						if (myGrid.getCell(i, j).showCurrentState()==0){
-							thegrid[i][j].setFill(Color.RED);
-						} else if (myGrid.getCell(i, j).showCurrentState()==1){
-							thegrid[i][j].setFill(Color.BLUE);
-						} else {
-							thegrid[i][j].setFill(Color.WHITE);
-						}
-					}
-				}
-				break;
-			}
-			case "Wator":{
-				for (int i=0;i<height; i++){
-					for (int j=0;j<width;j++){
-						if (myGrid.getCell(i, j).showCurrentState()==0){
-							thegrid[i][j].setFill(Color.GREEN);
-						} else if (myGrid.getCell(i, j).showCurrentState()==1){
-							thegrid[i][j].setFill(Color.BLUE);
-						} else {
-							thegrid[i][j].setFill(Color.WHITE);
-						}
-					}
-				}
-				break;
-			}
-			case "Fire":{
-				for (int i=0;i<height; i++){
-					for (int j=0;j<width;j++){
-						if (myGrid.getCell(i, j).showCurrentState()==0){
-							thegrid[i][j].setFill(Color.GREEN);
-						} else if (myGrid.getCell(i, j).showCurrentState()==1){
-							thegrid[i][j].setFill(Color.RED);
-						} else {
-							thegrid[i][j].setFill(Color.YELLOW);
-						}
-					}
-				}
-				break;
-			}
-		}
-		timer++;
-		timedisplay.setText("Frame passed: " + Integer.toString(timer));
-
-	}
-	
-	public void Step(Grid myGrid, Calculator myCalc){
-		if (pauser==false){
-		mover(myGrid,myCalc);
-		}
-	}
-	
-	public static void handleKeyInput(KeyCode keyCode){
+    	case "Game of Life":{
+    		Color[] LIVES = new Color[2];
+    		LIVES[0] = Color.BLACK;
+    		LIVES[1] = Color.WHITE;
+    		for (int i=0;i<height;i++){
+    			for (int j=0;j<width;j++){
+    				if (thegrid[i][j].getFill() == Color.BLACK){
+    					thiscell = new Cell_Square(cellType, i*celllength+100, j*celllength+50, celllength, properties, LIVES, 1);
+    					lifeGrid.createCells(i, j, thiscell);
+    				} else {
+    					thiscell = new Cell_Square(cellType, i*celllength+100, j*celllength+50, celllength, properties, LIVES, 0);
+    					lifeGrid.createCells(i, j, thiscell);
+    				}
+    			}
+    		}
+    		break;
+    	}
+    	case "Fire":{
+    		Color[] FIRES = new Color[3];
+    		FIRES[0] = Color.GREEN;
+    		FIRES[1] = Color.RED;
+    		FIRES[2] = Color.YELLOW;
+            for (int i=0;i<height;i++){
+            	for (int j=0;j<width;j++){
+            		if (thegrid[i][j].getFill() == Color.GREEN){
+            			thiscell = new Cell_Square(cellType, i*celllength+100, j*celllength+50, celllength, properties, FIRES, 0);
+            			lifeGrid.createCells(i, j, thiscell);
+            		} else if (thegrid[i][j].getFill() == Color.RED){
+            			thiscell = new Cell_Square(cellType, i*celllength+100, j*celllength+50, celllength, properties, FIRES, 1);
+            			lifeGrid.createCells(i, j, thiscell);
+            		} else {
+            			thiscell = new Cell_Square(cellType, i*celllength+100, j*celllength+50, celllength, properties, FIRES, 2);
+            			lifeGrid.createCells(i, j, thiscell);
+            		}
+            	}
+            	}
+            break;
+        }
+    	case "Wator":{
+    		Color[] WATORS = new Color[3];
+    		WATORS[0] = Color.GREEN;
+    		WATORS[1] = Color.BLUE;
+    		WATORS[2] = Color.WHITE;
+            for (int i=0;i<height;i++){
+            	for (int j=0;j<width;j++){
+            		if (thegrid[i][j].getFill() == Color.GREEN){
+            			thiscell = new Cell_Square(cellType, i*celllength+100, j*celllength+50, celllength, properties, WATORS, 0);
+            			lifeGrid.createCells(i, j, thiscell);
+            		} else if (thegrid[i][j].getFill() == Color.BLUE){
+            			thiscell = new Cell_Square(cellType, i*celllength+100, j*celllength+50, celllength, properties, WATORS, 1);
+            			lifeGrid.createCells(i, j, thiscell);
+            		} else {
+            			thiscell = new Cell_Square(cellType, i*celllength+100, j*celllength+50, celllength, properties, WATORS, 2);
+            			lifeGrid.createCells(i, j, thiscell);
+            		}
+            	}
+            	}
+            	break;
+           	}
+    	case "Segregation":{
+    		Color[] SEGS = new Color[3];
+    		SEGS[0] = Color.RED;
+    		SEGS[1] = Color.BLUE;
+    		SEGS[2] = Color.WHITE;
+            for (int i=0;i<height;i++){
+            	for (int j=0;j<width;j++){
+            		if (thegrid[i][j].getFill() == Color.RED) {
+            			thiscell = new Cell_Square(cellType, i*celllength+100, j*celllength+50, celllength, properties, SEGS, 0);
+            			lifeGrid.createCells(i, j, thiscell);
+            		} else if (thegrid[i][j].getFill() == Color.BLUE){
+            			thiscell = new Cell_Square(cellType, i*celllength+100, j*celllength+50, celllength, properties, SEGS, 1);
+            			lifeGrid.createCells(i, j, thiscell);
+            		} else {
+            			thiscell = new Cell_Square(cellType, i*celllength+100, j*celllength+50, celllength, properties, SEGS, 2);
+            			lifeGrid.createCells(i, j, thiscell);
+            		}
+            	}
+            }
+            break;
+    	}
+    }
 		
 	}
 	
-	
-	public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
-        Application.launch(args);
-    }
-	
->>>>>>> ab73babb85065016a6e05c8160651ca215ad7cab
 }
