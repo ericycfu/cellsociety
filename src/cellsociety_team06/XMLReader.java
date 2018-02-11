@@ -21,10 +21,14 @@ public class XMLReader {
 	private String myFile;
 	private ArrayList<String> basicInfo = new ArrayList<String>();
 	private ArrayList<String> globalSettings = new ArrayList<String>();
-	private ArrayList<String> gridConfig = new ArrayList<String>();
-	private Cell myCells[][];
-	private Document doc;
+	private ArrayList<String> gridParameters = new ArrayList<String>();
+	private ArrayList<String> cellParameters = new ArrayList<String>();
+	private ArrayList<String> calculatorParameters = new ArrayList<String>();
+	private ArrayList<Integer> gridConfig = new ArrayList<Integer>();
+	private ArrayList<Double> myPercentages = new ArrayList<Double>();
 	private String mySimu;
+	private int myCells[][];
+	private Document doc;
 	
 	public XMLReader(String filename){
 		myFile = filename;
@@ -40,72 +44,62 @@ public class XMLReader {
 			System.out.println("Filename incorrect or file not found");
 		}
 		doc.normalize();
-		mySimu = getNodeData("simulationName");
-		try {
-			switch (mySimu) {
-				case "Game of Life": {
-					//System.out.println(mySimu+"!!!");
-					basicInfo.add(getNodeData("simulationName"));
-					basicInfo.add(getNodeData("simulationTitle"));
-					basicInfo.add(getNodeData("simulationAuthor"));
-					
-					globalSettings.add(getNodeData("propertystring"));
-					gridConfig.add(getNodeData("livecellpercent"));
-					break;
-				} 
-				case "Segregation": {
-					//System.out.println(mySimu+"!!!");
-					basicInfo.add(getNodeData("simulationName"));
-					basicInfo.add(getNodeData("simulationTitle"));
-					basicInfo.add(getNodeData("simulationAuthor"));
-					
-					globalSettings.add(getNodeData("propertystring"));
-					globalSettings.add(getNodeData("satisfylevel"));
-					gridConfig.add(getNodeData("xpercentage"));
-					gridConfig.add(getNodeData("opercentage"));
-					break;
-				} 
-				case "Wator": {
-					//System.out.println(mySimu+"!!!");
-					basicInfo.add(getNodeData("simulationName"));
-					basicInfo.add(getNodeData("simulationTitle"));
-					basicInfo.add(getNodeData("simulationAuthor"));
-					
-					globalSettings.add(getNodeData("propertystring"));
-					globalSettings.add(getNodeData("initialenergy"));
-					globalSettings.add(getNodeData("energygain"));
-					globalSettings.add(getNodeData("reproducetime"));
-					gridConfig.add(getNodeData("sharkpercentage"));
-					gridConfig.add(getNodeData("fishpercentage"));
-					break;
-				}
-				case "Fire": {
-					basicInfo.add(getNodeData("simulationName"));
-					basicInfo.add(getNodeData("simulationTitle"));
-					basicInfo.add(getNodeData("simulationAuthor"));
-					
-					globalSettings.add(getNodeData("propertystring"));
-					globalSettings.add(getNodeData("probcatch"));
-					gridConfig.add(getNodeData("treepercentage"));
-					gridConfig.add(getNodeData("burningpercentage"));
-					break;
-				}
-			}
-		}
-		catch(Exception e) {
-			System.out.println("data was missing from xml file");
-		}
-		gridConfig.add(getNodeData("gridheight"));
-		gridConfig.add(getNodeData("gridwidth"));
+
+		Element root = doc.getDocumentElement();
 		
-		int height = Integer.valueOf(getNodeData("gridheight"));
-		int width = Integer.valueOf(getNodeData("gridwidth"));
-		myCells = new Cell[height][width];
+		NodeList myCategories = root.getChildNodes();
+		
+		Element basicinfo = (Element) myCategories.item(0);
+		NodeList basicinfos = basicinfo.getChildNodes();
+		for (int i = 0; i < basicinfos.getLength(); i += 1) {
+			basicInfo.add(basicinfos.item(i).getFirstChild().getNodeValue());
+		}
+		mySimu = basicInfo.get(0);
+		
+		Element globalsetting = (Element) myCategories.item(1);
+		NodeList globalsettings = globalsetting.getChildNodes();
+		for (int i = 0; i < globalsettings.getLength(); i += 1) {
+			globalSettings.add(globalsettings.item(i).getFirstChild().getNodeValue());
+		}
+		
+		Element gridparameter = (Element) myCategories.item(2);
+		NodeList gridparameters = gridparameter.getChildNodes();
+		for (int i = 0; i < gridparameters.getLength(); i+=1) {
+			gridParameters.add(gridparameters.item(i).getFirstChild().getNodeValue());
+		}
+		
+		Element cellparameter = (Element) myCategories.item(3);
+		NodeList cellparameters = cellparameter.getChildNodes();
+		for (int i = 0; i < cellparameters.getLength(); i+=1) {
+			cellParameters.add(cellparameters.item(i).getFirstChild().getNodeValue());
+		}
+		
+		Element calculatorparameter = (Element) myCategories.item(4);
+		NodeList calculatorparameters = calculatorparameter.getChildNodes();
+		for (int i = 0; i < calculatorparameters.getLength(); i+=1) {
+			calculatorParameters.add(calculatorparameters.item(i).getFirstChild().getNodeValue());
+		}
+
+		Element gridconfig = (Element) myCategories.item(5);
+		NodeList gridconfigs = gridconfig.getChildNodes();
+		for (int i = 0; i < gridconfigs.getLength(); i +=1) {
+			gridConfig.add(Integer.valueOf(gridconfigs.item(i).getFirstChild().getNodeValue()));
+		}
+		
+		Element percentage = (Element) myCategories.item(6);
+		NodeList percentages = percentage.getChildNodes();
+		for (int i = 0; i < percentages.getLength(); i+=1) {
+			myPercentages.add(Double.valueOf(percentages.item(i).getFirstChild().getNodeValue()));
+		}
+		
+		int height = Integer.valueOf(gridConfig.get(0));
+		int width = Integer.valueOf(gridConfig.get(1));
+		myCells = new int[height][width];
 		try {
 			NodeList cellList = doc.getElementsByTagName("cell");
 			Node n;
 			Element el;
-			String state;
+			int state;
 			int ctr = 0;
 			int x;
 			int y;
@@ -116,10 +110,9 @@ public class XMLReader {
 						el = (Element) n;
 						x = Integer.valueOf(el.getAttribute("x"));
 						y = Integer.valueOf(el.getAttribute("y"));
-						state = el.getNodeValue();
+						state = Integer.valueOf(el.getNodeValue());
 						//add cell constructor
-						myCells[x][y] = new Cell();
-						
+						myCells[x][y] = state;
 					}
 				}
 			}
@@ -133,13 +126,6 @@ public class XMLReader {
 		return mySimu;
 	}
 	
-	private String getNodeData(String nodeName){
-		NodeList nodeList = doc.getElementsByTagName(nodeName);
-		Node subnode = nodeList.item(0);
-		//System.out.println(subnode.getFirstChild().getNodeValue());
-		return subnode.getFirstChild().getNodeValue();
-	}
-	
 	public List<String> showbasicInfo(){
 		return Collections.unmodifiableList(basicInfo);
 	}
@@ -148,11 +134,23 @@ public class XMLReader {
 		return Collections.unmodifiableList(globalSettings);
 	}
 	
+	public List<String> showgridParameters(){
+		return Collections.unmodifiableList(gridParameters);
+	}
+	
+	public List<String> showcellParameters(){
+		return Collections.unmodifiableList(cellParameters);
+	}
+	
+	public List<String> showcalculatorParameters(){
+		return Collections.unmodifiableList(calculatorParameters);
+	}
+	
 	public List<String> showgridConfig(){
 		return Collections.unmodifiableList(gridConfig);
 	}
 	
-	public Cell[][] showmyCells(){
+	public int[][] showmyCells(){
 		return myCells.clone();
 	}
 	

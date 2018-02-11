@@ -19,7 +19,10 @@
 		<gridheight>20</gridheight>
 		<gridwidth>20</gridwidth>
 	</gridconfig>
-	<percentages>0.5,0.5</percentages>
+	<percentages>
+		<livepercentage>0.5</livepercentage>
+		<deadpercentage>0.5</deadpercentage>
+	</percentages>
 	<cellstates>
 		<cell x = "0" y = "0"><state>0</state></cell>
 		<cell x = "1" y = "0"><state>0</state></cell>
