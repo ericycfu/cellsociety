@@ -1,9 +1,6 @@
 package cellsociety_team06;
 
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Arrays;
+public class Launcher {
 
 import javax.xml.parsers.ParserConfigurationException;
 

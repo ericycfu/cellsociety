@@ -121,6 +121,10 @@ public abstract class Cell{
 		myChronon = 0;
 	}
 	
+	public Polygon showPolygon(){
+		return myPolygon;
+	}
+	
 	public void updateChronon(double value){
 		myChronon = value;
 	}

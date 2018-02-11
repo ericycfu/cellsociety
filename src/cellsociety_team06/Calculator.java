@@ -2,9 +2,16 @@ package cellsociety_team06;
 
 import java.util.List;
 /**
- * 
+ * This class stores some necessary parameters for different 
+ * grid-updating rules, and calculates the probability of a 
+ * cell's behavior based on itself and other adjacent cells' 
+ * states. 
+ * This class depends on the Cell class, without which the 
+ * important abstract method "calculation" would not function
+ * properly. 
  * @author Frank Yin
- * Purpose: This class stores some necessary parameters for grid-updating rules, and calculates 
+ * 
+ * 
  *
  */
 public abstract class Calculator {
