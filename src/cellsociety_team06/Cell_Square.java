@@ -31,6 +31,8 @@ public class Cell_Square extends Cell{
 		
 		myPolygon = new Polygon(myFourPoints);
 		myPolygon.setFill(myColors[currentState]);
+		myPolygon.setStroke(Color.GREY);
+		myPolygon.setStrokeWidth(mySideLength/50);
 	}
 	
 	@Override
