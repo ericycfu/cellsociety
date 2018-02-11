@@ -67,6 +67,7 @@ public class Launcher extends Application{
 	private Button FINISH = new Button("Finish");
 	private Button EXIT = new Button("EXIT");
 	private Button SWITCH = new Button("Switch");
+	private Button SAVE = new Button("Save");
 	private TilePane tilePane = new TilePane();
 	private Button FASTER = new Button("Faster");
 	private Button SLOWER = new Button("Slower");
@@ -127,18 +128,21 @@ public class Launcher extends Application{
 		SWITCH.setMinWidth(80);
 		STEP.setStyle("-fx-text-fill: #228B22; -fx-border-color: #228B22; -fx-border-width: 2px;");
 		STEP.setMinWidth(80);
+		SAVE.setStyle("-fx-text-fill: #228B22; -fx-border-color: #228B22; -fx-border-width: 2px;");
+		SAVE.setMinWidth(80);
 		
 		tilePane = new TilePane();
 		tilePane.getChildren().add(PAUSE);
 		tilePane.getChildren().add(FINISH);
 		tilePane.getChildren().add(STEP);
 		tilePane.getChildren().add(SWITCH);
-		tilePane.getChildren().add(EXIT);
+		tilePane.getChildren().add(SAVE);
+		
 		        
 		STEP.setDisable(true);
+		SAVE.setDisable(true);
 		        
-		tilePane.setHgap(70);
-		tilePane.setVgap(10);
+		tilePane.setHgap(10);
 		tilePane.setLayoutX(50);
 		tilePane.setLayoutY(600);
 		        
@@ -152,7 +156,8 @@ public class Launcher extends Application{
 		speeder = new TilePane();
 		speeder.getChildren().add(FASTER);
 		speeder.getChildren().add(SLOWER);
-		speeder.setHgap(80);
+		speeder.getChildren().add(EXIT);
+		speeder.setHgap(40);
 		        
 		speeder.setLayoutX(100);
 		speeder.setLayoutY(700);
@@ -277,6 +282,10 @@ public class Launcher extends Application{
             pausing();
            });
         
+        SAVE.setOnAction(value ->  {
+            //SAVESAVE
+           });
+        
         SWITCH.setOnAction(value ->  {
         	   pauser = true;
         	   
@@ -310,6 +319,9 @@ public class Launcher extends Application{
         
      
      FINISH.setOnAction(value ->  {
+    	 FASTER.setDisable(true);
+    	 SLOWER.setDisable(true);
+    	 SAVE.setDisable(false);
       pauser = true;
       PAUSE.setDisable(true);
       FINISH.setText("Fnished");
@@ -344,6 +356,7 @@ public class Launcher extends Application{
 	
 	public void pausing(){
 		  pauser = true;
+		  SAVE.setDisable(false);
 		  PAUSE.setOnAction(valuevalue ->  {
 		   resuming();
 		        });
@@ -355,6 +368,7 @@ public class Launcher extends Application{
 		 
 		 public void resuming(){
 		  pauser = false;
+		  SAVE.setDisable(true);
 		  PAUSE.setOnAction(valuevalue ->  {
 		   pausing();
 		        });
