@@ -16,9 +16,11 @@ import org.w3c.dom.Element;
 
 public class XMLcreator {
 	private String myFile;
+	private Grid myGrid;
 	
-	public XMLcreator(String filename) {
+	public XMLcreator(String filename, Grid grid) {
 		myFile = filename;
+		myGrid = grid;
 	}
 
 	public void writeToXML() {
@@ -62,13 +64,14 @@ public class XMLcreator {
 			gridconfig.appendChild(gridwidth);
 			
 			//cellstates
-			for (int i = 0; i < 3; i+= 1) {
-				for (int j = 0; j < 3; j += 1) {
+			Cell myCells = myGrid.showMyCells();
+			for (int i = 0; i < myGrid.showRowNum(); i+= 1) {
+				for (int j = 0; j < myGrid.showColNum(); j += 1) {
 					Element cell = doc.createElement("cell");
 					cellstates.appendChild(cell);
 					cell.setAttribute("x", Integer.toString(i));
 					cell.setAttribute("y", Integer.toString(j));
-					cell.appendChild(doc.createTextNode("0"));
+					cell.appendChild(doc.createTextNode(myCells[i][j].showCurrentState()));
 				}
 			}
 			
@@ -78,7 +81,7 @@ public class XMLcreator {
 			simAuthor.appendChild(doc.createTextNode("Eric Fu, Frank Yin, Jing Yang"));
 			
 			//adding to globalsettings
-			properties.appendChild(doc.createTextNode("Live,Dead"));
+			properties.appendChild(doc.createTextNode(myCells[0][0].showProperties())); //need to change properties to live,dead format
 			
 			//adding to grid config
 			gridheight.appendChild(doc.createTextNode("3"));
