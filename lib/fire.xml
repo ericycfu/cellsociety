@@ -8,12 +8,26 @@
 	</basicinfo>
 	<globalsettings>
 		<propertystring>Tree,Burning,Empty</propertystring>
+		<colors>Colors.GREEN,Colors.RED,Colors.YELLOW</colors>
 		<probcatch>0.4</probcatch>
+		<cellshape>square</cellshape>
 	</globalsettings>
 	<gridconfig>
-		<gridheight>20</gridheight>
-		<gridwidth>20</gridwidth>
+		<gridheight>3</gridheight>
+		<gridwidth>3</gridwidth>
 		<treepercentage>0.8</treepercentage>
 		<burningpercentage>0.2</burningpercentage>
+		<useprobability>no</useprobability>
 	</gridconfig>
+	<cellstates>
+		<cell x = "0" y = "0"><state>0</state></cell>
+		<cell x = "1" y = "0"><state>0</state></cell>
+		<cell x = "2" y = "0"><state>0</state></cell>
+		<cell x = "0" y = "1"><state>0</state></cell>
+		<cell x = "1" y = "1"><state>0</state></cell>
+		<cell x = "2" y = "1"><state>0</state></cell>
+		<cell x = "0" y = "2"><state>0</state></cell>
+		<cell x = "1" y = "2"><state>0</state></cell>
+		<cell x = "2" y = "2"><state>0</state></cell>
+	</cellstates>
 </simulation>
