@@ -217,6 +217,7 @@ public class Launcher extends Application{
         	            myPrimaryStage.show();
         	            currentSim.cellGenerator();
         	            
+        	            
         	        });
         
      

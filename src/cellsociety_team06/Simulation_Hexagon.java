@@ -14,6 +14,7 @@ public class Simulation_Hexagon extends Simulation{
 	private String HEXAGON = "hexagon";	
 	private boolean oddodd = true;
 	Cell currentCell;
+	private double sidelength = celllength / Math.sqrt(3);
 
 	public Simulation_Hexagon(XMLReader reader, Group sceneroot){
 		super(reader, sceneroot);
@@ -26,9 +27,9 @@ public class Simulation_Hexagon extends Simulation{
 			for (int i=0;i<height;i++){
 				for (int j=0;j<width;j++){
 					if (oddodd){
-						currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*celllength+100, j*1.5*celllength+50, celllength, properties, lifeColor, cellstates[i][j]);
+						currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100, j*1.5*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j]);
 					} else {
-						currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*celllength+100-Math.sqrt(3)/3*celllength, j*1.5*celllength+50, celllength, properties, lifeColor, cellstates[i][j]);
+						currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100-Math.sqrt(3)/3*sidelength, j*1.5*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j]);
 					}
 					currentGrid.createCells(i, j, currentCell);
 					Polygon cellVisual = currentCell.showPolygon();
@@ -49,9 +50,9 @@ public class Simulation_Hexagon extends Simulation{
 			for (int i=0;i<height;i++){
 				for (int j=0;j<width;j++){
 					if (oddodd){
-						currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*celllength+100, j*1.5*celllength+50, celllength, properties, lifeColor, States.get(arranger));
+						currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100, j*1.5*sidelength+50, sidelength, properties, lifeColor, States.get(arranger));
 					} else {
-						currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*celllength+100-Math.sqrt(3)/3*celllength, j*1.5*celllength+50, celllength, properties, lifeColor, States.get(arranger));
+						currentCell = new Cell_Hexagon(HEXAGON, i*Math.sqrt(3)*sidelength+100-Math.sqrt(3)/3*sidelength, j*1.5*sidelength+50, sidelength, properties, lifeColor, States.get(arranger));
 					}
 					currentGrid.createCells(i, j, currentCell);
 					Polygon cellVisual = currentCell.showPolygon();
