@@ -30,10 +30,11 @@ public class Simulation_Square extends Simulation{
 							currentCell = new Cell_Square(SQUARE, i*sidelength+100, j*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j]);
 						}
 						case 1:{
-							currentCell = new Cell_Square(SQUARE, i*sidelength+100, j*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], cellParameters.get(0));
+							currentCell = new Cell_Square(SQUARE, i*sidelength+100, j*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)));
 						}
 						case 2:{
-							currentCell = new Cell_Square(SQUARE, i*sidelength+100, j*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], cellParameters.get(0), cellParameters.get(1));
+							boolean visual = (Integer.parseInt(cellParameters.get(1)) == 1);
+							currentCell = new Cell_Square(SQUARE, i*sidelength+100, j*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)), visual);
 						}
 					}
 					currentGrid.createCells(i, j, currentCell);
@@ -61,10 +62,11 @@ public class Simulation_Square extends Simulation{
 						currentCell = new Cell_Square(SQUARE, i*sidelength+100, j*sidelength+50, sidelength, properties, lifeColor, States.get(arranger));
 					}
 					case 1:{
-						currentCell = new Cell_Square(SQUARE, i*sidelength+100, j*sidelength+50, sidelength, properties, lifeColor, States.get(arranger), cellParameters.get(0));
+						currentCell = new Cell_Square(SQUARE, i*sidelength+100, j*sidelength+50, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)));
 					}
 					case 2:{
-						currentCell = new Cell_Square(SQUARE, i*sidelength+100, j*sidelength+50, sidelength, properties, lifeColor, States.get(arranger), cellParameters.get(0), cellParameters.get(1));
+						boolean visual = (Integer.parseInt(cellParameters.get(1)) == 1);
+						currentCell = new Cell_Square(SQUARE, i*sidelength+100, j*sidelength+50, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)), visual);
 					}
 				}
 					currentGrid.createCells(i, j, currentCell);

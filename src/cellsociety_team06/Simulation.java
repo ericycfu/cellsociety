@@ -58,6 +58,7 @@ public abstract class Simulation{
 		cellstates = thisreader.showmyCells();
 		
 		cellParameters = thisreader.showcellParameters();
+		
 		gridParameters = thisreader.showgridParameters();
 		calcParameters = thisreader.showcalculatorParameters();
 	}
