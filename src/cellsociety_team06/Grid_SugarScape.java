@@ -19,45 +19,38 @@ public Grid_SugarScape(int rownum, int colnum, Calculator myCalculator, int suga
 }
  
 public void updateCell(double prob, int centerCellRow, int centerCellCol){
-	
 	if (myCells[centerCellRow][centerCellCol].showCurrentProperty().equals("Agent")){
 		myCells[centerCellRow][centerCellCol].setEnergy(myCells[centerCellRow][centerCellCol].showEnergy() - sugarMetabolism);
+		System.out.println(myCells[centerCellRow][centerCellCol].showEnergy());
 		if (myCells[centerCellRow][centerCellCol].showEnergy() < 0){
 			agentDies(myCells[centerCellRow][centerCellCol]);
 		}
 		else {
 			myCells[centerCellRow][centerCellCol].updateChronon(myCells[centerCellRow][centerCellCol].showChronon() + 1); // agent age increased by 1
 			ArrayList<Cell> adjacentPatches = findAdjacentCells(centerCellRow, centerCellCol);
-			Cell patchTaken = getMaxSugarCells(adjacentPatches);
-			eatsPatch(myCells[centerCellRow][centerCellCol], patchTaken, centerCellRow, centerCellCol);
+			if (!adjacentPatches.isEmpty()){
+				Cell patchTaken = getMaxSugarCells(adjacentPatches);
+				eatsPatch(myCells[centerCellRow][centerCellCol], patchTaken, centerCellRow, centerCellCol);
+			}
 		}
 	}
-	else {
-		myCells[centerCellRow][centerCellCol].updateChronon(myCells[centerCellRow][centerCellCol].showChronon() + 1);
-		if ((myCells[centerCellRow][centerCellCol].showEnergy() < maxSugar) && (myCells[centerCellRow][centerCellCol].showChronon() >= sugarGrowBackInterval)){
-			myCells[centerCellRow][centerCellCol].setEnergy(myCells[centerCellRow][centerCellCol].showEnergy() + sugarGrowRate);
-			myCells[centerCellRow][centerCellCol].resetChronon();
-		}
-		updatePatch(myCells[centerCellRow][centerCellCol]);
-	}
+	
 	
 }
 
-private void updatePatch(Cell cell){
-	if (cell.showEnergy()==0){
-		cell.setFutureState(myCalculator.getState("ZeroPatch"));
+@Override
+public void update(){
+	for (int i = 0; i < myRowNum; i++){
+		for (int j = 0; j < myColNum; j++){
+			if (myCells[i][j].showCurrentState()<maxSugar && myCells[i][j].showCurrentState()==myCells[i][j].showFutureState()){
+				myCells[i][j].setFutureState(myCells[i][j].showCurrentState()+1);
+			}
+		}
 	}
-	if (cell.showEnergy()==1){
-		cell.setFutureState(myCalculator.getState("OnePatch"));
-	}
-	if (cell.showEnergy()==2){
-		cell.setFutureState(myCalculator.getState("TwoPatch"));
-	}
-	if (cell.showEnergy()==3){
-		cell.setFutureState(myCalculator.getState("ThreePatch"));
-	}
-	if (cell.showEnergy()==4){
-		cell.setFutureState(myCalculator.getState("FourPatch"));
+	for (int i = 0; i < myRowNum; i++){
+		for (int j = 0; j < myColNum; j++){
+			myCells[i][j].update();
+		}
 	}
 }
 
@@ -68,20 +61,21 @@ private void agentDies(Cell agent){
 }
 
 private void eatsPatch(Cell agent, Cell patch, int centerCellRow, int centerCellCol){
-	agent.setEnergy(agent.showEnergy() + patch.showEnergy());
+	agent.setEnergy(agent.showEnergy() + patch.showCurrentState());
 	patch.setEnergy(agent.showEnergy());
 	patch.setFutureState(myCalculator.getState("Agent"));
+	System.out.println(myCalculator.getState("Agent"));
 	patch.updateChronon(agent.showChronon());
 	patch.setVision(agent.showVision());
 	agent.setFutureState(myCalculator.getState("ZeroPatch"));
 	agent.resetChronon();
 	agent.setEnergy(0);
-	if (agent.showChronon()>=myCalculator.showParameter()){
-		checkMating(agent, patch, centerCellRow, centerCellRow);
+	if (patch.showChronon()>=myCalculator.showParameter()){
+		checkMating(patch, agent, centerCellRow, centerCellRow);
 	}
 }
 
-private void checkMating(Cell agent, Cell patch, int centerCellRow, int centerCellCol){
+private void checkMating(Cell patch, Cell agent, int centerCellRow, int centerCellCol){
 	ArrayList<Cell> matingCells = findAdjacentCellsWithCurrentProperty(centerCellRow, centerCellCol, "Agent");
 	if (matingCells.size()!=0){
 		for (int i = 0; i < matingCells.size(); i++){
@@ -117,12 +111,12 @@ private Cell getMaxSugarCells(ArrayList<Cell> adjacentpatches){
 	double max = 0;
 	ArrayList<Cell> maxSugarCells = new ArrayList<Cell>();
 	for (int i = 0; i < adjacentpatches.size(); i++){
-		if (adjacentpatches.get(i).showEnergy()>=max){
-			max = adjacentpatches.get(i).showEnergy();
+		if (adjacentpatches.get(i).showCurrentState()>=max){
+			max = adjacentpatches.get(i).showCurrentState();
 		}
 	}
 	for (int j = 0; j < adjacentpatches.size(); j++){
-		if (adjacentpatches.get(j).showEnergy()==max){
+		if (adjacentpatches.get(j).showCurrentState()==max){
 			maxSugarCells.add(adjacentpatches.get(j));
 		}
 	}
@@ -138,12 +132,12 @@ private Cell getMaxSugarCells(ArrayList<Cell> adjacentpatches){
 		for (int i = 0; i < myRowNum; i++){
 			for (int j = 0; j < myColNum; j++){
 				if (currentCell.showVision()){
-					if (!myCells[i][j].showCurrentProperty().equals("Agent") && ((currentCell.checkSideAdjacency(myCells[i][j]) || currentCell.checkDiagonalAdjacency(myCells[i][j])))){
+					if (!myCells[i][j].showCurrentProperty().equals("Agent") && !myCells[i][j].showFutureProperty().equals("Agent") && ((currentCell.checkSideAdjacency(myCells[i][j]) || currentCell.checkDiagonalAdjacency(myCells[i][j])))){
 						adjacentCells.add(myCells[i][j]);
 					}
 				}
 				else {
-					if (!myCells[i][j].showCurrentProperty().equals("Agent") && currentCell.checkSideAdjacency(myCells[i][j])){
+					if (!myCells[i][j].showCurrentProperty().equals("Agent") && !myCells[i][j].showFutureProperty().equals("Agent") && currentCell.checkSideAdjacency(myCells[i][j])){
 						adjacentCells.add(myCells[i][j]);
 					}	
 				}

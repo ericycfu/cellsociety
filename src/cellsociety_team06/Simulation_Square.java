@@ -40,6 +40,7 @@ public class Simulation_Square extends Simulation{
 							//System.out.println(Arrays.toString(cellstates[1]));
 							//System.out.println(Arrays.toString(cellstates[2]));
 							currentCell = new Cell_Square(SQUARE, j*sidelength+100, i*sidelength+50, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)));
+							
 							break;
 						}
 						case 2:{
