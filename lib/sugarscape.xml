@@ -8,7 +8,7 @@
 	</basicinfo>
 	<globalsettings>
 		<propertystring>ZeroPatch,OnePatch,TwoPatch,ThreePatch,FourPatch,Agent</propertystring>
-		<colors>#00FF00,#0000FF,#FFFFFF</colors>
+		<colors>#FFFFFF,#FFD700,#FFA500,#FF8C00,#FF7F50,#FF0000</colors>
 		<cellshape>square</cellshape>
 		<useprobability>1</useprobability>
 	</globalsettings>
