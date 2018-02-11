@@ -9,8 +9,8 @@
 	<globalsettings>
 		<propertystring>X,O,Unoccupied</propertystring>
 		<colors>#FF0000,#0000FF,#FFFFFF</colors>
-		<cellshape>square</cellshape>
-		<useprobability>0</useprobability>
+		<cellshape>triangle</cellshape>
+		<useprobability>1</useprobability>
 	</globalsettings>
 	<gridparameter></gridparameter>
 	<cellparameter></cellparameter>
@@ -18,8 +18,8 @@
 		<satisfylevel>0.6</satisfylevel>
 	</calculatorparameter>
 	<gridconfig>
-		<gridheight>3</gridheight>
-		<gridwidth>3</gridwidth>
+		<gridheight>20</gridheight>
+		<gridwidth>20</gridwidth>
 	</gridconfig>
 	<percentages>
 		<xpercentage>0.3</xpercentage>
@@ -28,14 +28,14 @@
 	</percentages>
 	<cellstates>
 		<cell x = "0" y = "0"><state>0</state></cell>
-		<cell x = "1" y = "0"><state>0</state></cell>
-		<cell x = "2" y = "0"><state>0</state></cell>
-		<cell x = "0" y = "1"><state>0</state></cell>
+		<cell x = "1" y = "0"><state>1</state></cell>
+		<cell x = "2" y = "0"><state>2</state></cell>
+		<cell x = "0" y = "1"><state>2</state></cell>
 		<cell x = "1" y = "1"><state>0</state></cell>
-		<cell x = "2" y = "1"><state>0</state></cell>
+		<cell x = "2" y = "1"><state>1</state></cell>
 		<cell x = "0" y = "2"><state>0</state></cell>
-		<cell x = "1" y = "2"><state>0</state></cell>
-		<cell x = "2" y = "2"><state>0</state></cell>
+		<cell x = "1" y = "2"><state>2</state></cell>
+		<cell x = "2" y = "2"><state>2</state></cell>
 	</cellstates>
 	<energystates>
 		<energy x = "0" y = "0"><state>0</state></energy>

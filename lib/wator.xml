@@ -9,7 +9,7 @@
 	<globalsettings>
 		<propertystring>Fish,Shark,Unoccupied</propertystring>
 		<colors>#00FF00,#0000FF,#FFFFFF</colors>
-		<cellshape>square</cellshape>
+		<cellshape>triangle</cellshape>
 		<useprobability>1</useprobability>
 	</globalsettings>
 	<gridparameter>
@@ -26,8 +26,8 @@
 		<gridwidth>10</gridwidth>
 	</gridconfig>
 	<percentages>
-		<fishpercentage>0.3</fishpercentage>
-		<sharkpercentage>0.2</sharkpercentage>
+		<fishpercentage>0</fishpercentage>
+		<sharkpercentage>0.5</sharkpercentage>
 		<unoccupiedpercentage>0.5</unoccupiedpercentage>
 	</percentages>
 	<cellstates>

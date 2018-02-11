@@ -55,20 +55,25 @@ public class Simulation_Square extends Simulation{
 			}
 		} else {
 			ArrayList<Integer> States = new ArrayList<Integer>();
+			System.out.println(probabilities.size());
 			for (int i=0; i<probabilities.size(); i++){
 				//System.out.println(probabilities.size());
 				double prob = Double.parseDouble(probabilities.get(i));
-				int number = (int) (prob * height * width) + 1;
+				int number = (int) (prob * height * width);
+				//System.out.println(number);
 				for (int j=0;j<number;j++){
 					States.add(i);
-					System.out.println(States.toString());
+					//System.out.println(States.toString());
 				}
 			}
+			//System.out.println(States.size());
+			System.out.println("!!!");
 			for (int i = States.size(); i < height*width; i++){
 				States.add(probabilities.size()-1);
 			}
 			Collections.shuffle(States);
 			int arranger = 0;
+			//System.out.println(cellParameters.size());
 			for (int i=0;i<height;i++){
 				for (int j=0;j<width;j++){
 					switch (cellParameters.size()){
@@ -84,7 +89,9 @@ public class Simulation_Square extends Simulation{
 					}
 					case 2:{
 						boolean visual = (Integer.parseInt(cellParameters.get(1)) == 1);
+						
 						currentCell = new Cell_Square(SQUARE, i*sidelength+100, j*sidelength+50, sidelength, properties, lifeColor, States.get(arranger), Double.parseDouble(cellParameters.get(0)), visual);
+						System.out.println(currentCell.showCurrentProperty());
 						break;
 					}
 				}

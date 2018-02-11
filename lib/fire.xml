@@ -9,8 +9,8 @@
 	<globalsettings>
 		<propertystring>Tree,Burning,Empty</propertystring>
 		<colors>#00FF00,#FF0000,#FFFF00</colors>
-		<cellshape>square</cellshape>
-		<useprobability>0</useprobability>
+		<cellshape>triangle</cellshape>
+		<useprobability>1</useprobability>
 	</globalsettings>
 	<gridparameter></gridparameter>
 	<cellparameter></cellparameter>
@@ -18,12 +18,16 @@
 		<probcatch>0.4</probcatch>
 	</calculatorparameter>
 	<gridconfig>
-		<gridheight>3</gridheight>
-		<gridwidth>3</gridwidth>
+		<gridheight>20</gridheight>
+		<gridwidth>20</gridwidth>
 	</gridconfig>
-	<percentages>0.8,0.2,0</percentages>
+	<percentages>
+		<treepercentage>0.8</treepercentage>
+		<burningpercentage>0.2</burningpercentage>
+		<emptypercentage>0</emptypercentage>
+	</percentages>
 	<cellstates>
-		<cell x = "0" y = "0"><state>0</state></cell>
+		<cell x = "0" y = "0"><state>1</state></cell>
 		<cell x = "1" y = "0"><state>0</state></cell>
 		<cell x = "2" y = "0"><state>0</state></cell>
 		<cell x = "0" y = "1"><state>0</state></cell>
