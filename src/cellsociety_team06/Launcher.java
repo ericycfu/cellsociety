@@ -14,6 +14,10 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Group;
 import javafx.scene.Scene;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.StackedAreaChart;
+import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
@@ -90,7 +94,7 @@ public class Launcher extends Application{
 		pauser = false;
 		root = new Group();
 		shape = myReader.showglobalSettings().get(2);
-		System.out.println(shape);
+		properties = myReader.showglobalSettings().get(0).split(",");
 		switch (shape){
 			
 			case "square":{
@@ -183,6 +187,73 @@ public class Launcher extends Application{
 	}
 
 	
+	private NumberAxis xAxis = new NumberAxis();
+	private NumberAxis yAxis = new NumberAxis();
+	private StackedAreaChart theChart = new StackedAreaChart(xAxis, yAxis);
+	private XYChart.Series data0 = new XYChart.Series();
+	private XYChart.Series data1 = new XYChart.Series();
+	private XYChart.Series data2 = new XYChart.Series();
+	private double Number0;
+	private double Number1;
+	private double Number2;
+	
+	private void implementChart(){
+		
+		Number0 = 0;
+		Number1 = 0;
+		Number2 = 0;
+		
+		theChart.getData().remove(data0);
+		theChart.getData().remove(data1);
+		theChart.getData().remove(data2);
+		
+		xAxis.setLabel("Time");
+		yAxis.setLabel("Ratio");
+		
+		
+		for (int i=0;i<height;i++){
+			for (int j=0;j<width;j++){
+				switch(currentGrid.getCell(i, j).showCurrentState()){
+					case 0:{Number0++;break;}
+					case 1:{Number1++;break;}
+					case 2:{Number2++;break;}
+				}
+			}
+		}
+		
+		data0.setName(properties[0]+": "+Number0);
+		data1.setName(properties[1]+": "+Number1);
+		
+		
+		
+		
+		Number0 = Number0/(height*width);
+		Number1 = Number1/(height*width);
+		
+		
+		data0.getData().add(new XYChart.Data(timer-1, Number0));
+		data1.getData().add(new XYChart.Data(timer-1, Number1));
+		
+		
+		theChart.getData().add(data0);
+		theChart.getData().add(data1);
+		
+		
+		theChart.setLayoutX(350);
+		theChart.setLayoutY(100);
+		
+		if (properties.length>2){
+			data2.setName(properties[2]+": "+Number2);
+			Number2 = Number2/(height*width);
+			data2.getData().add(new XYChart.Data(timer-1, Number2));
+			theChart.getData().add(data2);
+		}
+		
+		
+		root.getChildren().add(theChart);
+		
+	}
+	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		chooseFile(primaryStage);
@@ -194,7 +265,10 @@ public class Launcher extends Application{
         scene = sceneCreator(900,900,BACKGROUND);
         primaryStage.setScene(scene);
         primaryStage.show();
-
+        
+        theChart.getData().add(data0);
+		theChart.getData().add(data1);
+		theChart.getData().add(data2);
         
         //System.out.println(currentSim.getGrid().getCell(0, 0).showCurrentProperty());
         PAUSE.setOnAction(value ->  {
@@ -205,11 +279,13 @@ public class Launcher extends Application{
         
         SWITCH.setOnAction(value ->  {
         	   pauser = true;
+        	   
         	   FileChooser newfileChooser = new FileChooser();
         	            FileChooser.ExtensionFilter newextFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
         	            fileChooser.getExtensionFilters().add(extFilter);
         	            File newfile = fileChooser.showOpenDialog(primaryStage);
         	            filename = newfile.getPath();
+        	            root.getChildren().clear();
         	            try {
         	            	readFile(filename);
         	            	} catch (IOException e1) {
@@ -222,8 +298,14 @@ public class Launcher extends Application{
         	            myPrimaryStage.setScene(newscene);
         	            myPrimaryStage.show();
         	            currentSim.cellGenerator();
+        	            timer = 0;
+        	            root.getChildren().remove(timedisplay);
         	            
-        	            
+        	            timedisplay = new Label("Frame passed: " + Integer.toString(timer));
+        	    		timedisplay.setLayoutX(width * celllength - 20);
+        	    		timedisplay.setLayoutY(20);
+        	    		timedisplay.setStyle("-fx-text-fill: #ffffff");
+        	    		root.getChildren().add(timedisplay);
         	        });
         
      
@@ -255,6 +337,8 @@ public class Launcher extends Application{
 			  SLOWER.setOnAction(value ->  {
 			   animation.setRate(animation.getRate() * 0.5);
 			        });
+			  
+			  
 		
 	}
 	
@@ -340,6 +424,11 @@ public class Launcher extends Application{
 		}
 		timer++;
 		timedisplay.setText("Frame passed: " + Integer.toString(timer));
+		
+		if (root.getChildren().contains(theChart)){
+			root.getChildren().remove(theChart);	
+		}
+		implementChart();
 
 	}
 	

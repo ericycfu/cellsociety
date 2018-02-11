@@ -22,13 +22,13 @@
 		<reproducerate>10</reproducerate>
 	</calculatorparameter>
 	<gridconfig>
-		<gridheight>10</gridheight>
-		<gridwidth>10</gridwidth>
+		<gridheight>30</gridheight>
+		<gridwidth>30</gridwidth>
 	</gridconfig>
 	<percentages>
-		<fishpercentage>0</fishpercentage>
-		<sharkpercentage>0.5</sharkpercentage>
-		<unoccupiedpercentage>0.5</unoccupiedpercentage>
+		<fishpercentage>0.5</fishpercentage>
+		<sharkpercentage>0.2</sharkpercentage>
+		<unoccupiedpercentage>0.3</unoccupiedpercentage>
 	</percentages>
 	<cellstates>
 		<cell x = "0" y = "0"><state>2</state></cell>
