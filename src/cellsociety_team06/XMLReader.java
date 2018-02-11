@@ -24,7 +24,7 @@ public class XMLReader {
 	private ArrayList<String> gridParameters = new ArrayList<String>();
 	private ArrayList<String> cellParameters = new ArrayList<String>();
 	private ArrayList<String> calculatorParameters = new ArrayList<String>();
-	private ArrayList<Integer> gridConfig = new ArrayList<Integer>();
+	private ArrayList<String> gridConfig = new ArrayList<String>();
 	private ArrayList<Double> myPercentages = new ArrayList<Double>();
 	private String mySimu;
 	private int myCells[][];
@@ -51,12 +51,9 @@ public class XMLReader {
 		System.out.println(root.getNodeType());
 		NodeList myCategories = root.getChildNodes();
 		
-		System.out.println(myCategories.item(0).getNodeName());
-		Node basicinfo = myCategories.item(0);
-		NodeList basicinfos = basicinfo.getChildNodes();
-		for (int i = 0; i < basicinfos.getLength(); i += 1) {
-			basicInfo.add(basicinfos.item(i).getFirstChild().getNodeValue());
-		}
+		Node basicinfo = getElement(1, myCategories);
+		
+		addToArray(basicinfo, basicInfo);
 		mySimu = basicInfo.get(0);
 		String[] mySims = {"Fire", "Wator", "Segregation", "Game of Life", "SugarScape"};
 		if (!Arrays.asList(mySims).contains(mySimu)) {
@@ -64,44 +61,26 @@ public class XMLReader {
 		}
 
 		
-		Element globalsetting = (Element) myCategories.item(1);
-		NodeList globalsettings = globalsetting.getChildNodes();
-		for (int i = 0; i < globalsettings.getLength(); i += 1) {
-			globalSettings.add(globalsettings.item(i).getFirstChild().getNodeValue());
-		}
+		Node globalsetting = getElement(2, myCategories);
+		addToArray(globalsetting, globalSettings);		
 		
-		Element gridparameter = (Element) myCategories.item(2);
-		NodeList gridparameters = gridparameter.getChildNodes();
-		for (int i = 0; i < gridparameters.getLength(); i+=1) {
-			gridParameters.add(gridparameters.item(i).getFirstChild().getNodeValue());
-		}
-		
-		Element cellparameter = (Element) myCategories.item(3);
-		NodeList cellparameters = cellparameter.getChildNodes();
-		for (int i = 0; i < cellparameters.getLength(); i+=1) {
-			cellParameters.add(cellparameters.item(i).getFirstChild().getNodeValue());
-		}
-		
-		Element calculatorparameter = (Element) myCategories.item(4);
-		NodeList calculatorparameters = calculatorparameter.getChildNodes();
-		for (int i = 0; i < calculatorparameters.getLength(); i+=1) {
-			calculatorParameters.add(calculatorparameters.item(i).getFirstChild().getNodeValue());
-		}
+		Node gridparameter = getElement(3, myCategories);
+		addToArray(gridparameter, gridParameters);
 
-		Element gridconfig = (Element) myCategories.item(5);
-		NodeList gridconfigs = gridconfig.getChildNodes();
-		for (int i = 0; i < gridconfigs.getLength(); i +=1) {
-			gridConfig.add(Integer.valueOf(gridconfigs.item(i).getFirstChild().getNodeValue()));
-		}
+		Node cellparameter = getElement(4, myCategories);
+		addToArray(cellparameter, cellParameters);
 		
-		Element percentage = (Element) myCategories.item(6);
-		NodeList percentages = percentage.getChildNodes();
-		for (int i = 0; i < percentages.getLength(); i+=1) {
-			myPercentages.add(Double.valueOf(percentages.item(i).getFirstChild().getNodeValue()));
-		}
+		Node calculatorparameter = getElement(5, myCategories);
+		addToArray(calculatorparameter, calculatorParameters);
 		
-		int height = Integer.valueOf(gridConfig.get(0));
-		int width = Integer.valueOf(gridConfig.get(1));
+		Node gridconfig = getElement(6, myCategories);
+		addToArray(gridconfig, gridConfig);
+		
+		Node percentage = getElement(7, myCategories);
+		addToArray(percentage, myPercentages);
+		
+		int height = Integer.parseInt(gridConfig.get(0));
+		int width = Integer.parseInt(gridConfig.get(1));
 		myCells = new int[height][width];
 		myEnergy = new int [height][width];
 		try {
@@ -114,30 +93,49 @@ public class XMLReader {
 		}
 	}
 	
+	private Node getElement(int index, NodeList myList) {
+		int ctr = 0;
+		for (int i = 0; i < myList.getLength(); i+=1) {
+			if (myList.item(i) instanceof Element) {
+				ctr +=1;
+				if (ctr == index) {
+					return myList.item(i);
+				}
+			}
+		}
+		return null;
+	}
+	private void addToArray(Node myNode, ArrayList myArrayList) {
+		NodeList myNodeList = myNode.getChildNodes();
+		for (int i = 0; i < myNodeList.getLength(); i += 1) {
+			if (myNodeList.item(i) instanceof Element) {
+				myArrayList.add(myNodeList.item(i).getFirstChild().getNodeValue());
+			}
+		}
+		return;
+	}
+	
 	private void getCellData(String type, int height, int width, int data[][]) {
 		NodeList cellList = doc.getElementsByTagName(type);
 		Node n;
 		Element el;
 		int state;
-		int ctr = 0;
+		int ctr = 1;
 		int x;
 		int y;
 		for (int i = 0; i < height; i+=1) {
 			for (int j = 0; j < width; j += 1) {
-				n = cellList.item(ctr);
-				if (n instanceof Element) {
-					el = (Element) n;
-					x = Integer.valueOf(el.getAttribute("x"));
-					y = Integer.valueOf(el.getAttribute("y"));
-					state = Integer.valueOf(el.getNodeValue());
-					//checks for invalid state
-					if ((state-1) >globalSettings.get(0).split(",").length) {
-						state = 0;
-						throw new IndexOutOfBoundsException("State was not within allowable range");
-					}					
-					data[x][y] = state;
-					ctr+=1;
-				}
+				n = getElement(ctr,cellList);
+				el = (Element) n;
+				NodeList elList = el.getChildNodes();
+				state = Integer.valueOf(getElement(1,elList).getFirstChild().getNodeValue());
+				//checks for invalid state
+				if ((state-1) >globalSettings.get(0).split(",").length) {
+					state = 0;
+					throw new IndexOutOfBoundsException("State was not within allowable range");
+				}					
+				data[x][y] = state;
+				ctr+=1;
 			}
 		}
 	}
@@ -167,7 +165,9 @@ public class XMLReader {
 	}
 	
 	public List<Integer> showgridConfig(){
-		return Collections.unmodifiableList(gridConfig);
+		ArrayList<Integer> myIntegerCopy = new ArrayList<Integer>();
+		for (String s : gridConfig) myIntegerCopy.add(Integer.valueOf(s));
+		return Collections.unmodifiableList(myIntegerCopy);
 	}
 	
 	public List<Double> showmyPercentages(){
