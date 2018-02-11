@@ -6,8 +6,8 @@ public class Grid_Segregation extends Grid{
 	
 	private ArrayList<Cell> myCellsUnoccupiedNextIteration;
 	
-	public Grid_Segregation(int rownum, int column, Calculator myCalculator, Cell cellType) {
-		super(rownum, column, myCalculator, cellType);
+	public Grid_Segregation(int rownum, int column, Calculator myCalculator) {
+		super(rownum, column, myCalculator);
 		myCellsUnoccupiedNextIteration = new ArrayList<Cell>();
 	}
 

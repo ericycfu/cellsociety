@@ -4,8 +4,8 @@ import java.util.ArrayList;
 
 public class Grid_Fire extends Grid{
 	
-	public Grid_Fire(int rownum, int colnum, Calculator myCalculator, Cell cellType) {
-		super(rownum, colnum, myCalculator, cellType);
+	public Grid_Fire(int rownum, int colnum, Calculator myCalculator) {
+		super(rownum, colnum, myCalculator);
 	}
 	
 	public void updateCell(double prob, int centerCellRow, int centerCellCol){

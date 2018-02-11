@@ -9,14 +9,12 @@ public abstract class Grid {
 	protected int myColNum;
 	protected Calculator myCalculator;
 	protected boolean end = false;
-	protected Cell myCellType;
 	
-	public Grid(int rownum, int colnum, Calculator calculator, Cell CellType){
+	public Grid(int rownum, int colnum, Calculator calculator){
 		myRowNum = rownum;
 		myColNum = colnum;
 		myCells = new Cell[rownum][colnum];
 		myCalculator = calculator;
-		myCellType = CellType;
 	}
 	
 	protected int getRandomNumberInRange(int min, int max) {

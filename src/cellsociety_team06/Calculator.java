@@ -1,7 +1,12 @@
 package cellsociety_team06;
 
 import java.util.List;
-
+/**
+ * 
+ * @author Frank Yin
+ * Purpose: This class stores some necessary parameters for grid-updating rules, and calculates 
+ *
+ */
 public abstract class Calculator {
 	
 	protected String[] myProperties;

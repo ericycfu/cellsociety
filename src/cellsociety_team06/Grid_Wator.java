@@ -6,13 +6,13 @@ public class Grid_Wator extends Grid{
 	private double energyGain;
 	private static double defaultEnergyGain = 3;
  
-public Grid_Wator(int rownum, int colnum, Calculator myCalculator, Cell cellType) {
-	 super(rownum, colnum, myCalculator, cellType);
+public Grid_Wator(int rownum, int colnum, Calculator myCalculator) {
+	 super(rownum, colnum, myCalculator);
 	 energyGain = defaultEnergyGain;
  }
  
-public Grid_Wator(int rownum, int colnum, Calculator myCalculator, Cell cellType, double parameter) {
-	super(rownum, colnum, myCalculator, cellType);
+public Grid_Wator(int rownum, int colnum, Calculator myCalculator, double parameter) {
+	super(rownum, colnum, myCalculator);
 	energyGain = parameter;
 }
  

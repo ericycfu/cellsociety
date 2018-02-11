@@ -8,12 +8,12 @@ public class Grid_SugarScape extends Grid{
 	private int sugarGrowBackInterval;
 	private double sugarMetabolism;
 	
-public Grid_SugarScape(int rownum, int colnum, Calculator myCalculator, Cell cellType) {
-	 super(rownum, colnum, myCalculator, cellType);
+public Grid_SugarScape(int rownum, int colnum, Calculator myCalculator) {
+	 super(rownum, colnum, myCalculator);
 }
  
-public Grid_SugarScape(int rownum, int colnum, Calculator myCalculator, Cell cellType, int sugarinterval, double sugarmeta) {
-	super(rownum, colnum, myCalculator, cellType);
+public Grid_SugarScape(int rownum, int colnum, Calculator myCalculator, int sugarinterval, double sugarmeta) {
+	super(rownum, colnum, myCalculator);
 	sugarGrowBackInterval = sugarinterval;
 	sugarMetabolism = sugarmeta;
 }
