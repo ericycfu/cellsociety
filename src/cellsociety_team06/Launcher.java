@@ -210,6 +210,7 @@ public class Launcher extends Application{
         	            fileChooser.getExtensionFilters().add(extFilter);
         	            File newfile = fileChooser.showOpenDialog(primaryStage);
         	            filename = newfile.getPath();
+        	            root.getChildren().clear();
         	            try {
         	            	readFile(filename);
         	            	} catch (IOException e1) {
@@ -217,13 +218,11 @@ public class Launcher extends Application{
         	            	} catch (SAXException e1) {
         	            	} catch (ParserConfigurationException e1) {
         	            	}
-        	            
         	            Scene newscene = sceneCreator(900,900,BACKGROUND);
         	            myPrimaryStage.setScene(newscene);
         	            myPrimaryStage.show();
         	            currentSim.cellGenerator();
-        	            
-        	            
+        	            timer = 0;
         	        });
         
      
