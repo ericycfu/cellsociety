@@ -86,6 +86,7 @@ public class Launcher extends Application{
     }
 	
 	public Scene sceneCreator(int L, int W, Paint background){
+		shape = myReader.showglobalSettings().get(2);
 		pauser = false;
 		root = new Group();
 		shape = myReader.showglobalSettings().get(2);
