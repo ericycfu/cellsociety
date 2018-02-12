@@ -9,7 +9,7 @@
 	<globalsettings>
 		<propertystring>X,O,Unoccupied</propertystring>
 		<colors>#FF0000,#0000FF,#FFFFFF</colors>
-		<cellshape>triangle</cellshape>
+		<cellshape>hexagon</cellshape>
 		<useprobability>1</useprobability>
 	</globalsettings>
 	<gridparameter></gridparameter>
@@ -18,8 +18,8 @@
 		<satisfylevel>0.6</satisfylevel>
 	</calculatorparameter>
 	<gridconfig>
-		<gridheight>20</gridheight>
-		<gridwidth>20</gridwidth>
+		<gridheight>19</gridheight>
+		<gridwidth>19</gridwidth>
 	</gridconfig>
 	<percentages>
 		<xpercentage>0.3</xpercentage>

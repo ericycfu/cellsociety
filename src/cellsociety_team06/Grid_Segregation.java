@@ -58,7 +58,6 @@ public class Grid_Segregation extends Grid{
 		updateUnoccupiedCellArray();
 	}
 
-	
 	@Override
 	protected ArrayList<Cell> findAdjacentCellsWithCurrentProperty(int row, int col, String property) {
 		// TODO Auto-generated method stub
@@ -69,6 +68,24 @@ public class Grid_Segregation extends Grid{
 	protected ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, String property) {
 		// TODO Auto-generated method stub
 		return new ArrayList<Cell>();
+	}
+
+	@Override
+	public void resetEnergyGain(double newenergygain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resetSugarInterval(int newinterval) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resetSugarMetabolism(int newMata) {
+		// TODO Auto-generated method stub
+		
 	}
 	
 }

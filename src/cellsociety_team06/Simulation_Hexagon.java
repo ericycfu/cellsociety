@@ -21,7 +21,7 @@ public class Simulation_Hexagon extends Simulation{
 	}
 	
 	@Override
-	public void cellGenerator(){
+	protected void cellGenerator(){
 		oddodd = true;
 		
 		Color[] lifeColor = colorGnerator(COLORS);

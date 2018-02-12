@@ -2,12 +2,22 @@ package cellsociety_team06;
 
 import java.util.ArrayList;
 
+/**
+ * This is the grid sub-class for the Game of Life simulation. It inherits most 
+ * important methods from its super-class and reserves deviations for the purpose 
+ * of unique rules and specifications. 
+ * @author Frank Yin
+ *
+ */
 public class Grid_Life extends Grid{
 	
 	public Grid_Life(int rownum, int colnum, Calculator myCalculator) {
 		super(rownum, colnum, myCalculator);
 	}
-
+	
+	/**
+	 * This method implements the Game of Life rules for cell-updating. 
+	 */
 	@Override
 	public void updateCell(double prob, int centerCellRow, int centerCellCol){
 		if (prob==1)
@@ -17,6 +27,9 @@ public class Grid_Life extends Grid{
 		}
 	}
 	
+	/**
+	 * For Game of Life simulations, both side adjacency and diagonal adjacency are counted. 
+	 */
 	@Override
 	protected ArrayList<Cell> findAdjacentCells(int row, int col){
 		ArrayList<Cell> adjacentCells = new ArrayList<Cell>();
@@ -30,16 +43,40 @@ public class Grid_Life extends Grid{
 		return adjacentCells;
 	}
 	
+	/**
+	 * This method is not used in Game of Life simulation so is left empty. 
+	 */
 	@Override
 	protected ArrayList<Cell> findAdjacentCellsWithCurrentProperty(int row, int col, String property) {
 		// TODO Auto-generated method stub
 		return new ArrayList<Cell>();
 	}
-
+	
+	/**
+	 * This method is not used in Game of Life simulation so is left empty. 
+	 */
 	@Override
 	protected ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, String property) {
 		// TODO Auto-generated method stub
 		return new ArrayList<Cell>();
+	}
+
+	@Override
+	public void resetEnergyGain(double newenergygain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resetSugarInterval(int newinterval) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resetSugarMetabolism(int newMata) {
+		// TODO Auto-generated method stub
+		
 	}
 
 	

@@ -99,20 +99,13 @@ private void sharkBehavior(int centerCellRow, int centerCellCol){
 	}
 	
 }
- 
- // takes in the locations of each cell and puts them into myGrid
- 
- /*protected ArrayList<Cell> findAdjacentCells(int row, int col){
-  ArrayList<Cell> adjacentCells = new ArrayList<Cell>();
-  if (checkBoundary(row-1,col)) adjacentCells.add(getCell(row-1,col));
-  if (checkBoundary(row,col-1)) adjacentCells.add(getCell(row,col-1));
-  if (checkBoundary(row,col+1)) adjacentCells.add(getCell(row,col+1));
-  if (checkBoundary(row+1,col)) adjacentCells.add(getCell(row+1,col));
-  return adjacentCells;
- }*/
- 
- @Override
- protected ArrayList<Cell> findAdjacentCells(int row, int col){
+
+public void resetEnergyGain(double newEnergyGain){
+	energyGain = newEnergyGain;
+}
+
+@Override
+protected ArrayList<Cell> findAdjacentCells(int row, int col){
 		ArrayList<Cell> adjacentCells = new ArrayList<Cell>();
 		Cell currentCell = myCells[row][col];
 		for (int i = 0; i < myRowNum; i++){
@@ -164,6 +157,18 @@ private void sharkBehavior(int centerCellRow, int centerCellCol){
   if (checkBoundary(row+1,col) && myCells[row+1][col].showFutureProperty().equals(property)) adjacentCells.add(getCell(row+1,col));
   return adjacentCells;
  }*/
+
+@Override
+public void resetSugarInterval(int newinterval) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void resetSugarMetabolism(int newMata) {
+	// TODO Auto-generated method stub
+	
+}
  
  
 }

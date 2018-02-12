@@ -48,6 +48,24 @@ public class Grid_Fire extends Grid{
 		// TODO Auto-generated method stub
 		return new ArrayList<Cell>();
 	}
+
+	@Override
+	public void resetEnergyGain(double newenergygain) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resetSugarInterval(int newinterval) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void resetSugarMetabolism(int newMata) {
+		// TODO Auto-generated method stub
+		
+	}
 	
 }
 

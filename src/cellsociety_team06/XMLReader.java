@@ -97,7 +97,7 @@ public class XMLReader {
 		addToArray(percentage, myPercentages);
 		
 		//checks if not enough percentages were given. Redistributes remaining percentages equally.
-		int numberStates = Integer.valueOf(basicInfo.get(0));
+		/*int numberStates = Integer.valueOf(basicInfo.get(0));
 		int neededPercentages = numberStates-myPercentages.size();
 		float currentTotalPercentage = 0.0f;
 		for (String percent: myPercentages) {
@@ -108,7 +108,7 @@ public class XMLReader {
 			for (int i = 0; i < neededPercentages; i += 1) {
 				myPercentages.add(Float.toString(remainingPercentage/neededPercentages));
 			}
-		}
+		}*/
 		
 		
 		int height = Integer.parseInt(gridConfig.get(0));
@@ -119,8 +119,9 @@ public class XMLReader {
 			getCellData("cell", height, width, myCells);
 			getCellData("energy", height, width, myEnergy);
 		}
-		catch(IndexOutOfBoundsException e) {
-			System.out.println("specific cell data not found/not enough data. Cell locations may be outside bounds of grid size.");
+		catch(Exception e) {
+			System.out.println("specific cell data not found or not enough data");
+
 			return;
 		}
 	}
