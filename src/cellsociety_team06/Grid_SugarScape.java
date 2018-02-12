@@ -182,6 +182,12 @@ protected ArrayList<Cell> findAdjacentCells(int row, int col){
  protected ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, String property){
 		return new ArrayList<Cell>();
  }
+
+@Override
+public void resetEnergyGain(double newenergygain) {
+	// TODO Auto-generated method stub
+	
+}
  
 }
 

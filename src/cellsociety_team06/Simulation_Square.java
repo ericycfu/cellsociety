@@ -21,24 +21,18 @@ public class Simulation_Square extends Simulation{
 	}
 	
 	@Override
-	public void cellGenerator(){
+	protected void cellGenerator(){
 		
 		Color[] lifeColor = colorGnerator(COLORS);
 		if (useProb == 0){
-			//System.out.println(useProb);
 			for (int i=0;i<height;i++){
 				for (int j=0;j<width;j++){
 					switch (cellParameters.size()){
 						case 0:{
-							//System.out.println(cellstates[i][j]);
 							currentCell = new Cell_Square(SQUARE, j*sidelength+100+celllength/2, i*sidelength+50+celllength/2, sidelength, properties, lifeColor, cellstates[i][j]);
 							break;
 						}
 						case 1:{
-							//System.out.println(cellParameters.size());
-							//System.out.println(Arrays.toString(cellstates[0]));
-							//System.out.println(Arrays.toString(cellstates[1]));
-							//System.out.println(Arrays.toString(cellstates[2]));
 							currentCell = new Cell_Square(SQUARE, j*sidelength+100+celllength/2, i*sidelength+50+celllength/2, sidelength, properties, lifeColor, cellstates[i][j], Double.parseDouble(cellParameters.get(0)));
 							break;
 						}
@@ -54,38 +48,29 @@ public class Simulation_Square extends Simulation{
 						}
 					}
 					currentGrid.createCells(i, j, currentCell);
-					//System.out.println(currentGrid.getCell(0, 0).showCurrentProperty());
 					root.getChildren().add(currentCell.showPolygon());
 				}
 			}
 		} else {
 			ArrayList<Integer> States = new ArrayList<Integer>();
-			System.out.println(probabilities.size());
 			for (int i=0; i<probabilities.size(); i++){
-				//System.out.println(probabilities.size());
 				double prob = Double.parseDouble(probabilities.get(i));
 				int number = (int) (prob * height * width);
-				//System.out.println(number);
 				for (int j=0;j<number;j++){
 					States.add(i);
-					//System.out.println(States.toString());
 				}
 			}
-			//System.out.println(States.size());
-			System.out.println("!!!");
 			for (int i = States.size(); i < height*width; i++){
 				States.add(probabilities.size()-1);
 			}
 			Collections.shuffle(States);
 			int arranger = 0;
-			//System.out.println(cellParameters.size());
 			for (int i=0;i<height;i++){
 				for (int j=0;j<width;j++){
 					switch (cellParameters.size()){
 					case 0:{
 						
 						currentCell = new Cell_Square(SQUARE, j*sidelength+100+celllength/2, i*sidelength+50+celllength/2, sidelength, properties, lifeColor, States.get(arranger));
-						//System.out.println(currentCell.showCurrentProperty());
 						break;
 					}
 					case 1:{
