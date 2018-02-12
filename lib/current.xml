@@ -1,6 +1,4 @@
-<?xml version = "1.0"?>
-
-<simulation>
+<?xml version="1.0" encoding="UTF-8" standalone="no"?><simulation>
 	<basicinfo>
 		<simulationName>Game of Life</simulationName>
 		<simulationTitle>Our Amazing Game</simulationTitle>
@@ -9,40 +7,20 @@
 	<globalsettings>
 		<propertystring>Live,Dead</propertystring>
 		<colors>#000000,#FFFFFF</colors>
-		<cellshape>square</cellshape>
+		<cellshape>hexagon</cellshape>
 		<useprobability>0</useprobability>
 	</globalsettings>
-	<gridparameter></gridparameter>
-	<cellparameter></cellparameter>
-	<calculatorparameter></calculatorparameter>
+	<gridparameter/>
+	<cellparameter/>
+	<calculatorparameter/>
 	<gridconfig>
-		<gridheight>20</gridheight>
-		<gridwidth>20</gridwidth>
+		<gridheight>3</gridheight>
+		<gridwidth>3</gridwidth>
 	</gridconfig>
 	<percentages>
 		<livepercentage>0.5</livepercentage>
 		<deadpercentage>0.5</deadpercentage>
 	</percentages>
-	<cellstates>
-		<cell x = "0" y = "0"><state>0</state></cell>
-		<cell x = "1" y = "0"><state>0</state></cell>
-		<cell x = "2" y = "0"><state>0</state></cell>
-		<cell x = "0" y = "1"><state>0</state></cell>
-		<cell x = "1" y = "1"><state>0</state></cell>
-		<cell x = "2" y = "1"><state>0</state></cell>
-		<cell x = "0" y = "2"><state>0</state></cell>
-		<cell x = "1" y = "2"><state>0</state></cell>
-		<cell x = "2" y = "2"><state>0</state></cell>
-	</cellstates>
-	<energystates>
-		<energy x = "0" y = "0"><state>0</state></energy>
-		<energy x = "1" y = "0"><state>0</state></energy>
-		<energy x = "2" y = "0"><state>0</state></energy>
-		<energy x = "0" y = "1"><state>0</state></energy>
-		<energy x = "1" y = "1"><state>0</state></energy>
-		<energy x = "2" y = "1"><state>0</state></energy>
-		<energy x = "0" y = "2"><state>0</state></energy>
-		<energy x = "1" y = "2"><state>0</state></energy>
-		<energy x = "2" y = "2"><state>0</state></energy>
-	</energystates>
+	<cellstates><cell x="0" y="0"><state>1</state></cell><cell x="0" y="1"><state>1</state></cell><cell x="0" y="2"><state>1</state></cell><cell x="1" y="0"><state>1</state></cell><cell x="1" y="1"><state>1</state></cell><cell x="1" y="2"><state>1</state></cell><cell x="2" y="0"><state>1</state></cell><cell x="2" y="1"><state>1</state></cell><cell x="2" y="2"><state>1</state></cell></cellstates>
+	<energystates><energy x="0" y="0"><state>1</state></energy><energy x="0" y="1"><state>1</state></energy><energy x="0" y="2"><state>1</state></energy><energy x="1" y="0"><state>1</state></energy><energy x="1" y="1"><state>1</state></energy><energy x="1" y="2"><state>1</state></energy><energy x="2" y="0"><state>1</state></energy><energy x="2" y="1"><state>1</state></energy><energy x="2" y="2"><state>1</state></energy></energystates>
 </simulation>

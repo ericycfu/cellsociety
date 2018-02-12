@@ -49,14 +49,18 @@ public class XMLcreator {
 		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
 		Document doc = docBuilder.parse(myFilepath);
 
-		NodeList cellstates = doc.getElementsByTagName("cellstate");
+		NodeList cellstates = doc.getElementsByTagName("cellstates");
 		NodeList energystates = doc.getElementsByTagName("energystates");
 		Node mycellstates = null;
 		Node myenergystates = null;
+		System.out.println(cellstates.getLength());
+		System.out.println(energystates.getLength());
 		for (int i = 0; i < cellstates.getLength(); i +=1) {
 			if (cellstates.item(i) instanceof Element) {
 				mycellstates = cellstates.item(i);
 			}
+		}		
+		for (int i = 0; i < energystates.getLength(); i +=1) {
 			if (energystates.item(i) instanceof Element) {
 				myenergystates = energystates.item(i);
 			}
@@ -67,7 +71,19 @@ public class XMLcreator {
 		addNodes(mycellstates, doc, "cell");
 		addNodes(myenergystates, doc, "energy");
 		
-
+		NodeList useprob = doc.getElementsByTagName("useprobability");
+		try {
+		Node useprobability= null;
+		for (int i = 0; i < useprob.getLength(); i+=1) {
+			if (useprob.item(i) instanceof Element)
+				useprobability = useprob.item(i);
+		}
+		useprobability.setTextContent("0");
+		}
+		catch(NullPointerException e) {
+			System.out.println("node by name of useprobability doesn't exist");
+			return;
+		}
 		// write the content into xml file
 		TransformerFactory transformerFactory = TransformerFactory.newInstance();
 		Transformer transformer = transformerFactory.newTransformer();
@@ -84,9 +100,11 @@ public class XMLcreator {
 				Element cell = doc.createElement(type);
 				node.appendChild(cell);
 				Attr x = doc.createAttribute("x");
-				Attr y = doc.createAttribute("y");
 				x.setValue(Integer.toString(i));
+				cell.setAttributeNode(x);
+				Attr y = doc.createAttribute("y");
 				y.setValue(Integer.toString(j));
+				cell.setAttributeNode(y);
 				Element state = doc.createElement("state");
 				state.appendChild(doc.createTextNode(Integer.toString(myGrid.getCell(i,j).showCurrentState())));
 				cell.appendChild(state);
