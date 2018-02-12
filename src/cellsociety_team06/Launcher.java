@@ -220,16 +220,11 @@ public class Launcher extends Application{
             try {
 				myCreator.saveState();
 			} catch (TransformerException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				System.out.println("Something went wrong with the transformation process. Current state not saved.");
 			} catch (ParserConfigurationException e1) {
-				e1.printStackTrace();
+				System.out.println("Something went wrong with creating the document. Current state not saved.");
 			} catch (SAXException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
-			} catch (IOException e1) {
-				// TODO Auto-generated catch block
-				e1.printStackTrace();
+				System.out.println("Something went wrong with creating the document. Unable to save current state.");
 			}
            });
         
@@ -244,9 +239,11 @@ public class Launcher extends Application{
         	            try {
         	            	readFile(filename);
         	            	} catch (IOException e1) {
-        	            		e1.printStackTrace();
+        	            		System.out.println("File not found!");
         	            	} catch (SAXException e1) {
+        	            		System.out.println("Cannot create document. Configuration not read.");
         	            	} catch (ParserConfigurationException e1) {
+        	            		System.out.println("Cannot create document. Configuration not read.");
         	            	}
         	            
         	            Scene newscene = sceneCreator(900,900,BACKGROUND);
