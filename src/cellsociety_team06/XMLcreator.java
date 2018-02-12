@@ -39,16 +39,22 @@ public class XMLcreator {
 	}
 	/**
 	 * writes the cell states into a new xml file
-	 * @throws TransformerException
-	 * @throws ParserConfigurationException
-	 * @throws SAXException
-	 * @throws IOException
+	 * @throws TransformerException error with saving the file
+	 * @throws ParserConfigurationException error with creating the file
+	 * @throws SAXException error with creating the file
+	 * @throws IOException When filepath is not a valid file.
 	 */
-	public void saveState() throws TransformerException, ParserConfigurationException, SAXException, IOException{
+	public void saveState() throws TransformerException, ParserConfigurationException, SAXException{
 		DocumentBuilderFactory docFactory = DocumentBuilderFactory.newInstance();
 		DocumentBuilder docBuilder = docFactory.newDocumentBuilder();
-		Document doc = docBuilder.parse(myFilepath);
-
+		Document doc = null;
+		try {
+			doc = docBuilder.parse(myFilepath);
+		}
+		catch(IOException ioe) {
+			System.out.println("filepath invalid/file doesn't exist");
+			return;
+		}
 		NodeList cellstates = doc.getElementsByTagName("cellstates");
 		NodeList energystates = doc.getElementsByTagName("energystates");
 		Node mycellstates = null;
