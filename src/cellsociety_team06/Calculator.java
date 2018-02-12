@@ -56,9 +56,15 @@ public abstract class Calculator {
 		return myParameter;
 	}
 	
+	/**
+	 * The method is primarily implemented to allow other classes to 
+	 * change the parameter of the simulation while it is running. 
+	 * @param parameter
+	 */
 	public void resetParameter(double parameter){
 		myParameter = parameter;
 	}
+	
 	/**
 	 * This is a helper method that makes the updating cell state easier 
 	 * by returning the state value when given its String form. 

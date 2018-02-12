@@ -2,6 +2,11 @@ package cellsociety_team06;
 
 import java.util.ArrayList;
 
+/**
+ * This is the grid sub-class for the SugarScape simulation. 
+ * @author Frank Yin
+ *
+ */
 public class Grid_SugarScape extends Grid{
 	private static int maxSugar = 4;
 	private static int sugarGrowRate = 1;
@@ -11,13 +16,25 @@ public class Grid_SugarScape extends Grid{
 public Grid_SugarScape(int rownum, int colnum, Calculator myCalculator) {
 	 super(rownum, colnum, myCalculator);
 }
- 
+
+/**
+ * This constructor takes in two more parameters to allow the implementation of 
+ * the SugarScape simulation. 
+ * @param rownum
+ * @param colnum
+ * @param myCalculator
+ * @param sugarinterval: the time it takes for each patch to grow back sugar 
+ * @param sugarmeta: the amount of sugar each agent consumes during every iteration 
+ */
 public Grid_SugarScape(int rownum, int colnum, Calculator myCalculator, int sugarinterval, double sugarmeta) {
 	super(rownum, colnum, myCalculator);
 	sugarGrowBackInterval = sugarinterval;
 	sugarMetabolism = sugarmeta;
 }
  
+/**
+ * This is the method for the cell-updating process of the SugarScape simulation. 
+ */
 public void updateCell(double prob, int centerCellRow, int centerCellCol){
 	if (myCells[centerCellRow][centerCellCol].showCurrentProperty().equals("Agent")){
 		myCells[centerCellRow][centerCellCol].setEnergy(myCells[centerCellRow][centerCellCol].showEnergy() - sugarMetabolism);
@@ -40,6 +57,10 @@ public void updateCell(double prob, int centerCellRow, int centerCellCol){
 	
 }
 
+/**
+ * This method overrides the original update method as this simulation requires a more 
+ * complicated way of handling updates. 
+ */
 @Override
 public void update(){
 	for (int i = 0; i < myRowNum; i++){
@@ -130,14 +151,27 @@ private Cell getMaxSugarCells(ArrayList<Cell> adjacentpatches){
 	
 }
 
+/**
+ * This method allows other classes to reset the parameter so that the simulation 
+ * can be adjusted or modified accordingly. 
+ * @param newInterval
+ */
 public void resetSugarInterval(int newInterval){
 	sugarGrowBackInterval = newInterval;
 }
 
+/**
+ * This method allows other classes to reset the parameter so that the simulation 
+ * can be adjusted or modified accordingly. 
+ * @param newSugarMeta
+ */
 public void resetSugarMetabolism(int newSugarMeta){
 	sugarMetabolism = newSugarMeta;
 }
 
+/**
+ * This method is implemented so that each agent only finds adjacent patches. 
+ */
 @Override
 protected ArrayList<Cell> findAdjacentCells(int row, int col){
 		ArrayList<Cell> adjacentCells = new ArrayList<Cell>();
@@ -158,7 +192,10 @@ protected ArrayList<Cell> findAdjacentCells(int row, int col){
 		}
 		return adjacentCells;
 	}
- 
+
+/**
+ * This method is implemented so that each agent only finds adjacent patches with some property. 
+ */
  protected ArrayList<Cell> findAdjacentCellsWithCurrentProperty(int row, int col, String property){
 	 ArrayList<Cell> adjacentCells = new ArrayList<Cell>();
 		Cell currentCell = myCells[row][col];
@@ -179,6 +216,9 @@ protected ArrayList<Cell> findAdjacentCells(int row, int col){
 		return adjacentCells;
  }
  
+ /**
+  * This method is not used in this sub-class. 
+  */
  protected ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, String property){
 		return new ArrayList<Cell>();
  }

@@ -5,7 +5,7 @@ import java.util.List;
 public class Calculator_Fire extends Calculator{
 	
 	public Calculator_Fire(String[] properties, double parameter) {
-		super(properties, parameter);//parameter is probCatch
+		super(properties, parameter);
 	}
 	
 	@Override

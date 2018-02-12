@@ -3,6 +3,14 @@ package cellsociety_team06;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Polygon;
 
+/**
+ * The purpose of this class is to define an unsubstantiatable object 
+ * whose sub-class deviants can be applied to further extensions of 
+ * cell-society simulation. 
+ * It is assumed that all cells have predefined states and properties. 
+ * @author Frank Yin
+ *
+ */
 public abstract class Cell{
 
 	protected int currentState;
@@ -20,6 +28,19 @@ public abstract class Cell{
 	protected boolean myVision; // cell that has vision can also check diagonal cells
 	private static double delta = 0.001;
 	
+	/**
+	 * This constructor initializes the cell with center location, initial states, and all other 
+	 * important defining categories that can be applied to any extension of the simulation. It 
+	 * contains the shape of itself, which carries color indicators that get updated with state 
+	 * change. 
+	 * @param cellType: shape of cell in String format
+	 * @param centerXLocation: center point x location
+	 * @param centerYLocation: center point y loaction
+	 * @param sideLength: length of side 
+	 * @param properties: An array of String to represent properties of the cell
+	 * @param colors: An array of Color corresponding to the states
+	 * @param initialState: initial state of cell
+	 */
 	public Cell(String cellType, double centerXLocation, double centerYLocation, double sideLength, String[] properties, Color[] colors, int initialState){
 		myProperties = properties;
 		currentState = initialState;
@@ -32,6 +53,18 @@ public abstract class Cell{
 		mySideLength = sideLength;
 	}
 	
+	/**
+	 * The constructor that takes in one more parameter (initial energy for predator-prey type
+	 * simulations)
+	 * @param cellType
+	 * @param centerXLocation
+	 * @param centerYLocation
+	 * @param sideLength
+	 * @param properties
+	 * @param colors
+	 * @param initialState
+	 * @param initialEnergyinput
+	 */
 	public Cell(String cellType, double centerXLocation, double centerYLocation, double sideLength, String[] properties, Color[] colors, int initialState, double initialEnergyinput){
 		myProperties = properties;
 		currentState = initialState;
@@ -46,6 +79,19 @@ public abstract class Cell{
 		mySideLength = sideLength;
 	}
 	
+	/**
+	 * The constructor takes in two more parameters (the other one is for simulations with genetic 
+	 * merging, such as SugarScape)
+	 * @param cellType
+	 * @param centerXLocation
+	 * @param centerYLocation
+	 * @param sideLength
+	 * @param properties
+	 * @param colors
+	 * @param initialState
+	 * @param initialEnergyinput
+	 * @param vision
+	 */
 	public Cell(String cellType, double centerXLocation, double centerYLocation, double sideLength, String[] properties, Color[] colors, int initialState, double initialEnergyinput, boolean vision){
 		myProperties = properties;
 		currentState = initialState;
@@ -61,6 +107,15 @@ public abstract class Cell{
 		myVision = vision;
 	}
 	
+	/**
+	 * This method functions to check the adjacency between cells by comparing 
+	 * the distance between their center locations. Given the locations are stored 
+	 * as double and cannot be compared to each other, a small delta is used to 
+	 * compare the absolute value of the difference between locations. 
+	 * @param loc1
+	 * @param loc2
+	 * @return
+	 */
 	protected boolean locationMatch(double loc1, double loc2){
 		return (Math.abs(loc1-loc2) < delta);
 	}
