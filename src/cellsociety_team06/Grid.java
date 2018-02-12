@@ -8,6 +8,9 @@ import java.util.Random;
  * that this cell society project can carry. It has access to all the 
  * cells and contains the methods to determine the future states of each 
  * cell and to update them in the next iteration. 
+ * This class depends on the cell class and the calculator class, and 
+ * passes information to the simulation class, without which the tasks 
+ * of the simulations wouldn't be able to carry out. 
  * @author Frank Yin
  *
  */
