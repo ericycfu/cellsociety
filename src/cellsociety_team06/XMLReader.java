@@ -119,9 +119,12 @@ public class XMLReader {
 			getCellData("cell", height, width, myCells);
 			getCellData("energy", height, width, myEnergy);
 		}
-		catch(Exception e) {
+		catch(NullPointerException npe) {
 			System.out.println("specific cell data not found or not enough data");
-
+			return;
+		}
+		catch(IndexOutOfBoundsException e) {
+			System.out.println("Too many cells. Number exceeds width*height.");
 			return;
 		}
 	}
