@@ -58,7 +58,6 @@ public class Grid_Segregation extends Grid{
 		updateUnoccupiedCellArray();
 	}
 
-	
 	@Override
 	protected ArrayList<Cell> findAdjacentCellsWithCurrentProperty(int row, int col, String property) {
 		// TODO Auto-generated method stub

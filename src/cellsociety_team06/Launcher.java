@@ -245,7 +245,6 @@ public class Launcher extends Application{
         	            	} catch (ParserConfigurationException e1) {
         	            		System.out.println("Cannot create document. Configuration not read.");
         	            	}
-        	            
         	            Scene newscene = sceneCreator(900,900,BACKGROUND);
         	            myPrimaryStage.setScene(newscene);
         	            myPrimaryStage.show();

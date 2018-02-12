@@ -46,7 +46,7 @@ public void update(){
 		for (int j = 0; j < myColNum; j++){
 			if (myCells[i][j].showCurrentState()<maxSugar && myCells[i][j].showCurrentState()==myCells[i][j].showFutureState()){
 				if (myCells[i][j].showChronon()>=sugarGrowBackInterval){
-					myCells[i][j].setFutureState(myCells[i][j].showCurrentState()+1);
+					myCells[i][j].setFutureState(myCells[i][j].showCurrentState()+sugarGrowRate);
 					myCells[i][j].resetChronon();
 				}
 			}
@@ -130,8 +130,16 @@ private Cell getMaxSugarCells(ArrayList<Cell> adjacentpatches){
 	
 }
 
- @Override
- protected ArrayList<Cell> findAdjacentCells(int row, int col){
+public void resetSugarInterval(int newInterval){
+	sugarGrowBackInterval = newInterval;
+}
+
+public void resetSugarMetabolism(int newSugarMeta){
+	sugarMetabolism = newSugarMeta;
+}
+
+@Override
+protected ArrayList<Cell> findAdjacentCells(int row, int col){
 		ArrayList<Cell> adjacentCells = new ArrayList<Cell>();
 		Cell currentCell = myCells[row][col];
 		for (int i = 0; i < myRowNum; i++){
