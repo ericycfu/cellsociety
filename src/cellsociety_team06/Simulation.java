@@ -63,6 +63,12 @@ public abstract class Simulation{
 		calcParameters = thisreader.showcalculatorParameters();
 	}
 	
+	/**
+	 * 
+	 * @param ColorString
+	 * @return
+	 */
+	
 	public Color[] colorGnerator(String[] ColorString){
 		
 		Color[] cellColors = new Color[COLORS.length];

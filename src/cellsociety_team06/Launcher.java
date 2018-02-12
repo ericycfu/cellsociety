@@ -21,7 +21,9 @@ import javafx.scene.chart.StackedAreaChart;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.TilePane;
 import javafx.scene.paint.Color;
 import javafx.scene.paint.Paint;
@@ -181,7 +183,77 @@ public class Launcher extends Application{
 		
 	}
 	
-	public static void handleKeyInput(KeyCode keyCode){
+	public void handleKeyInput(KeyCode keyCode){
+		
+		if (keyCode == KeyCode.ENTER){
+			
+			switch (SimType){
+				case "Fire":{
+					TextField inputs = new TextField();
+					Button button = new Button("Change rate of catching fire");
+					HBox hbox = new HBox(inputs, button);
+					button.setOnAction(action -> {
+						double newrate = Double.parseDouble(inputs.getText());
+						root.getChildren().remove(hbox);
+		            });
+					hbox.setLayoutX(300);hbox.setLayoutY(520);
+					root.getChildren().add(hbox);
+					break;
+				} 
+				case "Wator":{
+					TextField inputs = new TextField();
+					Button energy = new Button("Change energy gain");
+					Button reproduce = new Button("Change reproduction time");
+					HBox hbox = new HBox(inputs, energy, reproduce);
+					energy.setOnAction(action -> {
+						double newenergygain = Double.parseDouble(inputs.getText());
+						root.getChildren().remove(hbox);
+		            });
+					reproduce.setOnAction(action -> {
+						double newreproduce = Double.parseDouble(inputs.getText());
+						root.getChildren().remove(hbox);
+		            });
+					hbox.setLayoutX(250);hbox.setLayoutY(520);
+					root.getChildren().add(hbox);
+					break;
+				}
+				case "Segregation":{
+					TextField inputs = new TextField();
+					Button button = new Button("Change satisfaction");
+					HBox hbox = new HBox(inputs, button);
+					button.setOnAction(action -> {
+						double newsatisfactory = Double.parseDouble(inputs.getText());
+						root.getChildren().remove(hbox);
+		            });
+					hbox.setLayoutX(300);hbox.setLayoutY(520);
+					root.getChildren().add(hbox);
+					break;
+				}
+				case "SugarScape":{
+					TextField inputs = new TextField();
+					Button interval = new Button("Change interval");
+					Button matabolism = new Button("Change matabolism");
+					Button reproduce = new Button("Change reproduction time");
+					HBox hbox = new HBox(inputs, interval, matabolism, reproduce);
+					interval.setOnAction(action -> {
+						double newinterval = Double.parseDouble(inputs.getText());
+						root.getChildren().remove(hbox);
+		            });
+					matabolism.setOnAction(action -> {
+						double newmata = Double.parseDouble(inputs.getText());
+						root.getChildren().remove(hbox);
+		            });
+					reproduce.setOnAction(action -> {
+						double newreproduce = Double.parseDouble(inputs.getText());
+						root.getChildren().remove(hbox);
+		            });
+					hbox.setLayoutX(200);hbox.setLayoutY(520);
+					root.getChildren().add(hbox);
+					break;
+				}
+			}
+            
+		}
 		
 	}
 	
@@ -347,41 +419,6 @@ public class Launcher extends Application{
 	public void mover(Grid myGrid, Calculator myCalc){
 		myGrid.iterate();
 		
-		switch (SimType){
-			case "Game of Life":{
-				System.out.println(SimType);
-				for (int i=0;i<height;i++){
-					for (int j=0;j<width;j++){
-						currentGrid.getCell(i, j).update();
-					}
-				}
-				break;
-			}
-			case "Segregation":{
-				for (int i=0;i<height; i++){
-					for (int j=0;j<width;j++){
-						currentGrid.getCell(i, j).update();
-					}
-				}
-				break;
-			}
-			case "Wator":{
-				for (int i=0;i<height; i++){
-					for (int j=0;j<width;j++){
-						currentGrid.getCell(i, j).update();
-					}
-				}
-				break;
-			}
-			case "Fire":{
-				for (int i=0;i<height; i++){
-					for (int j=0;j<width;j++){
-						currentGrid.getCell(i, j).update();
-					}
-				}
-				break;
-			}
-		}
 		timer++;
 		timedisplay.setText("Frame passed: " + Integer.toString(timer));
 		updateChart();
