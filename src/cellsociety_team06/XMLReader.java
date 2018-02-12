@@ -19,6 +19,10 @@ import org.w3c.dom.NodeList;
 /**
  * Reads in the selected XML file and returns the information which can be used
  * to load the simulation.
+ * Assumes that the root element has 9 children in a particular order. 
+ * Does not depend on any other classes
+ * To use, initialize XMLReader with the appropriate filename parameter. Then call read().
+ * Once that is done, use the getters to retreive appropriate data.
  * @author Eric Fu
  *
  */
@@ -44,9 +48,9 @@ public class XMLReader {
 	}
 	/**
 	 * reads in the data from the XML file and adds the data to its respective list.
-	 * @throws ParserConfigurationException
-	 * @throws SAXException
-	 * @throws IOException
+	 * @throws ParserConfigurationException Error creating document
+	 * @throws SAXException Error creating document
+	 * @throws IOException when the file input is not valid
 	 */
 	public void read() throws ParserConfigurationException, SAXException, IOException{
 		DocumentBuilderFactory dbf = DocumentBuilderFactory.newInstance();
