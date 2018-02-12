@@ -56,6 +56,9 @@ public abstract class Calculator {
 		return myParameter;
 	}
 	
+	public void resetParameter(double parameter){
+		myParameter = parameter;
+	}
 	/**
 	 * This is a helper method that makes the updating cell state easier 
 	 * by returning the state value when given its String form. 

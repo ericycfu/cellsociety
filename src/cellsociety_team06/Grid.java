@@ -77,7 +77,7 @@ public abstract class Grid {
     	Random r = new Random();
     	return r.nextInt((max - min) + 1) + min;
     }
-	
+
 	/**
 	 * This method gets a cell from one specific location in the grid. Since 
 	 * it is mainly used in the the grid class and its sub-classes as a helper, 
