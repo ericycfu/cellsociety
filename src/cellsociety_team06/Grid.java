@@ -232,4 +232,32 @@ public abstract class Grid {
 			}
 		return (unchangedCellNum == myRowNum*myColNum);
 	}
+	
+	/**
+	 * This method is used in a subset of implemented simulations and is thus implemented 
+	 * to make the function call more generalized. 
+	 * @param newinterval
+	 */
+	public void resetSugarInterval(int newinterval) {
+		return;
+	}
+	
+	/**
+	 * This method is used in a subset of implemented simulations and is thus implemented 
+	 * to make the function call more generalized. 
+	 * @param newinterval
+	 */
+	public void resetSugarMetabolism(int newmata) {
+		return;
+	}
+	
+	/**
+	 * This method is used in a subset of implemented simulations and is thus implemented 
+	 * to make the function call more generalized. 
+	 * @param newinterval
+	 */
+	public void resetEnergyGain(double newenergygain) {
+		return;
+	}
+	
 }

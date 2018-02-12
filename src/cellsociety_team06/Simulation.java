@@ -1,13 +1,10 @@
 package cellsociety_team06;
 
-
 import javafx.scene.Group;
 
 import javafx.scene.paint.Color;
 
 import java.util.*;
-
-
 
 public abstract class Simulation{
 	
@@ -63,7 +60,13 @@ public abstract class Simulation{
 		calcParameters = thisreader.showcalculatorParameters();
 	}
 	
-	public Color[] colorGnerator(String[] ColorString){
+	/**
+	 * 
+	 * @param ColorString
+	 * @return
+	 */
+	
+	protected Color[] colorGnerator(String[] ColorString){
 		
 		Color[] cellColors = new Color[COLORS.length];
 		for (int i=0;i<COLORS.length;i++){
@@ -78,14 +81,12 @@ public abstract class Simulation{
 		switch (mySimu) {
         	
 	        case "Game of Life":{
-	        	System.out.println("GOL create");
 	        	currentCalculator = new Calculator_Life(properties);
 	        	currentGrid = new Grid_Life(height, width, currentCalculator);
 	        	break;
 	        }
 	        case "Fire":{
 	        	currentCalculator = new Calculator_Fire(properties, Float.parseFloat(calcParameters.get(0)));
-	        	//System.out.println(currentCalculator.showParameter());
 	        	currentGrid = new Grid_Fire(height, width, currentCalculator);
 	        	break;
 	        }
@@ -108,7 +109,7 @@ public abstract class Simulation{
 		cellGenerator();
 	}
 	
-	public abstract void cellGenerator();
+	protected abstract void cellGenerator();
 	
 	public Calculator getCalc(){
 		return currentCalculator;
@@ -117,7 +118,5 @@ public abstract class Simulation{
 	public Grid getGrid(){
 		return currentGrid;
 	}
-	
-	
 	
 }

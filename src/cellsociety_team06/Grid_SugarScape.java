@@ -156,6 +156,7 @@ private Cell getMaxSugarCells(ArrayList<Cell> adjacentpatches){
  * can be adjusted or modified accordingly. 
  * @param newInterval
  */
+@Override
 public void resetSugarInterval(int newInterval){
 	sugarGrowBackInterval = newInterval;
 }
@@ -165,6 +166,7 @@ public void resetSugarInterval(int newInterval){
  * can be adjusted or modified accordingly. 
  * @param newSugarMeta
  */
+@Override
 public void resetSugarMetabolism(int newSugarMeta){
 	sugarMetabolism = newSugarMeta;
 }

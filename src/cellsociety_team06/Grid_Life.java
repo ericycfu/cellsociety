@@ -60,7 +60,6 @@ public class Grid_Life extends Grid{
 		// TODO Auto-generated method stub
 		return new ArrayList<Cell>();
 	}
-
 	
 }
 

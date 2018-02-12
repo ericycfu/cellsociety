@@ -122,6 +122,12 @@ private void movetoWater(ArrayList<Cell> freespace, int centerCellRow, int cente
 		sharkDies(freespace.get(randomwater));
 }
 
+/**
+ * This method allows other classes to change the energy gain from 
+ * eating a fish to observe the change in the simulation with respect 
+ * to different parameters. 
+ */
+@Override
 public void resetEnergyGain(double newEnergyGain){
 	energyGain = newEnergyGain;
 }
@@ -171,6 +177,6 @@ protected ArrayList<Cell> findAdjacentCellsWithFutureProperty(int row, int col, 
 			}
 		return adjacentCells;
  }
- 
+
 }
 

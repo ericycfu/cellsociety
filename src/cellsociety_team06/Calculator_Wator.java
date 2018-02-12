@@ -5,7 +5,8 @@ import java.util.List;
 /**
  * This is the calculator sub-class for the Wator simulation. 
  * @author Frank Yin
- *
+ * @author Eric Fu
+ * 
  */
 public class Calculator_Wator extends Calculator{
  
