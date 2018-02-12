@@ -21,7 +21,7 @@ public class Simulation_Triangle extends Simulation{
 	}
 	
 	@Override
-	public void cellGenerator(){
+	protected void cellGenerator(){
 		
 		Color[] lifeColor = colorGnerator(COLORS);
 		if (useProb == 0){
@@ -29,7 +29,6 @@ public class Simulation_Triangle extends Simulation{
 				for (int j=0;j<width;j++){
 					int index = i+j;
 					upup = (index % 2 == 0);
-					System.out.println(cellParameters.size());
 					switch (cellParameters.size()){
 						case 0:{
 							currentCell = new Cell_Triangle(TRIANGLE, j*0.5*sidelength+100+celllength/2, i*Math.sqrt(3)/2*sidelength+50+celllength/2, sidelength, properties, lifeColor, cellstates[i][j], upup);
@@ -67,7 +66,6 @@ public class Simulation_Triangle extends Simulation{
 			for (int i = States.size(); i < height*width; i++){
 				States.add(probabilities.size()-1);
 			}
-			//System.out.println(States);
 			Collections.shuffle(States);
 			int arranger = 0;
 			for (int i=0;i<height;i++){

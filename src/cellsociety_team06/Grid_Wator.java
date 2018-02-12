@@ -157,6 +157,18 @@ protected ArrayList<Cell> findAdjacentCells(int row, int col){
   if (checkBoundary(row+1,col) && myCells[row+1][col].showFutureProperty().equals(property)) adjacentCells.add(getCell(row+1,col));
   return adjacentCells;
  }*/
+
+@Override
+public void resetSugarInterval(int newinterval) {
+	// TODO Auto-generated method stub
+	
+}
+
+@Override
+public void resetSugarMetabolism(int newMata) {
+	// TODO Auto-generated method stub
+	
+}
  
  
 }

@@ -77,51 +77,26 @@ public class Launcher extends Application{
 	private TilePane speeder = new TilePane();
 	private Label timedisplay;
 	private FileChooser fileChooser;
-	private String[] properties ;
-	private Cell thiscell;
+	private String[] properties;
 	private Scene scene;
-	
-	private String cellType;
 	private String shape;
-	
-	private boolean whetherfix;
-	private int[][] gridGenerator;
-	
 	private Simulation currentSim;
+	
+	private NumberAxis xAxis;
+	private NumberAxis yAxis;
+	private LineChart theChart;
+	private XYChart.Series data0;
+	private XYChart.Series data1;
+	private XYChart.Series data2;
+	private double Number0 = 0;
+	private double Number1 = 0;
+	private double Number2 = 0;
 
 	public static void main(String[] args) throws IOException, SAXException, ParserConfigurationException {
         Application.launch(args);
     }
 	
-	public Scene sceneCreator(int L, int W, Paint background){
-		shape = myReader.showglobalSettings().get(2);
-		pauser = false;
-		root = new Group();
-		shape = myReader.showglobalSettings().get(2);
-		properties = myReader.showglobalSettings().get(0).split(",");
-		switch (shape){
-			
-			case "square":{
-				currentSim = new Simulation_Square(myReader, root);
-				break;
-			}
-			
-			case "triangle":{
-				currentSim = new Simulation_Triangle(myReader, root);
-				break;
-			}
-			
-			case "hexagon":{
-				currentSim = new Simulation_Hexagon(myReader, root);
-				break;
-			}
-			
-		}
-		
-		currentSim.gridGenerator();
-		currentCalc = currentSim.getCalc();
-		currentGrid = currentSim.getGrid();
-		//System.out.println(currentGrid.checkTerminate());
+	private void ButtonStyler(){
 		PAUSE.setStyle("-fx-text-fill: #0000ff; -fx-border-color: #0000ff; -fx-border-width: 1px;");
 		PAUSE.setMinWidth(80);
 		FINISH.setStyle("-fx-text-fill: #0000ff; -fx-border-color: #0000ff; -fx-border-width: 1px;");
@@ -141,7 +116,6 @@ public class Launcher extends Application{
 		tilePane.getChildren().add(STEP);
 		tilePane.getChildren().add(SWITCH);
 		tilePane.getChildren().add(SAVE);
-		
 		        
 		STEP.setDisable(true);
 		SAVE.setDisable(true);
@@ -167,23 +141,51 @@ public class Launcher extends Application{
 		speeder.setLayoutY(700);
 		        
 		root.getChildren().add(speeder);
+	}
+	
+	private void UIStyler(){
+		ButtonStyler();
 		        
 		timedisplay = new Label("Frame passed: " + Integer.toString(timer));
 		timedisplay.setLayoutX(width * celllength - 20);
 		timedisplay.setLayoutY(20);
 		timedisplay.setStyle("-fx-text-fill: #ffffff");
 		root.getChildren().add(timedisplay);
+	}
+	
+	private Scene sceneCreator(int L, int W, Paint background){
+		shape = myReader.showglobalSettings().get(2);
+		pauser = false;
+		root = new Group();
+		shape = myReader.showglobalSettings().get(2);
+		properties = myReader.showglobalSettings().get(0).split(",");
+		switch (shape){
+			case "square":{
+				currentSim = new Simulation_Square(myReader, root);
+				break;
+			}
+			case "triangle":{
+				currentSim = new Simulation_Triangle(myReader, root);
+				break;
+			}
+			case "hexagon":{
+				currentSim = new Simulation_Hexagon(myReader, root);
+				break;
+			}
+		}
+		currentSim.gridGenerator();
+		currentCalc = currentSim.getCalc();
+		currentGrid = currentSim.getGrid();
 		
+		UIStyler();
 		implementChart();
 		
 		Scene newscene = new Scene(root, L, W, background);
-		
 		newscene.setOnKeyPressed(e -> handleKeyInput(e.getCode()));
 		return newscene;
-		
 	}
 	
-	public void handleKeyInput(KeyCode keyCode){
+	private void handleKeyInput(KeyCode keyCode){
 		
 		if (keyCode == KeyCode.ENTER){
 			
@@ -194,6 +196,7 @@ public class Launcher extends Application{
 					HBox hbox = new HBox(inputs, button);
 					button.setOnAction(action -> {
 						double newrate = Double.parseDouble(inputs.getText());
+						currentCalc.resetParameter(newrate);
 						root.getChildren().remove(hbox);
 		            });
 					hbox.setLayoutX(300);hbox.setLayoutY(520);
@@ -207,10 +210,12 @@ public class Launcher extends Application{
 					HBox hbox = new HBox(inputs, energy, reproduce);
 					energy.setOnAction(action -> {
 						double newenergygain = Double.parseDouble(inputs.getText());
+						currentGrid.resetEnergyGain(newenergygain);
 						root.getChildren().remove(hbox);
 		            });
 					reproduce.setOnAction(action -> {
 						double newreproduce = Double.parseDouble(inputs.getText());
+						currentCalc.resetParameter(newreproduce);
 						root.getChildren().remove(hbox);
 		            });
 					hbox.setLayoutX(250);hbox.setLayoutY(520);
@@ -223,6 +228,7 @@ public class Launcher extends Application{
 					HBox hbox = new HBox(inputs, button);
 					button.setOnAction(action -> {
 						double newsatisfactory = Double.parseDouble(inputs.getText());
+						currentCalc.resetParameter(newsatisfactory);
 						root.getChildren().remove(hbox);
 		            });
 					hbox.setLayoutX(300);hbox.setLayoutY(520);
@@ -236,15 +242,18 @@ public class Launcher extends Application{
 					Button reproduce = new Button("Change reproduction time");
 					HBox hbox = new HBox(inputs, interval, matabolism, reproduce);
 					interval.setOnAction(action -> {
-						double newinterval = Double.parseDouble(inputs.getText());
+						int newinterval = Integer.parseInt(inputs.getText());
+						currentGrid.resetSugarInterval(newinterval);
 						root.getChildren().remove(hbox);
 		            });
 					matabolism.setOnAction(action -> {
-						double newmata = Double.parseDouble(inputs.getText());
+						int newmata = Integer.parseInt(inputs.getText());
+						currentGrid.resetSugarMetabolism(newmata);
 						root.getChildren().remove(hbox);
 		            });
 					reproduce.setOnAction(action -> {
 						double newreproduce = Double.parseDouble(inputs.getText());
+						currentCalc.resetParameter(newreproduce);
 						root.getChildren().remove(hbox);
 		            });
 					hbox.setLayoutX(200);hbox.setLayoutY(520);
@@ -258,6 +267,7 @@ public class Launcher extends Application{
 	}
 	
 	private void chooseFile(Stage primaryStage){
+		
 		fileChooser = new FileChooser();
         extFilter = new FileChooser.ExtensionFilter("XML files (*.xml)", "*.xml");
         fileChooser.getExtensionFilters().add(extFilter);
@@ -266,28 +276,40 @@ public class Launcher extends Application{
         myPrimaryStage = primaryStage;
 	}
 	
-	
-	
-	@Override
-	public void start(Stage primaryStage) throws Exception {
-		chooseFile(primaryStage);
-        readFile("lib/"+filename);
-		pauser = false;
-		celllength = 500/width;
-		
-        primaryStage.setTitle(SIMUL);
-        scene = sceneCreator(900,900,BACKGROUND);
-        primaryStage.setScene(scene);
-        primaryStage.show();
-        
-        //System.out.println(currentSim.getGrid().getCell(0, 0).showCurrentProperty());
-        PAUSE.setOnAction(value ->  {
+	private void setPAUSE(){
+		PAUSE.setOnAction(value ->  {
             pauser = true;
             PAUSE.setText("Resume");
             pausing();
-           });
-        
-        SAVE.setOnAction(value ->  {
+        });
+	}
+	
+	private void pausing(){
+		  pauser = true;
+		  SAVE.setDisable(false);
+		  PAUSE.setOnAction(valuevalue ->  {
+		   resuming();
+		        });
+		  PAUSE.setText("Resume");
+		  STEP.setDisable(false);
+		  FASTER.setDisable(true);
+		  SLOWER.setDisable(true);
+	}
+		 
+	private void resuming(){
+		  pauser = false;
+		  SAVE.setDisable(true);
+		  PAUSE.setOnAction(valuevalue ->  {
+		   pausing();
+		        });
+		  PAUSE.setText("Pause");
+		  STEP.setDisable(true);
+		  FASTER.setDisable(false);
+		  SLOWER.setDisable(false);
+	}
+	
+	private void setSAVE(){
+		SAVE.setOnAction(value ->  {
             XMLcreator myCreator = new XMLcreator("lib/"+filename, currentGrid);
             try {
 				myCreator.saveState();
@@ -298,124 +320,130 @@ public class Launcher extends Application{
 			} catch (SAXException e1) {
 				System.out.println("Something went wrong with creating the document. Unable to save current state.");
 			}
-           });
-        
-        SWITCH.setOnAction(value ->  {
-        	   pauser = true;
-        	   FileChooser newfileChooser = new FileChooser();
-        	            FileChooser.ExtensionFilter newextFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
-        	            fileChooser.getExtensionFilters().add(extFilter);
-        	            File newfile = fileChooser.showOpenDialog(primaryStage);
-        	            filename = newfile.getPath();
-        	            root.getChildren().clear();
-        	            try {
-        	            	readFile(filename);
-        	            	} catch (IOException e1) {
-        	            		System.out.println("File not found!");
-        	            	} catch (SAXException e1) {
-        	            		System.out.println("Cannot create document. Configuration not read.");
-        	            	} catch (ParserConfigurationException e1) {
-        	            		System.out.println("Cannot create document. Configuration not read.");
-        	            	}
-        	            Scene newscene = sceneCreator(900,900,BACKGROUND);
-        	            myPrimaryStage.setScene(newscene);
-        	            myPrimaryStage.show();
-        	            currentSim.cellGenerator();
-        	            int previoustime = timer;
-        	            timer = 0;
-        	            root.getChildren().remove(timedisplay);
-        	            timedisplay = new Label("Frame passed: " + Integer.toString(timer));
-        	    		timedisplay.setLayoutX(width * celllength - 20);
-        	    		timedisplay.setLayoutY(20);
-        	    		timedisplay.setStyle("-fx-text-fill: #ffffff");
-        	    		root.getChildren().add(timedisplay);
-        	    		
- 
-        	    		
         });
+	}
+	
+	private void setFINISH(){
+		FINISH.setOnAction(value ->  {
+        	FASTER.setDisable(true);
+        	SLOWER.setDisable(true);
+        	SAVE.setDisable(false);
+        	pauser = true;
+        	PAUSE.setDisable(true);
+        	FINISH.setText("Fnished");
+        	FINISH.setDisable(true);
+        });
+	}
+	
+	private void setSTEP(){
+		STEP.setOnAction(value ->  {
+        	pauser = true;
+        	mover(currentGrid,currentCalc);
+        });
+	}
+	
+	private void setEXIT(Stage primaryStage){
+		EXIT.setOnAction(value ->  {
+        	primaryStage.close();
+        });
+	}
+	
+	private void initialButtons(){
+		SWITCH.setDisable(false);
+		PAUSE.setDisable(false);
+  		SAVE.setDisable(true);
+  		FINISH.setDisable(false);
+  		STEP.setDisable(true);
+  		FASTER.setDisable(false);
+  		SLOWER.setDisable(false);
+	}
+	
+	private void setSWITCH(Stage primaryStage){
+		SWITCH.setOnAction(value ->  {
+	      	   pauser = true;
+	      	   FileChooser newfileChooser = new FileChooser();
+	      	            FileChooser.ExtensionFilter newextFilter = new FileChooser.ExtensionFilter("TXT files (*.txt)", "*.txt");
+	      	            fileChooser.getExtensionFilters().add(extFilter);
+	      	            File newfile = fileChooser.showOpenDialog(primaryStage);
+	      	            filename = newfile.getPath();
+	      	            root.getChildren().clear();
+	      	            try {
+	      	            	readFile(filename);
+	      	            	} catch (IOException e1) {
+	      	            		System.out.println("File not found!");
+	      	            	} catch (SAXException e1) {
+	      	            		System.out.println("Cannot create document. Configuration not read.");
+	      	            	} catch (ParserConfigurationException e1) {
+	      	            		System.out.println("Cannot create document. Configuration not read.");
+	      	            	}
+	      	            Scene newscene = sceneCreator(1200,900,BACKGROUND);
+	      	            myPrimaryStage.setScene(newscene);
+	      	            myPrimaryStage.show();
+	      	            currentSim.cellGenerator();
+	      	            int previoustime = timer;
+	      	            timer = 0;
+	      	            root.getChildren().remove(timedisplay);
+	      	            timedisplay = new Label("Frame passed: " + Integer.toString(timer));
+	      	    		timedisplay.setLayoutX(width * celllength - 20);
+	      	    		timedisplay.setLayoutY(20);
+	      	    		timedisplay.setStyle("-fx-text-fill: #ffffff");
+	      	    		root.getChildren().add(timedisplay);
+	      	    		initialButtons();
+	      });
+	}
+	
+	@Override
+	public void start(Stage primaryStage) throws Exception {
+		chooseFile(primaryStage);
+        readFile("lib/"+filename);
+		pauser = false;
+		celllength = 500/width;
+		
+        primaryStage.setTitle(SIMUL);
+        scene = sceneCreator(1200,900,BACKGROUND);
+        primaryStage.setScene(scene);
+        primaryStage.show();
         
+        setPAUSE();
+        setSAVE();
+        setFINISH();
+        setSTEP();
+        setEXIT(primaryStage);
+        setSWITCH(primaryStage);
      
-     FINISH.setOnAction(value ->  {
-    	 FASTER.setDisable(true);
-    	 SLOWER.setDisable(true);
-    	 SAVE.setDisable(false);
-      pauser = true;
-      PAUSE.setDisable(true);
-      FINISH.setText("Fnished");
-      FINISH.setDisable(true);
-           });
-     
-     STEP.setOnAction(value ->  {
-      pauser = true;
-      mover(currentGrid,currentCalc);
-           });
-     
-     EXIT.setOnAction(value ->  {
-            primaryStage.close();
-           });
-		KeyFrame frame = new KeyFrame(Duration.millis(1000),
+        KeyFrame frame = new KeyFrame(Duration.millis(1000),
                 e -> Step(currentGrid, currentCalc));
 		Timeline animation = new Timeline();
 		animation.setCycleCount(Timeline.INDEFINITE);
 		animation.getKeyFrames().add(frame);
 		animation.play();
 		FASTER.setOnAction(value ->  {
-			   animation.setRate(animation.getRate() * 2);
-			        });
+			animation.setRate(animation.getRate() * 2);
+		});
 			  
-			  SLOWER.setOnAction(value ->  {
-			   animation.setRate(animation.getRate() * 0.5);
-			        });
-			  
-			  
-		
+		SLOWER.setOnAction(value ->  {
+			animation.setRate(animation.getRate() * 0.5);
+		});
 	}
 	
-	public void pausing(){
-		  pauser = true;
-		  SAVE.setDisable(false);
-		  PAUSE.setOnAction(valuevalue ->  {
-		   resuming();
-		        });
-		  PAUSE.setText("Resume");
-		  STEP.setDisable(false);
-		  FASTER.setDisable(true);
-		  SLOWER.setDisable(true);
-		 }
-		 
-		 public void resuming(){
-		  pauser = false;
-		  SAVE.setDisable(true);
-		  PAUSE.setOnAction(valuevalue ->  {
-		   pausing();
-		        });
-		  PAUSE.setText("Pause");
-		  STEP.setDisable(true);
-		  FASTER.setDisable(false);
-		  SLOWER.setDisable(false);
-		 }
-	
-	public void readFile(String thisfile) throws IOException, SAXException, ParserConfigurationException{
+	private void readFile(String thisfile) throws IOException, SAXException, ParserConfigurationException{
 		myReader = new XMLReader(thisfile);
 		myReader.read();
 		SimType = myReader.showbasicInfo().get(0);
-		System.out.println(SimType);
 		SimTitle = myReader.showbasicInfo().get(1);
 		SimAuthors = myReader.showbasicInfo().get(2);
 		height = myReader.showgridConfig().get(0);
 		width = myReader.showgridConfig().get(1);
-		System.out.println(height);
-		System.out.println(width);
 		
 	}
 	
-	public void Step(Grid myGrid, Calculator myCalc){
+	private void Step(Grid myGrid, Calculator myCalc){
 		if (pauser==false){
 		mover(myGrid,myCalc);
 		}
 	}
 	
-	public void mover(Grid myGrid, Calculator myCalc){
+	private void mover(Grid myGrid, Calculator myCalc){
 		myGrid.iterate();
 		
 		timer++;
@@ -423,16 +451,6 @@ public class Launcher extends Application{
 		updateChart();
 
 	}
-	
-	private NumberAxis xAxis;
-	private NumberAxis yAxis;
-	private LineChart theChart;
-	private XYChart.Series data0;
-	private XYChart.Series data1;
-	private XYChart.Series data2;
-	private double Number0 = 0;
-	private double Number1 = 0;
-	private double Number2 = 0;
 	
 	private void implementChart(){
 		
@@ -458,7 +476,7 @@ public class Launcher extends Application{
 		theChart.getData().add(data0);
 		theChart.getData().add(data1);
 		
-		theChart.setLayoutX(350);
+		theChart.setLayoutX(600);
 		theChart.setLayoutY(100);
 		
 		if (properties.length>2){
@@ -474,7 +492,7 @@ public class Launcher extends Application{
 		
 	}
 	
-	public void updateChart(){
+	private void updateChart(){
 		
 		Number0 = 0;
 		Number1 = 0;

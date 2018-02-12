@@ -230,4 +230,10 @@ public abstract class Grid {
 			}
 		return (unchangedCellNum == myRowNum*myColNum);
 	}
+	
+	public abstract void resetEnergyGain(double newenergygain);
+	
+	public abstract void resetSugarInterval(int newinterval);
+	
+	public abstract void resetSugarMetabolism(int newMata);
 }
