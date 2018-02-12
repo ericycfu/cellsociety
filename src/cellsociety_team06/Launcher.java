@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 
 import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.TransformerException;
 
 import org.xml.sax.SAXException;
 
@@ -283,7 +284,21 @@ public class Launcher extends Application{
            });
         
         SAVE.setOnAction(value ->  {
-            //SAVESAVE
+            XMLcreator myCreator = new XMLcreator("lib/"+filename, currentGrid);
+            try {
+				myCreator.saveState();
+			} catch (TransformerException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (ParserConfigurationException e1) {
+				e1.printStackTrace();
+			} catch (SAXException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			} catch (IOException e1) {
+				// TODO Auto-generated catch block
+				e1.printStackTrace();
+			}
            });
         
         SWITCH.setOnAction(value ->  {
