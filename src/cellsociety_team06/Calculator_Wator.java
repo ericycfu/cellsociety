@@ -1,7 +1,12 @@
 package cellsociety_team06;
 
 import java.util.List;
-
+/**
+ * calculates whether a cell in the 
+ * @author Frank Yin
+ * @author Eric Fu
+ *
+ */
 public class Calculator_Wator extends Calculator{
  
  public Calculator_Wator(String[] propertys, double inputparameter) {
