@@ -104,8 +104,8 @@ public class XMLReader {
 			getCellData("cell", height, width, myCells);
 			getCellData("energy", height, width, myEnergy);
 		}
-		catch(Exception e) {
-			System.out.println("specific cell data not found or not enough data");
+		catch(IndexOutOfBoundsException e) {
+			System.out.println("specific cell data not found/not enough data. Cell locations may be outside bounds of grid size.");
 			return;
 		}
 		System.out.println(Arrays.toString(myCells[0]));
